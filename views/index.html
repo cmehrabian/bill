@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<script src='bower_components/socket.io-client/dist/socket.io.js'></script>
+		<script src='bower_components/angular/angular.js'></script>
+
+		<script src='javascripts/test.js'></script>
+
+		<href rel='stylesheet' href='stylesheets/style.css'></href>
+	</head>
+
+	<body>
+		<h1> Hello </h1>
+		<div ng-controller='TestSendCtrl'> 
+			 <input type="text" ng-model="username" size="30" placeholder="name">
+			 <select ng-model="parentid" ng-options='gram.gramid for gram in grams'></select>
+			 <textarea class='text-submit' ng-model="text"></textarea>
+			 <select ng-model='flavor' ng-options='flavor as flavor for flavor in flavors'></select>
+
+
+			 <p>username = {{username}}</p>
+			 <p>parentid = {{parentid}}</p>
+			 <p>text = {{text}}</p>
+			 <p>flavor = {{flavor}}</p>
+			 <p>id = {{gramid}}</p>
+
+			 <button ng-click='submit()'>Send</button>
+			 <h4 ng-repeat="gram in grams"> {{gram.gramid}}: {{gram}} </h4>
+		</div>
+	</body>
+</html>
