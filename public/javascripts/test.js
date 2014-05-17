@@ -4,11 +4,6 @@ function TestSendCtrl($scope, $http){
 
 	var socket = io.connect('http://localhost:3000');
 	
-
-  	socket.on('hello', function(data){
-  		console.log(data.hello)
-  	})
-
 	$scope.username = ''
 	$scope.parentid = -1
 	//$scope.gramid = lastgramid + 1;
@@ -25,7 +20,29 @@ function TestSendCtrl($scope, $http){
 
   	socket.on('update', function (data) {
 
-    	$scope.grams[data.gramid] = data;
+
+
+  		if($scope.grams[data.gramid] === undefined)
+  		{
+    		$scope.grams[data.gramid] = data;
+
+  			addNode(data.gramid)
+
+  			jQuery(function(){
+	  			var springy = window.springy = jQuery('#springydemo').springy({
+	    			graph: graph,
+	    			nodeSelected: function(node){
+	      				console.log('Node selected: ' + JSON.stringify(node.data));
+	    			}	
+	  			});
+			});
+
+  		}
+  		else {
+  			$scope.grams[data.gramid] = data;
+
+  		}
+
 
     	$scope.$digest()
 	});
@@ -47,38 +64,22 @@ function TestSendCtrl($scope, $http){
 
 	var graph = new Springy.Graph();
 
-	var dennis = graph.newNode({
-	  label: 'Dennis',
-	  ondoubleclick: function() { console.log("Hello!"); }
-	});
-	var michael = graph.newNode({label: 'Michael'});
-	var jessica = graph.newNode({label: 'Jessica'});
-	var timothy = graph.newNode({label: 'Timothy'});
-	var barbara = graph.newNode({label: 'Barbara'});
-	var franklin = graph.newNode({label: 'Franklin'});
-	var monty = graph.newNode({label: 'Monty'});
-	var james = graph.newNode({label: 'James'});
-	var bianca = graph.newNode({label: 'Bianca'});
+	var nodes = []
 
-	graph.newEdge(dennis, michael, {color: '#00A0B0'});
-	graph.newEdge(michael, dennis, {color: '#6A4A3C'});
-	graph.newEdge(michael, jessica, {color: '#CC333F'});
-	graph.newEdge(jessica, barbara, {color: '#EB6841'});
-	graph.newEdge(michael, timothy, {color: '#EDC951'});
-	graph.newEdge(franklin, monty, {color: '#7DBE3C'});
-	graph.newEdge(dennis, monty, {color: '#000000'});
-	graph.newEdge(monty, james, {color: '#00A0B0'});
-	graph.newEdge(barbara, timothy, {color: '#6A4A3C'});
-	graph.newEdge(dennis, bianca, {color: '#CC333F'});
-	graph.newEdge(bianca, monty, {color: '#EB6841'});
+	function addNode(gram_id){
+		var s = $scope.grams[gram_id].text.substring(0,20)
+		if($scope.grams[gram_id].text.length > 20)
+			s += '...'
+		nodes[gram_id] = graph.newNode(
+			{
+				label:s,
+		 		gram_id:gram_id
+		 	})
+		
 
-	jQuery(function(){
-	  var springy = window.springy = jQuery('#springydemo').springy({
-	    graph: graph,
-	    nodeSelected: function(node){
-	      console.log('Node selected: ' + JSON.stringify(node.data));
-	    }
-	  });
-	});
-	
+		if($scope.grams[$scope.grams[gram_id].parentid] != null){
+			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].parentid], {color: '#000000'})
+		}
+	}
+
 }
