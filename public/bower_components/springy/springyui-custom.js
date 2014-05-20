@@ -127,7 +127,7 @@ jQuery.fn.springy = function(params) {
 		var text = (node.data.label !== undefined) ? node.data.label : node.id;
 		if (node._width && node._width[text])
 			return node._width[text];
-
+		console.log(node.data.font)
 		ctx.save();
 		ctx.font = (node.data.font !== undefined) ? node.data.font : nodeFont;
 		var width = ctx.measureText(text).width;
