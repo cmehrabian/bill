@@ -2,7 +2,7 @@
 function TestSendCtrl($scope, $http){
 	var lastgram_id = -1
 
-	var socket = io.connect('http://localhost:3000');
+	var socket = io.connect(document.URL);
 	
 
 	$scope.selected = null
@@ -53,8 +53,8 @@ function TestSendCtrl($scope, $http){
 		$scope.text = ''
 
   		$scope.$digest()
-  		//graph = new Springy.Graph()
-  		//drawGraph()
+  		graph = new Springy.Graph()
+  		drawGraph()
   	})
 
 	$scope.submit = function(){

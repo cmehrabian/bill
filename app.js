@@ -5,25 +5,35 @@
 
 var express = require('express');
 
-var routes = require('./routes');
-var user = require('./routes/user');
-var submit = require('./routes/submit');
 
 var http = require('http');
 var path = require('path');
 
-var app = express()
+var app = module.exports = express()
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
 
+var routes = require('./routes');
+var user = require('./routes/user');
+var submit = require('./routes/submit');
+
+
+/*
 var app = express()
+
 var server = require('http').createServer(app)
-server = server.listen(process.env.port || 3000)
+var port = 3000
+if ('development' == app.get('env')) {
+  //server = server.listen(app.get('port'))
+  port = process.env.PORT
+}
 
 var io = require('socket.io').listen(server);
-
+*/
 // all environments
-//app.set('port', process.env.PORT || 3000);
+
+app.set('port', process.env.PORT || 3000);
+
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 //app.set('view engine', 'jade');
@@ -35,6 +45,12 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//=======
+//app.set('env', 'production')
+//=======
+
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -44,7 +60,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.post('/submit', submit.gram);
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
@@ -68,19 +84,20 @@ var grams = []
 	]*/
 
 io.sockets.on('connection', function (socket) {
+  console.log('someone connected')
 
   socket.on('reset', function(data){
     grams = []
     lastgram_id = -1
     //socket.emit('update', grams[0])
-    socket.broadcast('reset_all', {})
+    socket.emit('reset_all', {})
     socket.broadcast.emit('reset_all', {})
 
   })
 
  	socket.on('new_gram', function (data) {
 
-      console.log('received new gram!')
+      //console.log('received new gram!')
       //console.log(data)
 
 
