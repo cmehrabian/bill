@@ -1,12 +1,15 @@
 
 function TestSendCtrl($scope, $http){
-	var lastgramid = -1
+	var lastgram_id = -1
 
 	var socket = io.connect('http://localhost:3000');
 	
+
+	$scope.selected = null
+
 	$scope.username = ''
-	$scope.parentid = -1
-	//$scope.gramid = lastgramid + 1;
+	$scope.parent_id = null
+	//$scope.gram_id = lastgram_id + 1;
 	$scope.flavor = ''
 	$scope.text = ''
 	//$scope.value = 0
@@ -22,24 +25,16 @@ function TestSendCtrl($scope, $http){
 
 
 
-  		if($scope.grams[data.gramid] === undefined)
+  		if($scope.grams[data.gram_id] === undefined)
   		{
-    		$scope.grams[data.gramid] = data;
+    		$scope.grams[data.gram_id] = data;
 
-  			addNode(data.gramid)
+  			addNode(data.gram_id)
 
-  			jQuery(function(){
-	  			var springy = window.springy = jQuery('#springydemo').springy({
-	    			graph: graph,
-	    			nodeSelected: function(node){
-	      				console.log('Node selected: ' + JSON.stringify(node.data));
-	    			}	
-	  			});
-			});
 
   		}
   		else {
-  			$scope.grams[data.gramid] = data;
+  			$scope.grams[data.gram_id] = data;
 
   		}
 
@@ -47,19 +42,39 @@ function TestSendCtrl($scope, $http){
     	$scope.$digest()
 	});
 
+  	socket.on('reset_all', function(data) {
+  		$scope.grams = []
+  		nodes = []
+  		$scope.selected = null
+
+		$scope.username = ''
+		$scope.parent_id = null
+		$scope.flavor = ''
+		$scope.text = ''
+
+  		$scope.$digest()
+  		//graph = new Springy.Graph()
+  		//drawGraph()
+  	})
 
 	$scope.submit = function(){
 		
 		socket.emit('new_gram', {
 				username:$scope.username,
-				parentid:$scope.parentid,
+				parent_id:$scope.parent_id,
 				flavor:$scope.flavor,
 				text:$scope.text
 			})
-		$scope.parentid = -1
+		//$scope.parent_id = -1
 		$scope.flavor = ''
 		$scope.text = ''
 		
+	}
+
+	$scope.reset = function(){
+		socket.emit('reset', {});
+		//graph = new Springy.Graph()
+  		//drawGraph()
 	}
 
 	var graph = new Springy.Graph();
@@ -73,13 +88,32 @@ function TestSendCtrl($scope, $http){
 		nodes[gram_id] = graph.newNode(
 			{
 				label:s,
-		 		gram_id:gram_id
+		 		gram_id:gram_id,
+		 		flavor:$scope.grams[gram_id].flavor
 		 	})
 		
 
-		if($scope.grams[$scope.grams[gram_id].parentid] != null){
-			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].parentid], {color: '#000000'})
+		if($scope.grams[$scope.grams[gram_id].parent_id] != null){
+			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].parent_id], {color: '#000000'})
 		}
 	}
 
+	function drawGraph(){
+
+		jQuery(function(){
+			var springy = window.springy = jQuery('#springydemo').springy({
+				graph: graph,
+				nodeSelected: function(node){
+					//console.log('Node selected: ' + JSON.stringify(node.data));
+					$scope.selected = $scope.grams[node.data.gram_id].gram_id
+					$scope.parent_id = $scope.selected
+					//console.log($scope.grams[$scope.selected].text)
+					//console.log($scope.selected)
+					$scope.$digest()
+				}	
+			});
+		});
+	}
+
+	drawGraph()
 }

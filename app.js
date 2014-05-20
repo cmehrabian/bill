@@ -51,40 +51,64 @@ http.createServer(app).listen(app.get('port'), function(){
 
 
 var connections = 0;
-var lastgramid = 0
+var lastgram_id = -1
 
-var grams = 
-	[
+var grams = []
+	/*[
+  
 		{
-				username:'tyler',
-				gramid:'0',
-				parentid:null,
-				flavor:'comment',
-				text:'hello',
-        value:1
+			username:'tyler',
+			gram_id:'0',
+			parent_id:null,
+			flavor:'comment',
+			text:'hello',
+    		value:1
 		}
-	]
+
+	]*/
 
 io.sockets.on('connection', function (socket) {
+
+  socket.on('reset', function(data){
+    grams = []
+    lastgram_id = -1
+    //socket.emit('update', grams[0])
+    socket.broadcast('reset_all', {})
+    socket.broadcast.emit('reset_all', {})
+
+  })
 
  	socket.on('new_gram', function (data) {
 
       console.log('received new gram!')
+      //console.log(data)
 
-      data.gramid = ++lastgramid
+
+
+      data.gram_id = ++lastgram_id
+
+      if(data.parent_id == data.gram_id ||
+       (data.parent_id != null && grams[data.parent_id] === undefined)){
+        console.log("client-side error")
+        return
+      }
+
       data.value = 0
 
-      grams[data.gramid] = data
 
+      //console.log(data.gram_id)
+      grams[data.gram_id] = data
+      //console.log(grams[data.gram_id])
       var effect = 1
-      var current_id = data.gramid 
+      var current_id = data.gram_id 
       while(current_id != null){
 
         grams[current_id].value += effect
 
         socket.emit('update', grams[current_id])
         socket.broadcast.emit('update', grams[current_id])
-
+        //console.log('sending:')
+        //console.log(grams[current_id])
 
         var neweffect = 0
         if(grams[current_id].flavor == 'assent' && effect == 1 || grams[current_id].flavor == 'dissent' && effect == -1)
@@ -93,10 +117,10 @@ io.sockets.on('connection', function (socket) {
           neweffect = -1
 
         effect = neweffect
-        current_id = grams[current_id].parentid
+        current_id = grams[current_id].parent_id
 
       }
-      //propogate(data.gramid, 1);
+      //propogate(data.gram_id, 1);
 
 
   	});
@@ -111,23 +135,23 @@ io.sockets.on('connection', function (socket) {
 });
 
 /*
-function propogate(gramid, effect){
+function propogate(gram_id, effect){
 
-  if(gramid == null) return
+  if(gram_id == null) return
 
-  grams[gramid].value += effect
+  grams[gram_id].value += effect
 
-  socket.emit('update', grams[gramid])
-  socket.broadcast.emit('update', grams[gramid])
+  socket.emit('update', grams[gram_id])
+  socket.broadcast.emit('update', grams[gram_id])
 
 
   var neweffect = 0
-  if(grams[gramid].flavor == 'assent' && effect == 1 || grams[gramid].flavor =='dissent' && effect == -1)
+  if(grams[gram_id].flavor == 'assent' && effect == 1 || grams[gram_id].flavor =='dissent' && effect == -1)
     neweffect = 1
-  if(grams[gramid].flavor == 'assent' && effect == -1 || grams[gramid].flavor == 'dissent' && effect == 1)
+  if(grams[gram_id].flavor == 'assent' && effect == -1 || grams[gram_id].flavor == 'dissent' && effect == 1)
     neweffect = -1
 
-  propogate(grams[gramid].parentid, neweffect)
+  propogate(grams[gram_id].parent_id, neweffect)
 
 }
 */

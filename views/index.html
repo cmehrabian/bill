@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html ng-app>
 	<head>
+
+		<link href='stylesheets/style.css' rel='stylesheet' />
 		<script src='bower_components/socket.io-client/dist/socket.io.js'></script>
 		<script src='bower_components/angular/angular.js'></script>
 		<script src='bower_components/jquery/dist/jquery.min.js'></script>
 		<script src='bower_components/springy/springy.js'></script>
-		<script src='bower_components/springy/springyui.js'></script>
+		<script src='bower_components/springy/springyui-custom.js'></script>
+
 
 		<script src='javascripts/test.js'></script>
 
-		<href rel='stylesheet' href='stylesheets/style.css'></href>
 	</head>
 
 	<body>
 		<h1> Hello </h1>
+
 		<div ng-controller='TestSendCtrl'> 
-			 <input type="text" ng-model="username" size="30" placeholder="name">
-			 <select ng-model="parentid" ng-options='gram.gramid as gram.gramid for gram in grams'></select>
-			 <textarea class='text-submit' ng-model="text"></textarea>
-			 <select ng-model='flavor' ng-options='flavor as flavor for flavor in flavors'></select>
 
 
-			 <p>username = {{username}}</p>
-			 <p>parentid = {{parentid}}</p>
-			 <p>text = {{text}}</p>
-			 <p>flavor = {{flavor}}</p>
-			 <p>id = {{gramid}}</p>
+			 <canvas id="springydemo" width='640' height='480'></canvas>
 
-			 <button ng-click='submit()'>Send</button>
-			 <p> {{grams.length}} </p>
-			 <h4 ng-repeat="gram in grams"> {{gram.gramid}}: {{gram}} </h4>
+			 <div id="gram-window">
+			 	<p>User: {{grams[selected].username}}</p>
+			 	<p>id: {{grams[selected].gram_id}}</p>
+			 	<p>parent id: {{grams[selected].parent_id}}</p>
+			 	<p>net assent: {{grams[selected].value}}</p>
+			 	<p>flavor: {{grams[selected].flavor}}</p>
+			 	<p>text: {{grams[selected].text}}</p>
 
-			 <canvas id="springydemo" width="640" height="480" />
+			 </div>
+
+			 <div id="submit-window">
+ 				 <p float='right'> parent id: {{parent_id}} </p>
+				 <input type="text" ng-model="username" size="30" placeholder="username">
+				 <!--select ng-model="parent_id" ng-options='gram.gram_id as gram.gram_id for gram in grams'></select-->
+				 <textarea class='text-submit' ng-model="text" placeholder="text body"></textarea>
+				 <select ng-model='flavor' ng-options='flavor as flavor for flavor in flavors'>
+				 </select>
+				 <button ng-click='submit()'>Send</button>
+
+			 </div>
+
+			 <button id='reset' ng-click='reset()'>reset</button>
 
 		</div>
 	</body>
