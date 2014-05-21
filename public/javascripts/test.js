@@ -69,6 +69,7 @@ function TestSendCtrl($scope, $http){
 		$scope.flavor = ''
 		$scope.text = ''
 		
+		
 	}
 
 	$scope.reset = function(){
