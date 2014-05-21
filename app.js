@@ -18,18 +18,6 @@ var user = require('./routes/user');
 var submit = require('./routes/submit');
 
 
-/*
-var app = express()
-
-var server = require('http').createServer(app)
-var port = 3000
-if ('development' == app.get('env')) {
-  //server = server.listen(app.get('port'))
-  port = process.env.PORT
-}
-
-var io = require('socket.io').listen(server);
-*/
 // all environments
 
 app.set('port', process.env.PORT || 3000);
