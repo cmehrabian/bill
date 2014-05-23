@@ -30,6 +30,8 @@
 			 	<p>net assent: {{grams[selected].value}}</p>
 			 	<p>flavor: {{grams[selected].flavor}}</p>
 			 	<p>text: {{grams[selected].text}}</p>
+			 	<p>children:</p>
+			 	<p ng-repeat='child in grams[selected].childen'> {{grams[child].text}} </p>
 
 			 </div>
 

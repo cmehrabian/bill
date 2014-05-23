@@ -125,6 +125,8 @@ io.sockets.on('connection', function (socket) {
         current_id = grams[current_id].parent_id
 
       }
+      socket.emit('update_finished');
+      socket.broadcast.emit('update_finished');
       //propogate(data.gram_id, 1);
 
 
@@ -135,7 +137,7 @@ io.sockets.on('connection', function (socket) {
       //console.log(grams[0])
   		socket.emit('update', grams[i])
   	}
-  
+    socket.emit('update_finished')
   	//socket.emit('hello', {hello:'hello'})
 });
 

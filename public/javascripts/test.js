@@ -10,8 +10,9 @@ function TestSendCtrl($scope, $http){
 	$scope.username = ''
 	$scope.parent_id = null
 	//$scope.gram_id = lastgram_id + 1;
-	$scope.flavor = ''
+	$scope.flavor = 'comment'
 	$scope.text = ''
+	$scope.children = []
 	//$scope.value = 0
 
 
@@ -23,14 +24,15 @@ function TestSendCtrl($scope, $http){
 
   	socket.on('update', function (data) {
 
-
-
   		if($scope.grams[data.gram_id] === undefined)
   		{
     		$scope.grams[data.gram_id] = data;
-
+    		if($scope.grams[data.parent_id] !== undefined)
+    		{	
+    			$scope.grams[data.parent_id].children.push(data.gram_id)
+    			console.log($scope.grams[data.parent_id].children)
+    		}
   			addNode(data.gram_id)
-
 
   		}
   		else {
@@ -39,8 +41,13 @@ function TestSendCtrl($scope, $http){
   		}
 
 
-    	$scope.$digest()
+    	//$scope.$digest()
 	});
+
+	socket.on('update_finished', function(data){
+		$scope.$digest()
+	})
+
 
   	socket.on('reset_all', function(data) {
   		$scope.grams = []
@@ -63,11 +70,13 @@ function TestSendCtrl($scope, $http){
 				username:$scope.username,
 				parent_id:$scope.parent_id,
 				flavor:$scope.flavor,
-				text:$scope.text
+				text:$scope.text,
+				children:[]
 			})
 		//$scope.parent_id = -1
-		$scope.flavor = ''
+		$scope.flavor = 'comment'
 		$scope.text = ''
+
 		
 		
 	}
@@ -90,6 +99,7 @@ function TestSendCtrl($scope, $http){
 			{
 				label:s,
 		 		gram_id:gram_id,
+		 		parent_id:$scope.grams[gram_id].parent_id,
 		 		flavor:$scope.grams[gram_id].flavor
 		 	})
 		

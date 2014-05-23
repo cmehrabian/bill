@@ -307,7 +307,9 @@ jQuery.fn.springy = function(params) {
 			var boxHeight = contentHeight + paddingY;
 
 			// clear background
+
 			ctx.clearRect(s.x - boxWidth/2, s.y - boxHeight/2, boxWidth, boxHeight);
+
 
 			// fill background
 			if (selected !== null && selected.node !== null && selected.node.id === node.id) {
@@ -327,6 +329,7 @@ jQuery.fn.springy = function(params) {
 				//ctx.fillStyle = "#FFFFFF";
 				ctx.fillStyle = "#EEEEEE";
 			}
+
 			ctx.fillRect(s.x - boxWidth/2, s.y - boxHeight/2, boxWidth, boxHeight);
 
 			if (node.data.image == undefined) {
