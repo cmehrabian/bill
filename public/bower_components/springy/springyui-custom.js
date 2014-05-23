@@ -320,6 +320,7 @@ jQuery.fn.springy = function(params) {
 				ctx.fillStyle = "#66FF99"
 			}
 			else if(node.data.flavor == 'dissent'){
+				console.log('dissent')
 				ctx.fillStyle = "FF9966"
 			}
 			/*} else if (nearest !== null && nearest.node !== null && nearest.node.id === node.id) {

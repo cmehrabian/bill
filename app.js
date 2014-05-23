@@ -98,6 +98,12 @@ io.sockets.on('connection', function (socket) {
         return
       }
 
+      if(data.parent_id != null)
+      { 
+        grams[data.parent_id].children.push(data.gram_id)
+      }
+
+
       data.value = 0
 
 
@@ -116,11 +122,14 @@ io.sockets.on('connection', function (socket) {
         //console.log(grams[current_id])
 
         var neweffect = 0
-        if(grams[current_id].flavor == 'assent' && effect == 1 || grams[current_id].flavor == 'dissent' && effect == -1)
-          neweffect = 1
-        if(grams[current_id].flavor == 'assent' && effect == -1 || grams[current_id].flavor == 'dissent' && effect == 1)
-          neweffect = -1
-
+        if(effect == 1 && grams[current_id].value > 0 || effect == -1 && grams[current_id].value >= 0){
+          if(grams[current_id].flavor == 'assent' && effect == 1 ||
+              grams[current_id].flavor == 'dissent' && effect == -1)
+            neweffect = 1
+          if(grams[current_id].flavor == 'assent' && effect == -1 ||
+              grams[current_id].flavor == 'dissent' && effect == 1)
+            neweffect = -1
+        }
         effect = neweffect
         current_id = grams[current_id].parent_id
 
