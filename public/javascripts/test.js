@@ -13,13 +13,14 @@ function TestSendCtrl($scope, $http){
 	$scope.flavor = 'comment'
 	$scope.text = ''
 	$scope.children = []
+	$scope.links = []
 	//$scope.value = 0
 
 
 	$scope.grams = []
 
 	$scope.flavors = 
-	['comment', 'assent', 'dissent']
+	['comment', 'assent', 'dissent', 'quote', 'link']
 
 
   	socket.on('update', function (data) {
@@ -27,20 +28,12 @@ function TestSendCtrl($scope, $http){
   		if($scope.grams[data.gram_id] === undefined)
   		{
     		$scope.grams[data.gram_id] = data;
-    		if($scope.grams[data.parent_id] !== undefined)
-    		{	
-    			$scope.grams[data.parent_id].children.push(data.gram_id)
-    			console.log($scope.grams[data.parent_id].children)
-    		}
   			addNode(data.gram_id)
 
   		}
   		else {
   			$scope.grams[data.gram_id] = data;
-
   		}
-
-
     	//$scope.$digest()
 	});
 
@@ -65,20 +58,27 @@ function TestSendCtrl($scope, $http){
   	})
 
 	$scope.submit = function(){
-		
+		if($scope.flavor == 'link'){
+			if($scope.parent_id == $scope.links[0])
+			{
+				console.log('link is the same as the parent')
+				return;
+			}
+
+			$scope.links.push($scope.parent_id)
+		}
+
 		socket.emit('new_gram', {
 				username:$scope.username,
 				parent_id:$scope.parent_id,
 				flavor:$scope.flavor,
 				text:$scope.text,
-				children:[]
+				children:[],
+				links:$scope.links
 			})
 		//$scope.parent_id = -1
 		$scope.flavor = 'comment'
 		$scope.text = ''
-
-		
-		
 	}
 
 	$scope.reset = function(){
@@ -102,8 +102,6 @@ function TestSendCtrl($scope, $http){
 		 		parent_id:$scope.grams[gram_id].parent_id,
 		 		flavor:$scope.grams[gram_id].flavor
 		 	})
-		
-
 		if($scope.grams[$scope.grams[gram_id].parent_id] != null){
 			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].parent_id], {color: '#000000'})
 		}
@@ -117,14 +115,14 @@ function TestSendCtrl($scope, $http){
 				nodeSelected: function(node){
 					//console.log('Node selected: ' + JSON.stringify(node.data));
 					$scope.selected = $scope.grams[node.data.gram_id].gram_id
-					$scope.parent_id = $scope.selected
+					$scope.parent_id = $scope.selected;
 					//console.log($scope.grams[$scope.selected].text)
 					//console.log($scope.selected)
-					$scope.$digest()
+					$scope.$digest();
 				}	
 			});
 		});
 	}
 
-	drawGraph()
+	drawGraph();
 }

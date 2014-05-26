@@ -29,7 +29,8 @@
 			 	<p>flavor: {{grams[selected].flavor}}</p>
 			 	<p>text: {{grams[selected].text}}</p>
 			 	<p>children: {{grams[selected].children}}</p>
-			 	
+			 	<p>links: {{grams[selected].links}}</p>
+			 
 
 			 </div>
 
@@ -38,8 +39,9 @@
 				 <input type="text" ng-model="username" size="30" placeholder="username">
 				 <!--select ng-model="parent_id" ng-options='gram.gram_id as gram.gram_id for gram in grams'></select-->
 				 <textarea class='text-submit' ng-model="text" placeholder="text body"></textarea>
-				 <select ng-model='flavor' ng-options='flavor as flavor for flavor in flavors'>
-				 </select>
+				 <select ng-model='flavor' ng-options='flavor as flavor for flavor in flavors'></select>
+				 <select ng-hide="flavor != 'link'" ng-model='links[0]' ng-options='gram.gram_id as gram.gram_id for gram in grams'> </select>
+				 <p> {{links}} </p>
 				 <button ng-click='submit()'>Send</button>
 
 			 </div>

@@ -58,21 +58,18 @@ var connections = 0;
 var lastgram_id = -1
 
 var grams = []
-	/*[
-  
-		{
-			username:'tyler',
-			gram_id:'0',
-			parent_id:null,
-			flavor:'comment',
-			text:'hello',
-    		value:1
-		}
-
-	]*/
 
 io.sockets.on('connection', function (socket) {
-  console.log('someone connected')
+  //console.log('someone connected')
+
+  for (var i = 0; i < grams.length; ++i){
+    //console.log('gram = ' + gram)
+    //console.log(grams[0])
+    socket.emit('update', grams[i])
+  }
+  socket.emit('update_finished')
+
+
 
   socket.on('reset', function(data){
     grams = []
@@ -85,12 +82,8 @@ io.sockets.on('connection', function (socket) {
 
  	socket.on('new_gram', function (data) {
 
-      //console.log('received new gram!')
-      //console.log(data)
-
-
-
       data.gram_id = ++lastgram_id
+
 
       if(data.parent_id == data.gram_id ||
        (data.parent_id != null && grams[data.parent_id] === undefined)){
@@ -103,71 +96,106 @@ io.sockets.on('connection', function (socket) {
         grams[data.parent_id].children.push(data.gram_id)
       }
 
-
-      data.value = 0
-
-
-      //console.log(data.gram_id)
+      if(data.flavor =='quote')
+        data.value = 0
+      else
+        data.value = 1
+      
       grams[data.gram_id] = data
-      //console.log(grams[data.gram_id])
-      var effect = 1
-      var current_id = data.gram_id 
-      while(current_id != null){
 
-        grams[current_id].value += effect
+      socket.emit('update',grams[data.gram_id]);
+      socket.broadcast.emit('update', grams[data.gram_id])
 
-        socket.emit('update', grams[current_id])
-        socket.broadcast.emit('update', grams[current_id])
-        //console.log('sending:')
-        //console.log(grams[current_id])
+      if(data.flavor == 'link'){
+        addLink(data.gram_id)
+      }
+      else{
 
-        var neweffect = 0
-        if(effect == 1 && grams[current_id].value > 0 || effect == -1 && grams[current_id].value >= 0){
-          if(grams[current_id].flavor == 'assent' && effect == 1 ||
-              grams[current_id].flavor == 'dissent' && effect == -1)
-            neweffect = 1
-          if(grams[current_id].flavor == 'assent' && effect == -1 ||
-              grams[current_id].flavor == 'dissent' && effect == 1)
-            neweffect = -1
+        a = []
+        //var current_id = data.gram_id 
+        if(data.flavor == 'assent'){
+          propogate(data.parent_id, 1, a, socket)
         }
-        effect = neweffect
-        current_id = grams[current_id].parent_id
+        if(data.flavor == 'dissent'){
+          propogate(data.parent_id, -1, a, socket)
+        }
 
       }
-      socket.emit('update_finished');
-      socket.broadcast.emit('update_finished');
-      //propogate(data.gram_id, 1);
+        socket.emit('update_finished');
+        socket.broadcast.emit('update_finished');
 
 
   	});
 
-  	for (var i = 0; i < grams.length; ++i){
-      //console.log('gram = ' + gram)
-      //console.log(grams[0])
-  		socket.emit('update', grams[i])
-  	}
-    socket.emit('update_finished')
   	//socket.emit('hello', {hello:'hello'})
 });
 
-/*
-function propogate(gram_id, effect){
 
-  if(gram_id == null) return
+function propogate(current_id, delta, a, socket){
+  if(current_id == null || delta == 0 ||  a[current_id] !== undefined) 
+    return a
 
-  grams[gram_id].value += effect
+  var newdelta = 0
+  if(grams[current_id].flavor == 'quote'){
+    newdelta = delta
+  }
+  else{
 
-  socket.emit('update', grams[gram_id])
-  socket.broadcast.emit('update', grams[gram_id])
+    //newdelta = grams[current_id].value + delta
 
 
-  var neweffect = 0
-  if(grams[gram_id].flavor == 'assent' && effect == 1 || grams[gram_id].flavor =='dissent' && effect == -1)
-    neweffect = 1
-  if(grams[gram_id].flavor == 'assent' && effect == -1 || grams[gram_id].flavor == 'dissent' && effect == 1)
-    neweffect = -1
+    //if they are the same sign.
+    if (Math.abs(grams[current_id].value + delta) == Math.abs(grams[current_id].value) + Math.abs(delta)){
+      if (delta > 0)
+        newdelta = delta;
+      if (delta < 0)
+        newdelta = 0
+    }
+    else {
+      //newdelta = grams[current_id].value + delta
+      //if the change will result in passing over 0
+      if(Math.abs(delta) > Math.abs(grams[current_id].value)){
+        if(grams[current_id].value > 0)
+          newdelta = grams[current_id].value
+        else 
+          newdelta = grams[current_id].value + delta
+      }
+      else{
+        newdelta = delta
+      }
 
-  propogate(grams[gram_id].parent_id, neweffect)
+    }
+    
+  }
+
+  grams[current_id].value += delta
+
+  if(grams[current_id].flavor == 'dissent')
+    newdelta = - newdelta
+
+  console.log(grams[current_id])
+  socket.emit('update',grams[current_id]);
+  socket.broadcast.emit('update', grams[current_id]);
+
+  //current_id = grams[current_id].parent_id
+  a[current_id] = grams[current_id];
+
+  propogate(grams[current_id].parent_id, newdelta, a, socket)
 
 }
-*/
+
+function addLink(link_id){
+  grams[grams[link_id].links[0]].links.push(link_id)
+  grams[grams[link_id].links[1]].links.push(link_id)
+  syncLinks(link_id);
+
+}
+
+function syncLinks(link_id){
+  var total = grams[grams[link_id].links[0]].value + grams[grams[link_id].links[1]].value
+  grams[grams[link_id].links[0]].shadow = grams[grams[link_id].links[0].value]
+  grams[grams[link_id].links[1]].shadow = grams[grams[link_id].links[1].value]
+
+  grams[grams[link_id].links[0]] = grams[grams[link_id].links[1]] = total
+}
+
