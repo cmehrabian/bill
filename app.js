@@ -91,8 +91,15 @@ io.sockets.on('connection', function (socket) {
         return
       }
 
+      if(data.flavor == 'link')
+        data.parent_id = null
+
+
       if(data.parent_id != null)
       { 
+        console.log('gramdump')
+        console.log(grams)
+        console.log(data)
         grams[data.parent_id].children.push(data.gram_id)
       }
 
@@ -101,13 +108,15 @@ io.sockets.on('connection', function (socket) {
       else
         data.value = 1
       
+
+
       grams[data.gram_id] = data
 
       socket.emit('update',grams[data.gram_id]);
       socket.broadcast.emit('update', grams[data.gram_id])
 
       if(data.flavor == 'link'){
-        addLink(data.gram_id)
+        addLink(data.gram_id, socket)
       }
       else{
 
@@ -152,7 +161,6 @@ function propogate(current_id, delta, a, socket){
         newdelta = 0
     }
     else {
-      //newdelta = grams[current_id].value + delta
       //if the change will result in passing over 0
       if(Math.abs(delta) > Math.abs(grams[current_id].value)){
         if(grams[current_id].value > 0)
@@ -169,7 +177,16 @@ function propogate(current_id, delta, a, socket){
   }
 
   grams[current_id].value += delta
+/*
+  if(grams[current_id].flavor == 'link'){
+    b = a
+    grams[current_id].shadow += delta
+    for(var i = 0; i < grams[current_id].links.length; ++i){
+      b = chaseLink(grams[current_id].links[i], delta, a, socket)
+    }
 
+  }
+  */
   if(grams[current_id].flavor == 'dissent')
     newdelta = - newdelta
 
@@ -180,22 +197,42 @@ function propogate(current_id, delta, a, socket){
   //current_id = grams[current_id].parent_id
   a[current_id] = grams[current_id];
 
-  propogate(grams[current_id].parent_id, newdelta, a, socket)
+  return propogate(grams[current_id].parent_id, newdelta, a, socket)
 
 }
 
-function addLink(link_id){
+function addLink(link_id, socket){
   grams[grams[link_id].links[0]].links.push(link_id)
   grams[grams[link_id].links[1]].links.push(link_id)
-  syncLinks(link_id);
+  syncLinks(link_id, socket);
 
 }
 
-function syncLinks(link_id){
+function syncLinks(link_id, socket){
   var total = grams[grams[link_id].links[0]].value + grams[grams[link_id].links[1]].value
-  grams[grams[link_id].links[0]].shadow = grams[grams[link_id].links[0].value]
-  grams[grams[link_id].links[1]].shadow = grams[grams[link_id].links[1].value]
+  grams[grams[link_id].links[0]].shadow = grams[grams[link_id].links[0]].value
+  grams[grams[link_id].links[1]].shadow = grams[grams[link_id].links[1]].value
 
   grams[grams[link_id].links[0]] = grams[grams[link_id].links[1]] = total
+/*
+  var parent = grams[grams[link_id].links[0].parent_id]
+  var newdelta = grams[grams[link_id].links[0]].value - grams[grams[link_id].links[0]].shadow 
+
+  a = []
+  a = propogate(parent, newdelta, a, socket)
+
+  var parent = grams[grams[link_id].links[1].parent_id]
+  var newdelta = grams[grams[link_id].links[1]].value - grams[grams[link_id].links[1]].shadow
+
+  propogate(parent, newdelta, a, socket) 
+*/
+}
+
+function chaseLink(link_id, delta, a, socket, last_id){
+  if (last_id == grams[link_id].links[0])
+    return propogate(grams[link_id].links[1], delta, a, socket)
+  else
+    return propogate(grams[link_id].links[0], delta, a, socket)
+
 }
 

@@ -41,6 +41,8 @@
 				 <textarea class='text-submit' ng-model="text" placeholder="text body"></textarea>
 				 <select ng-model='flavor' ng-options='flavor as flavor for flavor in flavors'></select>
 				 <select ng-hide="flavor != 'link'" ng-model='links[0]' ng-options='gram.gram_id as gram.gram_id for gram in grams'> </select>
+				 <select ng-hide="flavor != 'link'" ng-model='links[1]' ng-options='gram.gram_id as gram.gram_id for gram in grams'> </select>
+
 				 <p> {{links}} </p>
 				 <button ng-click='submit()'>Send</button>
 

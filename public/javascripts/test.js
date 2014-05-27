@@ -58,16 +58,6 @@ function TestSendCtrl($scope, $http){
   	})
 
 	$scope.submit = function(){
-		if($scope.flavor == 'link'){
-			if($scope.parent_id == $scope.links[0])
-			{
-				console.log('link is the same as the parent')
-				return;
-			}
-
-			$scope.links.push($scope.parent_id)
-		}
-
 		socket.emit('new_gram', {
 				username:$scope.username,
 				parent_id:$scope.parent_id,
@@ -79,6 +69,7 @@ function TestSendCtrl($scope, $http){
 		//$scope.parent_id = -1
 		$scope.flavor = 'comment'
 		$scope.text = ''
+		$scope.links = []
 	}
 
 	$scope.reset = function(){
@@ -95,14 +86,18 @@ function TestSendCtrl($scope, $http){
 		var s = $scope.grams[gram_id].text.substring(0,20)
 		if($scope.grams[gram_id].text.length > 20)
 			s += '...'
-		nodes[gram_id] = graph.newNode(
+			nodes[gram_id] = graph.newNode(
 			{
 				label:s,
 		 		gram_id:gram_id,
 		 		parent_id:$scope.grams[gram_id].parent_id,
 		 		flavor:$scope.grams[gram_id].flavor
 		 	})
-		if($scope.grams[$scope.grams[gram_id].parent_id] != null){
+		if($scope.grams[gram_id].flavor == 'link'){
+			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].links[0]], {color:'#000000'})	
+			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].links[1]], {color:'#000000'})			
+		}
+		else if($scope.grams[$scope.grams[gram_id].parent_id] != null){
 			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].parent_id], {color: '#000000'})
 		}
 	}
