@@ -55,9 +55,38 @@ server.listen(app.get('port'), function(){
 
 
 var connections = 0;
-var lastgram_id = -1
+var lastgram_id = 2
 
-var grams = []
+//var grams = []
+
+var grams = [ 
+{ username: 'tyler',
+    parent_id: null,
+    flavor: 'comment',
+    text: 'hello',
+    children: [ 1, 2 ],
+    links: [],
+    gram_id: 0,
+    value: 3 },
+  { username: 'tyler',
+    parent_id: 0,
+    flavor: 'assent',
+    text: 'yes',
+    children: [],
+    links: [ 3 ],
+    gram_id: 1,
+    value: 1,
+    shadow: 1 },
+  { username: 'tyler',
+    parent_id: 0,
+    flavor: 'assent',
+    text: 'yep',
+    children: [],
+    links: [ 3 ],
+    gram_id: 2,
+    value: 1,
+    shadow: 1 } ]
+
 
 io.sockets.on('connection', function (socket) {
   //console.log('someone connected')
@@ -140,8 +169,8 @@ io.sockets.on('connection', function (socket) {
 });
 
 
-function propogate(current_id, delta, a, socket){
-  if(current_id == null || delta == 0 ||  a[current_id] !== undefined) 
+function propogate(current_id, delta, a, socket, collisionPoint){
+  if(current_id == null || current_id == collisionPoint || delta == 0 ||  a[current_id] !== undefined) 
     return a
 
   var newdelta = 0
@@ -197,13 +226,15 @@ function propogate(current_id, delta, a, socket){
   //current_id = grams[current_id].parent_id
   a[current_id] = grams[current_id];
 
-  return propogate(grams[current_id].parent_id, newdelta, a, socket)
+  return propogate(grams[current_id].parent_id, newdelta, a, socket, collisionPoint)
 
 }
 
 function addLink(link_id, socket){
   grams[grams[link_id].links[0]].links.push(link_id)
   grams[grams[link_id].links[1]].links.push(link_id)
+  grams[link_id].collisionPoint = findCollisionPoint(grams[link_id].links[0], grams[link_id].links[1])
+
   syncLinks(link_id, socket);
 
 }
@@ -213,19 +244,21 @@ function syncLinks(link_id, socket){
   grams[grams[link_id].links[0]].shadow = grams[grams[link_id].links[0]].value
   grams[grams[link_id].links[1]].shadow = grams[grams[link_id].links[1]].value
 
-  grams[grams[link_id].links[0]] = grams[grams[link_id].links[1]] = total
-/*
-  var parent = grams[grams[link_id].links[0].parent_id]
-  var newdelta = grams[grams[link_id].links[0]].value - grams[grams[link_id].links[0]].shadow 
+  grams[grams[link_id].links[0]].value = grams[grams[link_id].links[1]].value = total
+
+
+  //links don't make appropriate value
+  //var parent = grams[grams[link_id].links[0]].parent_id
+  var newdelta = grams[grams[link_id].links[1]].value 
 
   a = []
-  a = propogate(parent, newdelta, a, socket)
+  a = propogate(grams[link_id].links[0], newdelta, a, socket, grams[link_id].collisionPoint)
 
-  var parent = grams[grams[link_id].links[1].parent_id]
-  var newdelta = grams[grams[link_id].links[1]].value - grams[grams[link_id].links[1]].shadow
+  //var parent = grams[grams[link_id].links[1]].parent_id
+  var newdelta = grams[grams[link_id].links[0]].value
 
-  propogate(parent, newdelta, a, socket) 
-*/
+  propogate(grams[link_id].links[1], newdelta, a, socket, grams[link_id].collisionPoint) 
+
 }
 
 function chaseLink(link_id, delta, a, socket, last_id){
@@ -236,3 +269,18 @@ function chaseLink(link_id, delta, a, socket, last_id){
 
 }
 
+//returns the common parent node or null if it doesn't exist.  
+function findCollisionPoint(first_id, second_id){
+  a = []
+  findCollisionPointHelper(first_id, a)
+  return findCollisionPointHelper(second_id, a)
+}
+
+function findCollisionPointHelper(gram_id, a){
+
+  if(gram_id == null || a[gram_id] !== undefined) 
+    return gram_id
+
+  a[gram_id] = gram_id
+  return findCollisionPointHelper(grams[gram_id].parent_id, a)
+}
