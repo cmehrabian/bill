@@ -2,7 +2,7 @@
 function TestSendCtrl($scope, $http){
 	var lastgram_id = -1
 
-	var socket = io.connect();
+	var socket = io.connect(document.URL);
 	
 
 	$scope.selected = null
