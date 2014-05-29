@@ -55,10 +55,10 @@ server.listen(app.get('port'), function(){
 
 
 var connections = 0;
-var lastgram_id = 2
+var lastgram_id = -1
 
-//var grams = []
-
+var grams = []
+/*
 var grams = [ 
 { username: 'tyler',
     parent_id: null,
@@ -86,7 +86,7 @@ var grams = [
     gram_id: 2,
     value: 1,
     shadow: 1 } ]
-
+*/
 
 io.sockets.on('connection', function (socket) {
   //console.log('someone connected')

@@ -19,9 +19,8 @@ function TestSendCtrl($scope, $http){
 
 	$scope.grams = []
 
-	$scope.flavors = 
-	['comment', 'assent', 'dissent', 'quote', 'link']
-
+	//$scope.flavors = ['comment', 'assent', 'dissent', 'quote', 'link']
+	$scope.flavors = ['comment', 'assent', 'dissent', 'quote']
 
   	socket.on('update', function (data) {
 
