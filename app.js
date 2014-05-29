@@ -6,12 +6,12 @@
 var express = require('express');
 
 
-var http = require('http');
+//var http = require('http');
 var path = require('path');
 
 var app = module.exports = express()
-  , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
+var server = require('http').createServer(app)
+var io = require('socket.io').listen(server);
 
 var routes = require('./routes');
 var user = require('./routes/user');
@@ -57,8 +57,8 @@ server.listen(app.get('port'), function(){
 var connections = 0;
 var lastgram_id = 2
 
-var grams = []
-/*
+//var grams = []
+
 var grams = [ 
 { username: 'tyler',
     parent_id: null,
@@ -73,7 +73,7 @@ var grams = [
     flavor: 'assent',
     text: 'yes',
     children: [],
-    links: [ 3 ],
+    links: [ ],
     gram_id: 1,
     value: 1,
     shadow: 1 },
@@ -82,12 +82,12 @@ var grams = [
     flavor: 'assent',
     text: 'yep',
     children: [],
-    links: [ 3 ],
+    links: [ ],
     gram_id: 2,
     value: 1,
     shadow: 1 } ]
 
-*/
+
 io.sockets.on('connection', function (socket) {
   //console.log('someone connected')
 
@@ -169,11 +169,13 @@ io.sockets.on('connection', function (socket) {
 });
 
 
-function propogate(current_id, delta, a, socket, collisionPoint){
-  if(current_id == null || current_id == collisionPoint || delta == 0 ||  a[current_id] !== undefined) 
+function propogate(current_id, delta, a, socket, CommonParent){
+  if(current_id == null || current_id == CommonParent || delta == 0 ||  a[current_id] !== undefined) 
     return a
 
   var newdelta = 0
+
+
   if(grams[current_id].flavor == 'quote'){
     newdelta = delta
   }
@@ -206,34 +208,60 @@ function propogate(current_id, delta, a, socket, collisionPoint){
   }
 
   grams[current_id].value += delta
-/*
-  if(grams[current_id].flavor == 'link'){
-    b = a
-    grams[current_id].shadow += delta
-    for(var i = 0; i < grams[current_id].links.length; ++i){
-      b = chaseLink(grams[current_id].links[i], delta, a, socket)
-    }
 
-  }
-  */
+
+  
   if(grams[current_id].flavor == 'dissent')
     newdelta = - newdelta
 
-  console.log(grams[current_id])
+  //console.log(grams[current_id])
   socket.emit('update',grams[current_id]);
   socket.broadcast.emit('update', grams[current_id]);
 
   //current_id = grams[current_id].parent_id
-  a[current_id] = grams[current_id];
+  a[current_id] = current_id;
 
-  return propogate(grams[current_id].parent_id, newdelta, a, socket, collisionPoint)
+
+  if(grams[current_id].flavor != 'link'){
+    //b = a
+    //grams[current_id].shadow += delta
+    for(var i = 0; i < grams[current_id].links.length; ++i){
+      a = chaseLink(grams[current_id].links[i], delta, a, socket)
+    }
+
+  }
+
+  return propogate(grams[current_id].parent_id, newdelta, a, socket, CommonParent)
 
 }
 
 function addLink(link_id, socket){
+  //console.log("=======addLink called!")
+  //console.log(link_id)
   grams[grams[link_id].links[0]].links.push(link_id)
   grams[grams[link_id].links[1]].links.push(link_id)
-  grams[link_id].collisionPoint = findCollisionPoint(grams[link_id].links[0], grams[link_id].links[1])
+
+  if(hasCycle(grams[link_id].links[0], link_id, link_id) || hasCycle(grams[link_id].links[1], link_id, link_id)){
+    console.log("cycle found!")
+
+    var most_recent, least_recent;
+
+    if(grams[link_id].links[0].gram_id > grams[link_id].links[1].gram_id){
+      most_recent = grams[link_id].links[0]
+      least_recent = grams[link_id].links[1]
+    }
+    else{
+      least_recent = grams[link_id].links[0]
+      most_recent = grams[link_id].links[1]
+    }
+
+    grams[most_recent].origin_id = grams[most_recent].parent_id
+    grams[most_recent].parent_id = grams[least_recent].parent_id
+
+
+  }
+
+  grams[link_id].CommonParent = findCommonParent(grams[link_id].links[0], grams[link_id].links[1])
 
   syncLinks(link_id, socket);
 
@@ -249,38 +277,57 @@ function syncLinks(link_id, socket){
 
 
   //var parent = grams[grams[link_id].links[0]].parent_id
-  var newdelta = grams[grams[link_id].links[1]].value 
+  var delta1 = grams[grams[link_id].links[1]].value
+  var delta2 = grams[grams[link_id].links[0]].value
+
 
   a = []
-  a = propogate(grams[link_id].links[0], newdelta, a, socket, grams[link_id].collisionPoint)
+  a[link_id] = link_id
+  a = propogate(grams[link_id].links[0], delta1, a, socket, grams[link_id].CommonParent)
 
   //var parent = grams[grams[link_id].links[1]].parent_id
-  var newdelta = grams[grams[link_id].links[0]].value
 
-  propogate(grams[link_id].links[1], newdelta, a, socket, grams[link_id].collisionPoint) 
+  propogate(grams[link_id].links[1], delta2, a, socket, grams[link_id].CommonParent) 
 
 }
 
-function chaseLink(link_id, delta, a, socket, last_id){
-  if (last_id == grams[link_id].links[0])
-    return propogate(grams[link_id].links[1], delta, a, socket)
-  else
-    return propogate(grams[link_id].links[0], delta, a, socket)
+function chaseLink(link_id, delta, a, socket){
+  if(a[link_id] !== undefined)
+    return a
+
+  a[link_id] = link_id
+  a = propogate(grams[link_id].links[1], delta, a, socket)
+  return propogate(grams[link_id].links[0], delta, a, socket)
 
 }
 
 //returns the common parent node or null if it doesn't exist.  
-function findCollisionPoint(first_id, second_id){
+function findCommonParent(first_id, second_id){
   a = []
-  findCollisionPointHelper(first_id, a)
-  return findCollisionPointHelper(second_id, a)
+  findCommonParentHelper(first_id, a)
+  return findCommonParentHelper(second_id, a)
 }
 
-function findCollisionPointHelper(gram_id, a){
+function findCommonParentHelper(gram_id, a){
 
   if(gram_id == null || a[gram_id] !== undefined) 
     return gram_id
 
   a[gram_id] = gram_id
-  return findCollisionPointHelper(grams[gram_id].parent_id, a)
+  return findCommonParentHelper(grams[gram_id].parent_id, a)
+}
+
+function hasCycle(current_id, last_id, link_id){
+  if(current_id == link_id)
+    return true
+  if(current_id == null)
+    return false
+
+  for(var i = 0; i < grams[current_id].links.length; ++i){
+    if(grams[current_id].links[i] != last_id)
+      if(hasCycle(grams[current_id].links[i], current_id, link_id))
+        return true
+  }
+
+  return hasCycle(grams[current_id].parent_id, current_id, link_id)
 }

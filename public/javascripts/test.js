@@ -34,6 +34,11 @@ function TestSendCtrl($scope, $http){
   		else {
   			$scope.grams[data.gram_id] = data;
   		}
+
+  		if(data.origin_id !== undefined){
+  			console.log(data.origin_id)
+  			addOriginEdge(data.gram_id, data.origin_id)
+  		}
     	//$scope.$digest()
 	});
 
@@ -98,8 +103,22 @@ function TestSendCtrl($scope, $http){
 			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].links[1]], {color:'#000000'})			
 		}
 		else if($scope.grams[$scope.grams[gram_id].parent_id] != null){
-			graph.newEdge(nodes[$scope.grams[gram_id].parent_id], nodes[gram_id], {color: '#000000'})
+			graph.newEdge( nodes[gram_id], nodes[$scope.grams[gram_id].parent_id], {color: '#000000'})
 		}
+	}
+
+	function addOriginEdge(gram_id, origin_id){
+		var edges = graph.getEdges(nodes[gram_id], nodes[origin_id])
+		if(edges[0] !== undefined) 
+			graph.removeEdge(edges[0])
+		edges = graph.getEdges(nodes[gram_id], nodes[$scope.grams[gram_id].parent_id])
+		if(edges[0] !== undefined)
+			graph.removeEdge(edges[0])
+		graph.newEdge(nodes[gram_id], nodes[origin_id], {color: '#FF0011'})
+		graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].parent_id], {color: '#000000'})
+
+		$scope.grams[$scope.grams[gram_id].parent_id].children.push(gram_id)
+		//need to remove child from origin??
 	}
 
 	function drawGraph(){
