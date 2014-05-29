@@ -57,8 +57,8 @@ server.listen(app.get('port'), function(){
 var connections = 0;
 var lastgram_id = 2
 
-//var grams = []
-
+var grams = []
+/*
 var grams = [ 
 { username: 'tyler',
     parent_id: null,
@@ -87,7 +87,7 @@ var grams = [
     value: 1,
     shadow: 1 } ]
 
-
+*/
 io.sockets.on('connection', function (socket) {
   //console.log('someone connected')
 
@@ -126,9 +126,9 @@ io.sockets.on('connection', function (socket) {
 
       if(data.parent_id != null)
       { 
-        console.log('gramdump')
-        console.log(grams)
-        console.log(data)
+        //console.log('gramdump')
+        //console.log(grams)
+        //console.log(data)
         grams[data.parent_id].children.push(data.gram_id)
       }
 
@@ -244,10 +244,10 @@ function syncLinks(link_id, socket){
   grams[grams[link_id].links[0]].shadow = grams[grams[link_id].links[0]].value
   grams[grams[link_id].links[1]].shadow = grams[grams[link_id].links[1]].value
 
-  grams[grams[link_id].links[0]].value = grams[grams[link_id].links[1]].value = total
+  console.log("total = ", total)
+  //grams[grams[link_id].links[0]].value = grams[grams[link_id].links[1]].value = total
 
 
-  //links don't make appropriate value
   //var parent = grams[grams[link_id].links[0]].parent_id
   var newdelta = grams[grams[link_id].links[1]].value 
 

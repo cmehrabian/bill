@@ -2,7 +2,7 @@
 function TestSendCtrl($scope, $http){
 	var lastgram_id = -1
 
-	var socket = io.connect(document.URL);
+	var socket = io.connect('http://localhost');
 	
 
 	$scope.selected = null
@@ -98,7 +98,7 @@ function TestSendCtrl($scope, $http){
 			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].links[1]], {color:'#000000'})			
 		}
 		else if($scope.grams[$scope.grams[gram_id].parent_id] != null){
-			graph.newEdge(nodes[gram_id], nodes[$scope.grams[gram_id].parent_id], {color: '#000000'})
+			graph.newEdge(nodes[$scope.grams[gram_id].parent_id], nodes[gram_id], {color: '#000000'})
 		}
 	}
 
