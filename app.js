@@ -53,6 +53,11 @@ server.listen(app.get('port'), function(){
 });
 
 
+app.get('/download', function(req, res){
+    res.send(grams);
+
+})
+
 
 var connections = 0;
 var lastgram_id = -1
