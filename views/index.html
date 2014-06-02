@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app='rhombus'>
 	<head>
 
 		<link href='stylesheets/style.css' rel='stylesheet' />
@@ -7,14 +7,15 @@
 		<script src='bower_components/angular/angular.js'></script>
 		<script src='bower_components/jquery/dist/jquery.min.js'></script>
 		<script src='bower_components/springy/springy.js'></script>
-		<script src='bower_components/springy/springyui-custom.js'></script>
 
-		<script src='javascripts/test.js'></script>
+		<script src='javascripts/springyui-custom.js'></script>
+		<script src='javascripts/components.js'></script>
+		<script src='javascripts/rhombus.js'></script>
 
 	</head>
 
 	<body>
-		<div ng-controller='TestSendCtrl'> 
+		<div ng-controller='viewTreeCtrl'> 
 
 
 			 <canvas id="springydemo" ></canvas>
