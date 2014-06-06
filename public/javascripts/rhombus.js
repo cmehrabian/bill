@@ -1,17 +1,24 @@
 
-angular.module('rhombus', ['components'])
+angular.module('rhombus', ['components', 'ngRoute'])
 
-.controller('viewTreeCtrl', function($scope, $http){
+.config(function($routeProvider){
+	$routeProvider
+		.when('/', {
+			controller:'conversationCtrl',
+			templateUrl:'views/conversations.html'
+		})
+		.when('/view', {
+			templateUrl:'views/graph.html',
+			controller:'graphCtrl'
+		})
+		.otherwise({
+      		redirectTo:'/'
+    	});
 
-	var socket = io.connect(document.URL);
-	
+})
 
-	var graph = new Springy.Graph();
-	var nodes = []
-
-	//var springyServ = springyServ
-
-	$scope.selected = null
+.controller('graphCtrl', function($scope, $rootScope, $http, graph){
+	$rootScope.selected = null
 
 	$scope.username = ''
 	$scope.parent_id = null
@@ -23,28 +30,28 @@ angular.module('rhombus', ['components'])
 	//$scope.value = 0
 
 
-	$scope.points = []
+	$rootScope.points = []
 
 	//$scope.flavors = ['comment', 'assent', 'dissent', 'quote', 'link']
 	$scope.flavors = ['comment', 'assent', 'dissent', 'quote']
 
+	var socket = io.connect(document.URL);
+
   	socket.on('update', function (data) {
+  		
+  		if($rootScope.points[data.point_id] === undefined)
+  			$rootScope.points[data.point_id] = graph.addNode(data)
+  		else
+  			$rootScope.points[data.point_id].data = data
 
-  		if($scope.points[data.point_id] === undefined)
-  		{
-    		$scope.points[data.point_id] = data;
-  			addNode(data.point_id, data.parent_id, data.text, data.flavor)
-
-  		}
-  		else {
-  			$scope.points[data.point_id] = data;
-  		}
-
+  		$rootScope.selected = data.point_id
+/*
   		if(data.origin_id !== undefined){
   			console.log(data.origin_id)
-  			springyServ.addOriginEdge(data.point_id, data.origin_id)
+  			//springyServ.addOriginEdge(data.point_id, data.origin_id)
   		}
     	//$scope.$digest()
+    	*/
 	});
 
 	socket.on('update_finished', function(data){
@@ -53,9 +60,9 @@ angular.module('rhombus', ['components'])
 
 
   	socket.on('reset_all', function(data) {
-  		$scope.points = []
+  		$rootScope.points = []
   		nodes = []
-  		$scope.selected = null
+  		$rootScope.selected = null
 
 		$scope.username = ''
 		$scope.parent_id = null
@@ -69,17 +76,18 @@ angular.module('rhombus', ['components'])
 
 	$scope.submit = function(){
 		socket.emit('new_point', {
-				username:$scope.username,
-				parent_id:$scope.parent_id,
-				flavor:$scope.flavor,
-				text:$scope.text,
-				children:[],
-				links:$scope.links
-			})
+			username:$scope.username,
+			parent_id:$rootScope.selected,
+			flavor:$scope.flavor,
+			text:$scope.text,
+			children:[],
+			links:$scope.links
+		})
 		//$scope.parent_id = -1
 		$scope.flavor = 'comment'
 		$scope.text = ''
 		$scope.links = []
+
 	}
 
 	$scope.reset = function(){
@@ -89,58 +97,23 @@ angular.module('rhombus', ['components'])
 	}
 
 
-	var addNode = function (point_id, parent_id, text, flavor){
-		var s = text.substring(0,20)
-		if(text.length > 20)
-			s += '...'
-			nodes[point_id] = graph.newNode(
-			{
-				label:s,
-		 		point_id:point_id,
-		 		parent_id:parent_id,
-		 		flavor:flavor
-		 	})
-		if(flavor == 'link'){
-			graph.newEdge(nodes[point_id], nodes[$scope.points[point_id].links[0]], {color:'#000000'})	
-			graph.newEdge(nodes[point_id], nodes[$scope.points[point_id].links[1]], {color:'#000000'})			
-		}
-		else if(parent_id != null){
-			graph.newEdge( nodes[point_id], nodes[$scope.points[point_id].parent_id], {color: '#000000'})
-		}
-	}
 
 	var addOriginEdge = function(point_id, origin_id){
 		var edges = graph.getEdges(nodes[point_id], nodes[origin_id])
 		if(edges[0] !== undefined)
 			graph.removeEdge(edges[0])
-		edges = graph.getEdges(nodes[point_id], nodes[$scope.points[point_id].parent_id])
+		edges = graph.getEdges(nodes[point_id], nodes[$rootScope.points[point_id].parent_id])
 		if(edges[0] !== undefined)
 			graph.removeEdge(edges[0])
 		graph.newEdge(nodes[point_id], nodes[origin_id], {color: '#FF0011'})
-		graph.newEdge(nodes[point_id], nodes[$scope.points[point_id].parent_id], {color: '#000000'})
+		graph.newEdge(nodes[point_id], nodes[$rootScope.points[point_id].parent_id], {color: '#000000'})
 
-		$scope.points[$scope.points[point_id].parent_id].children.push(point_id)
+		$rootScope.points[$rootScope.points[point_id].parent_id].children.push(point_id)
 		//need to remove child from origin??
 	}
 
-	function drawGraph(){
+})
 
-		jQuery(function(){
-			var springy = window.springy = jQuery('#springydemo').springy({
-				graph: graph,
-				nodeSelected: function(node){
-					//console.log('Node selected: ' + JSON.stringify(node.data));
-					$scope.selected = $scope.points[node.data.point_id].point_id
-					$scope.parent_id = $scope.selected;
-					//console.log($scope.points[$scope.selected].text)
-					//console.log($scope.selected)
-					$scope.$digest();
-				}	
-			});
-		});
-	}
-
-	drawGraph();
-
+.controller('conversationCtrl', function(){
 
 })

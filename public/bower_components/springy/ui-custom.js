@@ -293,7 +293,7 @@ jQuery.fn.springy = function(params) {
 		},
 		function drawNode(node, p) {
 			var s = toScreen(p);
-
+			console.log(s)
 			ctx.save();
 
 			// Pulled out the padding aspect sso that the size functions could be used in multiple places
@@ -320,7 +320,7 @@ jQuery.fn.springy = function(params) {
 				ctx.fillStyle = "#66FF99"
 			}
 			else if(node.data.flavor == 'dissent'){
-				console.log('dissent')
+				//console.log('dissent')
 				ctx.fillStyle = "FF9966"
 			}
 			/*} else if (nearest !== null && nearest.node !== null && nearest.node.id === node.id) {

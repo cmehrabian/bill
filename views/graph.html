@@ -1,0 +1,32 @@
+
+
+ <canvas id="graphcanvas"></canvas>
+ <!--canvas id="springydemo"></canvas-->
+
+
+ <div id="point-window">
+ 	<p>User: {{points[selected].data.username}}</p>
+ 	<p>id: {{points[selected].data.point_id}}</p>
+ 	<p>parent id: {{points[selected].data.parent_id}}</p>
+ 	<p>net assent: {{points[selected].data.value}}</p>
+ 	<p>flavor: {{points[selected].data.flavor}}</p>
+ 	<p>text: {{points[selected].data.text}}</p>
+ 	<p>children: {{points[selected].data.children}}</p>
+ 	<p>links: {{points[selected].data.links}}</p>
+ 
+ </div>
+
+ <div id="submit-window">
+		 <p float='right'> parent id: {{parent_id}} </p>
+	 <input type="text" ng-model="username" size="30" placeholder="username">
+	 <!--select ng-model="parent_id" ng-options='point.point_id as point.point_id for point in points'></select-->
+	 <textarea class='text-submit' ng-model="text" placeholder="text body"></textarea>
+	 <select ng-model='flavor' ng-options='flavor as flavor for flavor in flavors'></select>
+	 <select ng-hide="flavor != 'link'" ng-model='links[0]' ng-options='point.point_id as point.point_id for point in points'> </select>
+	 <select ng-hide="flavor != 'link'" ng-model='links[1]' ng-options='point.point_id as point.point_id for point in points'> </select>
+
+	 <button ng-click='submit()'>Send</button>
+
+ </div>
+
+ <button id='reset' ng-click='reset()'>reset</button>

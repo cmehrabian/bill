@@ -1,0 +1,75 @@
+<html>
+<body>
+<script src="springy.js"></script>
+
+<canvas id="springydemo" width="640" height="480" />
+
+<script>
+
+
+var graph = new Springy.Graph();
+
+var michael = graph.newNode({label: 'Michael'});
+var jessica = graph.newNode({label: 'Jessica'});
+
+graph.newEdge(michael, jessica, {color: '#CC333F'});
+	var canvas = document.getElementById('springydemo')
+
+      		var ctx = canvas.getContext('2d')
+
+	var toScreen = function(p) {
+		var size = currentBB.topright.subtract(currentBB.bottomleft);
+		var sx = p.subtract(currentBB.bottomleft).divide(size.x).x * canvas.width;
+		var sy = p.subtract(currentBB.bottomleft).divide(size.y).y * canvas.height;
+		return new Springy.Vector(sx, sy);
+	};
+
+	var fromScreen = function(s) {
+		var size = currentBB.topright.subtract(currentBB.bottomleft);
+		var px = (s.x / canvas.width) * size.x + currentBB.bottomleft.x;
+		var py = (s.y / canvas.height) * size.y + currentBB.bottomleft.y;
+		return new Springy.Vector(px, py);
+	};
+
+
+
+	var layout = new Springy.Layout.ForceDirected(graph, 400.0, 400.0, 0.5);
+
+	var currentBB = layout.getBoundingBox()
+
+	var renderer = new Springy.Renderer(layout,
+      function clear() {
+      		//ctx.clearRect(0,0, canvas.width, canvas.height)
+      		canvas.width = canvas.width
+        // code to clear screen
+      },
+      function drawEdge(edge, p1, p2) {
+        // draw an edge
+        	var s1 = toScreen(p1);
+        	var s2 = toScreen(p2);
+        	console.log('edge')
+        	ctx.beginPath(); 
+			ctx.lineWidth="2";
+			ctx.strokeStyle="black"; // Green path
+			ctx.moveTo(s1.x, s1.y)
+			ctx.lineTo(s2.x, s2.y)
+			ctx.stroke()
+
+      },
+      function drawNode(node, p) {
+      		//console.log(p)
+      		var s = toScreen(p)
+      		ctx.lineWidth="1"
+			ctx.rect(s.x,s.y,20,20);
+			ctx.stroke();
+
+        // draw a node
+      }
+    );
+
+
+	renderer.start()
+</script>
+
+</body>
+</html>

@@ -1,13 +1,25 @@
 
 var app = require('./app')
-
+/*
+var points = [
+{ 
+  username: 'tyler',
+  parent_id: null,
+  flavor: 'comment',
+  text: 'hello',
+  children: [],
+  links: [],
+  point_id: 0,
+  value: 1 }
+]
+*/
 var points = []
-
 
 
 exports.getTree = function(socket){
 	for (var i = 0; i < points.length; ++i){
     socket.emit('update', points[i])
+    console.log(points[i])
   }
   socket.emit('update_finished')
 }
@@ -42,7 +54,7 @@ exports.new_point = function(socket, data){
 
   socket.emit('update',points[data.point_id]);
   socket.broadcast.emit('update', points[data.point_id])
-  console.log(points[data.point_id])
+  //console.log(points[data.point_id])
 
   if(data.flavor == 'link'){
     addLink(data.point_id, socket)

@@ -21,6 +21,7 @@ var points = require('./points')
 
 // all environments
 
+
 app.set('port', process.env.PORT || 3000);
 
 app.set('views', path.join(__dirname, 'views'));
@@ -31,7 +32,7 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(app.router);
+//app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -44,8 +45,15 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+//app.get('/', routes.index);
+/*
+app.get('/', function(req, res){
+  res.render('index.html');
+};
+
+app.get('/view')
+*/
+//app.get('/users', user.list);
 //app.post('/submit', submit.point);
 
 server.listen(app.get('port'), function(){
@@ -60,6 +68,7 @@ app.get('/download', function(req, res){
 
 io.sockets.on('connection', function (socket) {
   //console.log('someone connected')
+  points.getTree(socket);
 
   socket.on('reset', function(data){
     points.reset()

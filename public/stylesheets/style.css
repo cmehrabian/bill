@@ -18,7 +18,7 @@ a {
 }
 */
 
-#gram-window
+#point-window
 {
 	position:absolute;
 	right:2%;
@@ -44,7 +44,7 @@ a {
 
 }
 
-#springydemo{
+#graphcanvas{
 	/*width:640;
 	height:480;*/
 	position:relative;
