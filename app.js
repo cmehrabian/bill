@@ -12,6 +12,9 @@ var path = require('path');
 var app = module.exports = express()
 var server = require('http').createServer(app)
 var io = require('socket.io').listen(server);
+var neo4j = require('neo4j');
+var db = new neo4j.GraphDatabase('http://localhost:7474');
+
 
 //var routes = require('./routes');
 //var user = require('./routes/user');
@@ -67,7 +70,7 @@ app.get('/download', function(req, res){
 })
 
 io.sockets.on('connection', function (socket) {
-  //console.log('someone connected')
+  console.log('someone connected')
   points.getTree(socket);
 
   socket.on('reset', function(data){

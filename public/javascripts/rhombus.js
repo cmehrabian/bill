@@ -37,6 +37,8 @@ angular.module('rhombus', ['components', 'ngRoute'])
 
 	var socket = io.connect(document.URL);
 
+	socket = io.connect(document.URL)
+
   	socket.on('update', function (data) {
   		
   		if($rootScope.points[data.point_id] === undefined)
@@ -70,8 +72,6 @@ angular.module('rhombus', ['components', 'ngRoute'])
 		$scope.text = ''
 
   		$scope.$digest()
-  		//graph = new Springy.Graph()
-  		//drawGraph()  FIXME
   	})
 
 	$scope.submit = function(){
