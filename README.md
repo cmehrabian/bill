@@ -21,12 +21,12 @@ associated with things (since I suspect things are actually just really complica
 This is cool because arguments on the internet might be able to get somewhere.  
 
 All responses take one of these forms
--agreement: An explanation of why you agree with something.  The net value of an agreement is added to whatever 
+- agreement: An explanation of why you agree with something.  The net value of an agreement is added to whatever 
 it is directed at.
--disagreement: Same thing, except it's disagreement and it's subtracted.
--comment: A neutral statement 
--quote: Since there's no text limit on responses, quotes provide a mean to break up a response into constituent parts which can individually be argued over to affect the whole.  
--link: If two points are logically the same, you can "link" them together.  This essentially makes all arguments for or against either one of the points apply to both.  The strength of the link can be individually argued over.
+- disagreement: Same thing, except it's disagreement and it's subtracted.
+- comment: A neutral statement 
+- quote: Since there's no text limit on responses, quotes provide a mean to break up a response into constituent parts which can individually be argued over to affect the whole.  
+- link: If two points are logically the same, you can "link" them together.  This essentially makes all arguments for or against either one of the points apply to both.  The strength of the link can be individually argued over.
 
 Um, please help me build this? I like feedback, too. 
 
