@@ -13,9 +13,9 @@ var app = module.exports = express()
 var server = require('http').createServer(app)
 var io = require('socket.io').listen(server);
 
-var routes = require('./routes');
-var user = require('./routes/user');
-var submit = require('./routes/submit');
+//var routes = require('./routes');
+//var user = require('./routes/user');
+//var submit = require('./routes/submit');
 
 var points = require('./points')
 
