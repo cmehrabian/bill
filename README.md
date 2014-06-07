@@ -1,6 +1,8 @@
 # Rhombus (probably)
 
-rhombus-forum.herokuapp.com
+
+
+[rhombus-heroku][]
 
 Rhombus is kind of hard to explain, and I always do a terrible job of it.  
 
@@ -38,3 +40,5 @@ numerucically.
 
 Try not to phrase arguments as questions.  Socrates is my homey too, but questions tend to be disagreements
 and can usually be phrased as statements.  You can't really disagree with a question.  
+
+[rhombus-heroku]: http://rhombus-forum.herokuapp.com
