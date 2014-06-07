@@ -2,7 +2,7 @@
 
 
 
-[rhombus-heroku][Heroku Link]
+[rhombus-heroku][]
 
 Rhombus is kind of hard to explain, and I always do a terrible job of it.  
 
