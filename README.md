@@ -28,7 +28,7 @@ it is directed at.
 -quote: Since there's no text limit on responses, quotes provide a mean to break up a response into constituent parts which can individually be argued over to affect the whole.  
 -link: If two points are logically the same, you can "link" them together.  This essentially makes all arguments for or against either one of the points apply to both.  The strength of the link can be individually argued over.
 
-Um, please help me build this?  
+Um, please help me build this? I like feedback, too. 
 
 ## Usage Guide
 
@@ -36,7 +36,7 @@ Here's the current semantic guidelines for interacting on the site.
 
 Don't really use comments unless what you're saying is truly neutral.  Comments tend to bork up arguments
 because people will divulge into discussions that are related to the original topic conceptually but not 
-numerucically.
+numerically.
 
 Try not to phrase arguments as questions.  Socrates is my homey too, but questions tend to be disagreements
 and can usually be phrased as statements.  You can't really disagree with a question.  
