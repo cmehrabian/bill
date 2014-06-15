@@ -18,6 +18,12 @@ a {
 }
 */
 
+#discussion-floatbar{
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
 #point-window
 {
 	position:absolute;

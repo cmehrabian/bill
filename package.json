@@ -9,6 +9,7 @@
     "express": "3.4.7",
     "ejs":"*",
     "socket.io":"0.9",
-    "neo4j":"1.x"
+    "lodash":"*",
+    "mongoose":"*"
     }
 }

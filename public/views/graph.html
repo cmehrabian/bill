@@ -5,19 +5,17 @@
 
 
  <div id="point-window">
- 	<p>User: {{points[selected].data.username}}</p>
- 	<p>id: {{points[selected].data.point_id}}</p>
- 	<p>parent id: {{points[selected].data.parent_id}}</p>
- 	<p>net assent: {{points[selected].data.value}}</p>
- 	<p>flavor: {{points[selected].data.flavor}}</p>
- 	<p>text: {{points[selected].data.text}}</p>
- 	<p>children: {{points[selected].data.children}}</p>
- 	<p>links: {{points[selected].data.links}}</p>
+ 	<p>User: {{selected.username}}</p>
+ 	<!--p>id: {{selected.point_id}}</p>
+ 	<p>parent id: {{selected.parent_id}}</p-->
+ 	<p>net assent: {{selected.value}}</p>
+ 	<p>flavor: {{selected.flavor}}</p>
+ 	<p>text: {{selected.text}}</p>
  
  </div>
 
  <div id="submit-window">
-		 <p float='right'> parent id: {{parent_id}} </p>
+		 <p float='right'> parent id:  </p>
 	 <input type="text" ng-model="username" size="30" placeholder="username">
 	 <!--select ng-model="parent_id" ng-options='point.point_id as point.point_id for point in points'></select-->
 	 <textarea class='text-submit' ng-model="text" placeholder="text body"></textarea>
@@ -25,7 +23,6 @@
 	 <select ng-hide="flavor != 'link'" ng-model='links[0]' ng-options='point.point_id as point.point_id for point in points'> </select>
 	 <select ng-hide="flavor != 'link'" ng-model='links[1]' ng-options='point.point_id as point.point_id for point in points'> </select>
 
-	 <p> {{links}} </p>
 	 <button ng-click='submit()'>Send</button>
 
  </div>
