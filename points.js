@@ -1,84 +1,72 @@
 
-var app = require('./app')
+//var app = require('./app')
 var _ = require('lodash');
+var schemata = require('./schemata')
 
-var points = []
-var last_point_id = -1
 
-exports.getTree = function(point_id){
-  //data.point_id = 
-  //get from database
-  console.log('starting getTree')
-  console.log(points)
-  console.log('finding ' + point_id)
-  var a = []
-  return getConnected(point_id, a)
-}
 
-exports.setLastId = function(point_id){
-  if(point_id === undefined){
-    return -1
-    console.log('gave me a bum point_id')
-  }
-  last_point_id = point_id
-  console.log('point_id set: ' + point_id)
-}
+var points = undefined 
+var last_point_id = undefined //such a paradox
 
-exports.getLastId = function(){
-  return last_point_id
-}
+exports.init = function(callback){
 
-//will have to do database queries later 
-//also have to modify to follow links
-//and maybe modify to have limited range?
-var getConnected = function(point_id, a){
-  if(point_id === undefined || _.find(a, {point_id:point_id}) !== undefined)
-    return a
+  var done = _.after (2, callback)
 
-  //Object.prototype.toString.call(point_id)
-  //Object.prototype.toString.call(points[0].point_id)
-  var elem = _.find(points, {'point_id':point_id})
-  if(elem === undefined){
-    console.log('elem undefined')
-    console.log(point_id)
-    //console.log(points[0].point_id)
-    //console.log(point_id == points[0].point_id)
-    return a
-  }
+  schemata.lastid.find(function(err, id){
+    if (err) return console.error(err)
 
-  console.log('inside getConnected:')
-  console.log(a)
-  a.push(elem)
-  _.forEach(elem.children, function(child){
-    a = getConnected(child, a)
-  })
-  return getConnected(elem.parent, a)
-}
-
-exports.removeRefs = function(socket){
-  a = []
-  _.forEach(points, function(point){
-    point.watchers = _.pull(point.watchers, socket)
-    if(point.watchers.length == 0){
-      console.log('point ' + point.point_id + ' is no longer being watched.')
-      //save to database
-      points = _.pull(points, point)
-      a.push(point)
+    if(last_point_id === undefined){
+      last_point_id = 0
     }
+    else{
+      last_point_id = id[0].last_point_id
+    }
+    console.log('returned from query:')
+    console.log(id)
+
+    var query = schemata.lastid.remove()
+    query.exec()
+
+    done()
   })
-  return a
+
+  schemata.point.find(function(err, p){
+    if(err) return console.error(err)
+    points = p
+
+    var query = schemata.point.remove()
+    query.exec()
+
+    done()
+  })
+
 }
 
-exports.respond_point_id = function(){
-  return ++last_point_id
+exports.getOriginals = function(callback){
+  callback(_.where(points, {original:true}))
 }
 
-exports.new_node = function(socket, data){
+
+exports.request = function(request_id, callback){
+  //console.log('data:')
+  //console.log(data)
+  var point = _.find(points, {point_id:request_id})
+  if(point === undefined){
+    callback([])
+  }
+  else{
+    callback(_.where(points, {root:point.root}))
+  }
+  
+}
+
+exports.new_point = function(data, callback){
   data.point_id = ++last_point_id
 
+  data.root = data.point_id
+
   points.push(data)
-  console.log('pushed')
-  console.log(data)
+
   var delta = 1
 
   if(data.flavor == 'quote')
@@ -87,53 +75,55 @@ exports.new_node = function(socket, data){
   a = []
   a = propogate(data, a, delta)
 
-
+  var parent = _.find(points, {point_id: data.parent})
+  if(parent !== undefined){
+    data.root = parent.root
+    parent.children.push(data.point_id)
+  }
+    /*
+    var modifiedparent = _.find(a, {point_id:data.parent})
+    if(modifiedparent === undefined)
+      a.push(parent)
+  }
+*/
   var notify = []
 
-  data.watchers = []
 
-  if(points[data.parent] !== undefined){
-    points[data.parent].children.push(data.point_id)
-    data.watchers = points[data.parent].watchers
-  }
-  else{
-    data.watchers.push(socket)
-  }
+  callback(a)
+}
 
-  _.forEach(a, function(point){
-    _.forEach(point.watchers, function(w){
-      var not = _.find(notify, {watcher:w})
-      if(not === undefined){
-        not = {}
-        not.watcher = w
-        not.points = []
-        notify.push(not)
-      }
-      not.points.push(point)
+exports.cleanup = function(callback){
+  _.forEach(points, function(point){
+    var p = new schemata.point({ 
+      username:point.username,
+      value:point.value,
+      time:point.time,
+      flavor:point.flavor,
+      text:point.text,
+      parent:point.parent,
+      children:point.children,
+      links:point.links, 
+      original:point.original,
     })
-    delete point.watchers
-  })
-
-
-  _.forEach(notify, function(chain){
-    chain.watcher.emit('update', chain.points)
-    _.forEach(chain, function(not){
-      if(not.watchers === undefined)
-        not.watchers = []
-      not.watchers.push(chain.watcher)
-
+    p.save(function(err, p){
+      if (err) return console.error(err)
     })
   })
 
-  console.log('after node processed')
-  console.log(points)
+  var id = new schemata.lastid({
+    last_point_id:last_point_id
+  })
 
+  id.save(function(err, id){
+    if (err) return console.error(err)
+  })
 }
 
 var propogate = function(n, a, delta){
-  if (n == undefined || _.find(a, n) !== undefined || delta == 0)
+  if (n === undefined || _.find(a, n) !== undefined || delta == 0)
     return a
 
+  n.propogated++
   a.push(n)
 
   //the amount of change above 0
@@ -149,7 +139,8 @@ var propogate = function(n, a, delta){
   if(n.flavor == 'quote')
     newdelta = delta
 
-  a = propogate(points[n.parent], a, newdelta)
+  var parent = _.find(points, {point_id:n.parent})
+  a = propogate(parent, a, newdelta)
 
   return a
 
@@ -163,62 +154,6 @@ var pos = function(value){
 
 }
 
-exports.new_point = function(socket, data){
-	      //data.point_point_id = ++lastpoint_point_id
-  data.point_point_id = points.length
-
-  if(data.parent_point_id == data.point_point_id ||
-   (data.parent_point_id != null && points[data.parent_point_id] === undefined)){
-    console.log("client-spoint_ide error")
-    return
-  }
-
-  if(data.flavor == 'link')
-    data.parent_point_id = null
-
-
-  if(data.parent_point_id != null)
-  { 
-    points[data.parent_point_id].children.push(data)
-  }
-
-  if(data.flavor =='quote')
-    data.value = 0
-  else
-    data.value = 1
-  
-
-
-  points[data.point_point_id] = data
-
-  socket.emit('update',points[data.point_point_id]);
-  socket.broadcast.emit('update', points[data.point_point_id])
-  //console.log(points[data.point_point_id])
-
-  if(data.flavor == 'link'){
-    addLink(data.point_point_id, socket)
-  }
-  else{
-
-    a = []
-    //var current_point_id = data.point_point_id 
-    if(data.flavor == 'assent'){
-      propogate(data.parent_point_id, 1, a, socket)
-    }
-    if(data.flavor == 'dissent'){
-      propogate(data.parent_point_id, -1, a, socket)
-    }
-
-  }
-    socket.emit('update_finished');
-    socket.broadcast.emit('update_finished');
-
-}
-
-
-exports.reset = function(){
-	points = []
-}
 
 function addLink(link_point_id, socket){
   //console.log("=======addLink called!")
@@ -316,3 +251,88 @@ function hasCycle(current_point_id, last_point_id, link_point_id){
 
   return hasCycle(points[current_point_id].parent_point_id, current_point_id, link_point_id)
 }
+
+//archive
+/*
+      if(num_watchers == 0){
+        var lastpoint_id = new mid({
+          lastpoint_id:points.getLastId()
+        })
+
+
+      lastpoint_id.save(function(err, lastpoint_id){
+          if (err) return console.err(err)
+          console.log('saved last point as:')
+          console.log(lastpoint_id)
+        })
+      }
+
+
+*/
+
+
+/*
+  data.watchers = []
+
+  if(points[data.parent] !== undefined){
+    points[data.parent].children.push(data.point_id)
+    data.watchers = points[data.parent].watchers
+  }
+  else{
+    data.watchers.push(socket)
+  }
+
+  _.forEach(a, function(point){
+    _.forEach(point.watchers, function(w){
+      var not = _.find(notify, {watcher:w})
+      if(not === undefined){
+        not = {}
+        not.watcher = w
+        not.points = []
+        notify.push(not)
+      }
+      not.points.push(point)
+    })
+    delete point.watchers
+  })
+
+
+  _.forEach(notify, function(chain){
+    chain.watcher.emit('update', chain.points)
+    _.forEach(chain, function(not){
+      if(not.watchers === undefined)
+        not.watchers = []
+      not.watchers.push(chain.watcher)
+
+    })
+  })
+*/
+
+
+/*
+  var query_recur = function(err, n, a){
+    if(point_id === undefined || _.find(a, {point_id:point_id}) !== undefined)
+      return
+
+    mNode.find({point_id:point_id}, function(err, o){
+      if (err) return console.error(err);
+      console.log('database lookup for id ' + point_id + ' found:')
+      console.log(o)
+      a.push(o)
+      found = o
+      _.forEach(found.children, function(child){
+        query_recur(child, a)
+      })
+
+      query_recur(found.parent, a)
+
+    })
+    //console.log('query_recur so far:')
+    //console.log(a)
+  }
+
+
+});
+
+
+*/

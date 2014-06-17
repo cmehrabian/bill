@@ -7,7 +7,7 @@ angular.module('rhombus', ['components', 'ngRoute'])
 			controller:'discussionCtrl',
 			templateUrl:'views/discussions.html'
 		})
-		.when('/view/:node', {
+		.when('/view/:point_id', {
 			templateUrl:'views/graph.html',
 			controller:'graphCtrl'
 		})
@@ -21,8 +21,17 @@ angular.module('rhombus', ['components', 'ngRoute'])
 
 })
 
-.controller('graphCtrl', function($scope, $rootScope, graph, $routeParams){
-	$rootScope.selected = undefined
+.controller('graphCtrl', function($scope, $rootScope, graph, $routeParams, socket){
+
+	graph.init()
+	console.log('graph ctrl initialized')
+
+	$scope.$on('$destroy', function(){
+		socket.removeAllListeners()
+		console.log('destroyed')
+	})
+
+	$rootScope.selected = null
 
 	$scope.username = ''
 	$scope.parent_point_id = null
@@ -35,34 +44,29 @@ angular.module('rhombus', ['components', 'ngRoute'])
 	//$scope.flavors = ['comment', 'assent', 'dissent', 'quote', 'link']
 	$scope.flavors = ['comment', 'assent', 'dissent', 'quote']
 
-	socket = io.connect(document.URL);
-
 
 	socket.emit('request', {
-		point_id:$routeParams.node
+		point_id:$routeParams.point_id
 	})
 
 
   	socket.on('update', function (data) {
 
-		var points = _.pluck(graph.nodes, 'data')
+  		console.log('received update:')
+  		console.log(data)
+  		graph.update(data, $routeParams.point_id)
 
-		_.forEach(data, function(n){
-			var elem = _.find(points, {point_id:n.point_id})
-			if(elem === undefined){
-				graph.newNode(data)
-				if(parent !== undefined){
-					graph.newEdge(n.point_id, n.parent)
-				}
-			}
-			else{
-				elem = data
-			}
-		})
 
+		$rootScope.selected = data[0]
+		//$scope.$digest()
+
+		console.log('update finished')
+		//console.log('points after modification:')
+		//console.log(points)
 		// ??? ? $scope.$digest() 
 
 	});
+
 
 
 	$scope.submit = function(){
@@ -76,26 +80,17 @@ angular.module('rhombus', ['components', 'ngRoute'])
 			parent:$rootScope.selected.point_id,
 			children:[],
 			links:[],
-			original:false
+			original:false,
+			propogated:0
 		}
 
-		//graph.newNode(n)
-
-/*
-		var points = _.pluck(graph.nodes, 'data')
-		var parent = _.find(points, $rootScope.selected)
-
-		if(parent !== undefined){
-			parent.children.push(n.index)
-			n.parent = parent.point_id
-			graph.newEdge(n, n.parent)
-		}
-*/
 		$scope.flavor = 'comment'
 		$scope.text = ''
 
+		if($rootScope.selected == null)
+			return
 
-		socket.emit('new_node', n)
+		socket.emit('new_point', n)
 		
 	}
 
@@ -121,21 +116,24 @@ angular.module('rhombus', ['components', 'ngRoute'])
 
 })
 
-.controller('discussionCtrl', function($scope){
+.controller('discussionCtrl', function($scope, socket){
+
+	$scope.$on('$destroy', function(){
+		socket.removeAllListeners()
+	})
+
 
 	$scope.discussions = []
-	socket = io.connect(document.URL);
 
 	socket.emit('request_discussions', {})
 
-	socket.on('respond_discussions', function(data){
+	socket.on('update_discussions', function(data){
 		$scope.discussions = data
-		$scope.$digest()
 	})
 
 })
 
-.controller('newCtrl', function($scope){
+.controller('newCtrl', function($scope, socket){
 	$scope.username = ''
 	$scope.text = ''
 
@@ -143,16 +141,18 @@ angular.module('rhombus', ['components', 'ngRoute'])
 
 	$scope.submit = function(){
 		
-		socket.emit('new_node', {
+		socket.emit('new_point', {
 			username:$scope.username,
-			value:1,
+			value:0,
 			time:_.now(),
 			flavor:$scope.flavor,
 			text:$scope.text,
-			parent:undefined,
+			parent:null,
 			children:[],
 			links:[], 
 			original:true,
+			flavor:'comment',
+			propogated:0
 		})
 
 	}
