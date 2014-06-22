@@ -8,10 +8,12 @@ var mongoose = require('mongoose')
       time:Number,
       flavor:String,
       text:String,
+      point_id:Number,
       parent:Number,
       children:Array,
       links:Array, 
-      original:Boolean
+      original:Boolean,
+      propogated:Number
 
   })
 

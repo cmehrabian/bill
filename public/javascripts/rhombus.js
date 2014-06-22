@@ -21,17 +21,17 @@ angular.module('rhombus', ['components', 'ngRoute'])
 
 })
 
-.controller('graphCtrl', function($scope, $rootScope, graph, $routeParams, socket){
+.controller('graphCtrl', function($scope, graph, $routeParams, socket){
 
 	graph.init()
-	console.log('graph ctrl initialized')
 
 	$scope.$on('$destroy', function(){
 		socket.removeAllListeners()
-		console.log('destroyed')
 	})
 
-	$rootScope.selected = null
+	$scope.selected = null
+	$scope.children = null
+	$scope.parent = null
 
 	$scope.username = ''
 	$scope.parent_point_id = null
@@ -39,10 +39,45 @@ angular.module('rhombus', ['components', 'ngRoute'])
 	$scope.flavor = 'comment'
 	$scope.text = ''
 	$scope.links = []
+	$scope.editing = false
+	$scope.looking = true
 	//$scope.value = 0
 
 	//$scope.flavors = ['comment', 'assent', 'dissent', 'quote', 'link']
 	$scope.flavors = ['comment', 'assent', 'dissent', 'quote']
+/*
+	graph.onMouseclick(function(selected, children){
+		$scope.selected = selected
+		$scope.children = children
+	})
+*/
+
+	var updateSelected = function(selected, children, parent){
+		$scope.selected = selected
+		$scope.children = children
+		$scope.parent = parent
+		$scope.looking = true
+		if(!$scope.$$phase) {
+			$scope.$digest()
+		}	
+	}
+
+	graph.registerSelectionChange(updateSelected)
+
+	$scope.select = function(node){
+		if(node == null || node === undefined)
+			return
+		graph.select(node)
+	}
+
+	$scope.close = function(){
+		$scope.looking = false
+	}
+
+	$scope.cancel = function(){
+		$scope.editing = false
+	}
+
 
 
 	socket.emit('request', {
@@ -52,24 +87,23 @@ angular.module('rhombus', ['components', 'ngRoute'])
 
   	socket.on('update', function (data) {
 
-  		console.log('received update:')
-  		console.log(data)
+
   		graph.update(data, $routeParams.point_id)
 
-
-		$rootScope.selected = data[0]
 		//$scope.$digest()
-
-		console.log('update finished')
-		//console.log('points after modification:')
-		//console.log(points)
-		// ??? ? $scope.$digest() 
-
 	});
+
+  	$scope.reset = function(){
+  		console.log($scope.selected)
+  	}
 
 
 
 	$scope.submit = function(){
+
+		if($scope.selected == null)
+			return
+
 
 		var n = {
 			username:$scope.username,
@@ -77,7 +111,7 @@ angular.module('rhombus', ['components', 'ngRoute'])
 			time:_.now(),
 			flavor:$scope.flavor,
 			text:$scope.text,
-			parent:$rootScope.selected.point_id,
+			parent:$scope.selected.data.point_id,
 			children:[],
 			links:[],
 			original:false,
@@ -87,31 +121,11 @@ angular.module('rhombus', ['components', 'ngRoute'])
 		$scope.flavor = 'comment'
 		$scope.text = ''
 
-		if($rootScope.selected == null)
-			return
 
 		socket.emit('new_point', n)
+
+		$scope.editing = false
 		
-	}
-
-	$scope.reset = function(){
-		socket.emit('reset', {});
-		//graph = new Springy.Graph()
-  		//drawGraph()
-	}
-
-	var addOriginEdge = function(point_point_id, origin_point_id){
-		var edges = graph.getEdges(nodes[point_point_id], nodes[origin_point_id])
-		if(edges[0] !== undefined)
-			graph.removeEdge(edges[0])
-		edges = graph.getEdges(nodes[point_point_id], nodes[$rootScope.points[point_point_id].parent_point_id])
-		if(edges[0] !== undefined)
-			graph.removeEdge(edges[0])
-		graph.newEdge(nodes[point_point_id], nodes[origin_point_id], {color: '#FF0011'})
-		graph.newEdge(nodes[point_point_id], nodes[$rootScope.points[point_point_id].parent_point_id], {color: '#000000'})
-
-		$rootScope.points[$rootScope.points[point_point_id].parent_point_id].children.push(point_point_id)
-		//need to remove child from origin??
 	}
 
 })
@@ -156,6 +170,7 @@ angular.module('rhombus', ['components', 'ngRoute'])
 		})
 
 	}
+
 
 
 })

@@ -1,12 +1,11 @@
 angular.module('components', [])
 
-.factory('graph', function($window, $rootScope){
+.factory('graph', function($window){
 
 	var resizeCanvas = function(){
-		console.log('resized')
-		canvas.width = $window.innerWidth * .68;
+		//canvas.width = $window.innerWidth * .68;
+		canvas.width = $window.innerWidth * .95
 		canvas.height = $window.innerHeight * .95
-		//currentBB = layout.getBoundingBox();
 	}
 
 	var canvas;
@@ -24,11 +23,19 @@ angular.module('components', [])
 	var nodes;
 	var edges;
 
+	var selected = null
+	var children = null
+	var parent = null
 
+	var notify
+
+	var mouse = {x:0, y:0}
 
 	var init = function(){
-		//if(canvas == null) return 
-
+		/*
+		if(canvas == null) 
+			console.log('shit is really, really fucked') 
+*/
 		canvas = document.getElementById('graphcanvas')
 		ctx = canvas.getContext("2d")
 
@@ -57,12 +64,13 @@ angular.module('components', [])
 		});
 
 
+
+
+
+
 		renderer = new Springy.Renderer(layout,
 			function clear(){
 				canvas.width = canvas.width
-				//ctx.clearRect(0,0, canvas.wpoint_idth,canvas.height);
-				//ctx.clearRect(0,0,canvas.wpoint_idth,canvas.height);
-
 			},
 			function drawEdge(edge, p1, p2){
 	        	var s1 = toScreen(p1);
@@ -71,8 +79,37 @@ angular.module('components', [])
 				ctx.lineWidth="2";
 				ctx.strokeStyle="black"; // Green path
 
-				//var direction = new Springy.Vector(p2.x- p1.x, p2.y - p1.y);
-				//var slope = (p2.y - p1.y) / (p2.x - p1.x)
+				var slope = (s2.y - s1.y) / (s2.x - s1.x)
+				var radius = edge.target.data.propogated * 2 + 10
+
+				var tanx = radius / Math.sqrt(Math.pow(slope,2) + 1)
+				var arrowLength = 10
+				var arrowWidth = 2
+
+
+				if(s2.x > s1.x)
+					tanx = -tanx
+
+				var tany = slope * tanx
+
+				tanx += s2.x
+				tany += s2.y
+
+				ctx.save();
+				ctx.fillStyle = 'black';
+				ctx.translate(tanx, tany);
+				ctx.rotate(Math.atan2(s2.y - s1.y, s2.x - s1.x));
+				ctx.beginPath();
+				ctx.moveTo(-arrowLength, arrowWidth);
+				ctx.lineTo(0, 0);
+				ctx.lineTo(-arrowLength, -arrowWidth);
+				ctx.lineTo(-arrowLength * 0.8, -0);
+				ctx.closePath();
+				ctx.fill();
+				ctx.restore();
+
+
+
 
 				//b = c / (sqrt(m+1))
 				//var tangy = (p2.data.propogated + 10) / Math.sqrt(Math.pow(slope, 2) + 1) 
@@ -112,63 +149,85 @@ angular.module('components', [])
 
 				}
 	*/
+
+				var radius = node.data.propogated * 2 + 10
+				if(mouse.x < s.x + radius && mouse.x > s.x - radius && mouse.y < s.y + radius && mouse.y > s.y - radius){
+					ctx.font = "14px Arial";
+					ctx.fillText(node.data.text, s.x + radius + 10, s.y + radius + 10)
+				}
 	      		//console.log(s)
-	      		ctx.fillStyle = '#FFFFFF'
+	      		if(node.data.parent == null){
+		      		ctx.fillStyle = 'gray'
+		      		var len = node.data.propogated * 2 + 30
+		      		ctx.fillRect(s.x - len / 2, s.y - len/2, len, len)
+				}
+	      		ctx.fillStyle = '#F1F1F2'
 	      		if(node.data.flavor == 'dissent')
 	      			ctx.fillStyle = '#FF9966' //red
 	      		if(node.data.flavor == 'assent')
 	      			ctx.fillStyle = '#99FF66' //green
-	      		if($rootScope.selected == node.data)
+	      		if(selected == node)
 	      			ctx.fillStyle = '#FFFF66' //yellow
 
 	      		ctx.lineWidth="2"
-				//ctx.fillRect(s.x - 10,s.y - 10 , 20,20);
-				//ctx.rect(s.x -10, s.y - 10, 20, 20)
 				ctx.beginPath();
-	      		ctx.arc(s.x, s.y, node.data.propogated + 10, 0, 2 * Math.PI, false);
+
+	      		ctx.arc(s.x, s.y, radius, 0, 2 * Math.PI, false);
 	      		ctx.fill()
+
+	      		var ss = 'black'
+	      		if(!node.seen)
+	      			ss = 'blue'
+
+	      		ctx.strokeStyle = ss
 				ctx.stroke();
 			})
 
 		renderer.start()
-		console.log('graph initialized')
 
-			$window.addEventListener('resize', resizeCanvas, false);
+		$window.addEventListener('resize', resizeCanvas, false);
 
 		canvas.addEventListener('click', function(event){
-		var totalOffsetX = 0;
-    	var totalOffsetY = 0;
-    	var canvasX = 0;
-    	var canvasY = 0;
-    	var currentElement = this;
+			var totalOffsetX = 0;
+	    	var totalOffsetY = 0;
+	    	var canvasX = 0;
+	    	var canvasY = 0;
+	    	var currentElement = this;
 
-    	do{
-        	totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
-        	totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
-    	}
-    	while(currentElement = currentElement.offsetParent)
+	    	do{
+	        	totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+	        	totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+	    	}
+	    	while(currentElement = currentElement.offsetParent)
 
-    	canvasX = event.pageX - totalOffsetX;
-    	canvasY = event.pageY - totalOffsetY;
+	    	canvasX = event.pageX - totalOffsetX;
+	    	canvasY = event.pageY - totalOffsetY;
 
 
-    	var p = fromScreen({x: canvasX, y: canvasY});
-		$rootScope.selected = layout.nearest(p).node.data;
+	    	var p = fromScreen({x: canvasX, y: canvasY});
 
-		$rootScope.$digest()
-		
-		renderer.start()
-	})
+	    	select(layout.nearest(p).node)
 
+		})
+
+		canvas.addEventListener('mousemove',function(event){
+			var totalOffsetX = 0;
+	    	var totalOffsetY = 0;
+	    	var canvasX = 0;
+	    	var canvasY = 0;
+	    	var currentElement = this;
+
+	    	do{
+	        	totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+	        	totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+	    	}
+	    	while(currentElement = currentElement.offsetParent)
+
+	    	mouse.x = event.pageX - totalOffsetX;
+	    	mouse.y = event.pageY - totalOffsetY;
+		})
 
 	}
-
-
-
-
-
-
-
 
 	var toScreen = function(p) {
 		var size = currentBB.topright.subtract(currentBB.bottomleft);
@@ -186,29 +245,15 @@ angular.module('components', [])
 
 
 
-	var newNode = function(data){
-
-		var node = graph.newNode(data);
-		nodes.push(node);
-		return node
-	}
-
-	var newEdge = function(n1, n2){
-		graph.newEdge(n1 , n2)
-
-	}
 
 	var update = function(data, request_id){
 
-		console.log('data:')
-		console.log(data)
-		console.log('nodes:')
-		console.log(nodes)
 
 		if(nodes.length == 0){
 			_.forEach(data, function(point){
 
 				var node = graph.newNode(point)
+				node.seen = false
 				nodes.push(node)
 
 				var parent = _.find(nodes, function(n){
@@ -229,6 +274,7 @@ angular.module('components', [])
 				})
 
 			})
+			select(_.find(nodes, function(n){return n.data.point_id == parseInt(request_id)}))
 		}
 		else{
 			var parent = _.find(nodes, function(n){
@@ -242,6 +288,7 @@ angular.module('components', [])
 			}
 			else{
 				var node = graph.newNode(data[0])
+				node.seen = false
 				nodes.push(node)
 				graph.newEdge(node, parent)
 				_.forEach(data, function(p){
@@ -250,53 +297,45 @@ angular.module('components', [])
 					}).data = p
 				})
 			}
+
+			select(selected)
+
 		}
-
-		console.log('nodes:')
-		console.log(nodes)
-
-		/*
-		var points = _.pluck(nodes, 'data')
-
-		var request = _.find(points, {point_id:parseInt(request_id)})
-		 console.log(points)
-		// console.log(points.length)
-		//console.log(points.length == 0)
-		if(points.length != 0 && (request === undefined || data[0].root != request.root)){
-			console.log('bad request or irrelevant update')
-			return
-		}
-
-
-		_.forEach(data, function(n){
-			var elem = _.find(points, {point_id:n.point_id})
-			if(elem === undefined){
-				var node = graph.newNode(n)
-				nodes.push(node)
-
-				var parent = _.find(nodes, function(){
-					n.data.point_id == 
-				})
-				/*
-				if(n.parent != null){
-					var parent = _.find(nodes, {data:_.find(points, {point_id:n.parent})})
-					graph.newEdge(node, parent)
-				}
-
-
-			}
-			else{
-				_.find(nodes, {data:elem}).data = n
-			}
-		})
-*/
-
 
 	}
 
+	var select = function(node){
+		if (node == null){
+			selected = null
+			children = null
+		}
+		else{
+			node.seen = true
+			selected = node
+			children = _.where(nodes, function(n){
+				return node.data.point_id == n.data.parent
+			})
+			parent = _.find(nodes, function(n){
+				return n.data.point_id == node.data.parent
+			})
+
+			if (parent === undefined)
+				parent = null
+		}
+		notify(selected, children, parent)
+		renderer.start()
+	}
+
+	var registerSelectionChange = function(callback){
+		notify = callback
+	}
+
+
 	return {
 		update:update,
-		init:init
+		init:init,
+		select:select,
+		registerSelectionChange:registerSelectionChange
 	}
 
 })

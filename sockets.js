@@ -29,7 +29,7 @@ module.exports.listen = function(app){
     socket.on('request', function(data){
       var request_id = parseInt(data.point_id)
 
-     // console.log('requested:' + data.point_id)
+      console.log('request received for:' + data.point_id)
       if(!isNaN(request_id)){
         points.request(request_id, function(requested){
           socket.emit('update', requested)

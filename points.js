@@ -8,6 +8,7 @@ var schemata = require('./schemata')
 var points = undefined 
 var last_point_id = undefined //such a paradox
 
+
 exports.init = function(callback){
 
   var done = _.after (2, callback)
@@ -34,6 +35,8 @@ exports.init = function(callback){
     if(err) return console.error(err)
     points = p
 
+    console.log('returned from points query:')
+    console.log(points)
     var query = schemata.point.remove()
     query.exec()
 
@@ -50,6 +53,8 @@ exports.getOriginals = function(callback){
 exports.request = function(request_id, callback){
   //console.log('data:')
   //console.log(data)
+  console.log('points:')
+  console.log(points)
   var point = _.find(points, {point_id:request_id})
   if(point === undefined){
     callback([])
@@ -80,12 +85,13 @@ exports.new_point = function(data, callback){
     data.root = parent.root
     parent.children.push(data.point_id)
   }
-    /*
+    
     var modifiedparent = _.find(a, {point_id:data.parent})
+
     if(modifiedparent === undefined)
       a.push(parent)
-  }
-*/
+  
+
   var notify = []
 
 
@@ -96,6 +102,7 @@ exports.cleanup = function(callback){
   _.forEach(points, function(point){
     var p = new schemata.point({ 
       username:point.username,
+      point_id:point.point_id,
       value:point.value,
       time:point.time,
       flavor:point.flavor,
@@ -104,6 +111,7 @@ exports.cleanup = function(callback){
       children:point.children,
       links:point.links, 
       original:point.original,
+      propogated:point.propogated
     })
     p.save(function(err, p){
       if (err) return console.error(err)
@@ -117,6 +125,7 @@ exports.cleanup = function(callback){
   id.save(function(err, id){
     if (err) return console.error(err)
   })
+
 }
 
 var propogate = function(n, a, delta){
