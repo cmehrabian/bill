@@ -14,8 +14,14 @@ var io = require('./sockets').listen(server) //important
 //var _ = require('lodash');
 
 
+var uristring = 
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/test';
+
+
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect(uristring);
 
 var db = mongoose.connection;
 
