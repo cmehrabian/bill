@@ -28,10 +28,10 @@ a {
 {
 	position:absolute;
 	
-	right:20%;
-	top:20%;
-	left:20%;
-	bottom:20%;
+	right:15%;
+	top:15%;
+	left:15%;
+	bottom:15%;
 
 
 /*
@@ -45,7 +45,9 @@ a {
 	background-color:#F1F1F2;*/
 	border:1px solid;
 	overflow-y:auto;
-	z-index:1;
+	z-index:1;	
+	opacity:.9;
+
 }
 
 .point-window .padding
@@ -69,14 +71,15 @@ a {
 	left:70%;
 	bottom:10%;
 	*/
-	right:20%;
-	top:20%;
-	left:20%;
-	bottom:20%;
+	right:15%;
+	top:15%;
+	left:15%;
+	bottom:15%;
 	background-color: #F1F1F2;
 	border-color:black;
 	border:1px solid;
 	z-index:1;
+	opacity:.9;
 
 }
 

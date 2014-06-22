@@ -136,7 +136,6 @@ angular.module('rhombus', ['components', 'ngRoute'])
 		socket.removeAllListeners()
 	})
 
-
 	$scope.discussions = []
 
 	socket.emit('request_discussions', {})

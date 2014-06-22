@@ -13,7 +13,8 @@ var mongoose = require('mongoose')
       children:Array,
       links:Array, 
       original:Boolean,
-      propogated:Number
+      propogated:Number,
+      root:Number
 
   })
 

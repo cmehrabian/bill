@@ -94,8 +94,7 @@ angular.module('components', [])
 
 				tanx += s2.x
 				tany += s2.y
-
-				ctx.save();
+	        	ctx.save()
 				ctx.fillStyle = 'black';
 				ctx.translate(tanx, tany);
 				ctx.rotate(Math.atan2(s2.y - s1.y, s2.x - s1.x));
@@ -152,9 +151,11 @@ angular.module('components', [])
 
 				var radius = node.data.propogated * 2 + 10
 				if(mouse.x < s.x + radius && mouse.x > s.x - radius && mouse.y < s.y + radius && mouse.y > s.y - radius){
-					ctx.font = "14px Arial";
-					ctx.fillText(node.data.text, s.x + radius + 10, s.y + radius + 10)
 				}
+				ctx.fillStyle = 'black'
+				ctx.font = "14px Arial black";
+				ctx.fillText(node.data.text.substr(0,25), s.x + radius + 10, s.y + radius + 10)
+
 	      		//console.log(s)
 	      		if(node.data.parent == null){
 		      		ctx.fillStyle = 'gray'

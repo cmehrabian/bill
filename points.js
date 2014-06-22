@@ -111,7 +111,8 @@ exports.cleanup = function(callback){
       children:point.children,
       links:point.links, 
       original:point.original,
-      propogated:point.propogated
+      propogated:point.propogated,
+      root:point.root
     })
     p.save(function(err, p){
       if (err) return console.error(err)
