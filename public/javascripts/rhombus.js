@@ -34,23 +34,14 @@ angular.module('rhombus', ['components', 'ngRoute'])
 	$scope.parent = null
 
 	$scope.username = ''
-	$scope.parent_point_id = null
-	//$scope.point_point_id = lastpoint_point_id + 1;
 	$scope.flavor = 'comment'
 	$scope.text = ''
 	$scope.links = []
 	$scope.editing = false
 	$scope.looking = true
-	//$scope.value = 0
 
 	//$scope.flavors = ['comment', 'assent', 'dissent', 'quote', 'link']
 	$scope.flavors = ['comment', 'assent', 'dissent', 'quote']
-/*
-	graph.onMouseclick(function(selected, children){
-		$scope.selected = selected
-		$scope.children = children
-	})
-*/
 
 	var updateSelected = function(selected, children, parent){
 		$scope.selected = selected

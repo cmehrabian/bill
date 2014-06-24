@@ -154,7 +154,10 @@ angular.module('components', [])
 				}
 				ctx.fillStyle = 'black'
 				ctx.font = "14px Arial black";
-				ctx.fillText(node.data.text.substr(0,25), s.x + radius + 10, s.y + radius + 10)
+				var str = node.data.text.substr(0,25)
+				if(node.data.text.length > 25)
+					str += '...'
+				ctx.fillText(str, s.x + radius + 10, s.y + radius + 10)
 
 	      		//console.log(s)
 	      		if(node.data.parent == null){
@@ -210,7 +213,7 @@ angular.module('components', [])
 	    	select(layout.nearest(p).node)
 
 		})
-
+/*
 		canvas.addEventListener('mousemove',function(event){
 			var totalOffsetX = 0;
 	    	var totalOffsetY = 0;
@@ -227,7 +230,7 @@ angular.module('components', [])
 	    	mouse.x = event.pageX - totalOffsetX;
 	    	mouse.y = event.pageY - totalOffsetY;
 		})
-
+*/
 	}
 
 	var toScreen = function(p) {

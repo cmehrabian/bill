@@ -22,8 +22,8 @@ exports.init = function(callback){
     else{
       last_point_id = id[0].last_point_id
     }
-    console.log('returned from query:')
-    console.log(id)
+    console.log('last_point_id set to:')
+    console.log(last_point_id)
 
     var query = schemata.lastid.remove()
     query.exec()
@@ -126,6 +126,8 @@ exports.cleanup = function(callback){
   id.save(function(err, id){
     if (err) return console.error(err)
   })
+  points = []
+  callback()
 
 }
 

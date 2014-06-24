@@ -9,8 +9,6 @@ module.exports.listen = function(app){
   var num_watchers = 0
 
   io.sockets.on('connection', function (socket) {
-    console.log('connected:')
-    console.log(num_watchers)
     if(num_watchers == 0){
       points.init(function(){
         console.log('initialized')
@@ -28,12 +26,9 @@ module.exports.listen = function(app){
 
     socket.on('request', function(data){
       var request_id = parseInt(data.point_id)
-
-      console.log('request received for:' + data.point_id)
       if(!isNaN(request_id)){
         points.request(request_id, function(requested){
           socket.emit('update', requested)
-          console.log('sent request response')
 
         })
       }
@@ -47,7 +42,6 @@ module.exports.listen = function(app){
       points.new_point(data, function(modified){
         socket.emit('update', modified)
         socket.broadcast.emit('update', modified)
-        console.log('sent new point response')
       })
       
     });
