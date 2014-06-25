@@ -10,7 +10,7 @@ var path = require('path');
 
 var app = module.exports = express()
 var server = require('http').createServer(app)
-var io = require('./sockets').listen(server) //important
+var io = require('./sockets').listen(server) //this is where sockets.js comes in
 //var _ = require('lodash');
 
 

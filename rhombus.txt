@@ -1,0 +1,42 @@
+
+Rhombus is a software-independent style of interaction.  Here are the rules.  Like everything else related to this project they are malleable.  
+
+Any response can be responded to, and all responses take one of five forms
+
+Comment: A neutral statement
+Agreement: Agreeing for the provided reason
+Disagreement: Disagreeing for the provided reason
+Quote: Since there's no practical text limit on posts, quotes allow large posts to be broken up into constituent parts which can individually be argued over.
+Link: A link basically refers to two separate points and is basically a statement saying "these two separate points are logically equivalent".  When two statements are linked, all arguments for or against one count for the other, and vice versa.  The link itself is a point and can be argued over, and if its value is less than or equal to 0 then the effect of the link is nullified, but it can go back into effect it goes above 1 again.
+
+All responses except quotes start with a value of 1 (this is kind of intuitive because 1 person agrees with that statement).  Agreements add their value to whatever they are referring to, and disagreements subtract their value, but neither will affect their parent if the value is 0 or less.  This is because if someone, for example, posts a really bad argument for something, and that argument accrues a large negative value, that bad argument shouldn't be beneficial to the other side of the argument.  
+
+Quotes start with a value of 0 and their text should contain an exact portion of text from their parent.  That portion of text should be a debateable statement by its own right and should be able to be agreed or disagreed with.  Quotes convey their value towards the thing they refer to, but unlike agreements and disagreements, if quotes have negative values their value is propagated to its parent.  
+
+Don't use comments if you can avoid it.  I might remove them altogether.  They break the propagation chain which can have things spiral into an unkempt mess if not properly cultivated.  Really only use them for things that aren't arguable in a meaningfull way (e.g. 'Good job!' or 'Well said!')
+
+Once you link two things, the value of the two linked items is the same.  If the link implies a circular reference, the most recent one is removed.  For an example of a circular reference, consider the following graph:
+
+A <- B1 <- C <- B2
+
+Where B1 and B2 and logically equivalent.  If a link were to then be created linking B1 and B2, then the implication chain becomes 
+
+B -> C -> B
+
+which reduces to 
+
+B -> B 
+
+And since tautologies aren't all that useful, we just remove B2 from everything altogether.  However, it can come back into play if people disagree with the link.  
+
+Rhombus is incredibly unintuitive when you read it so if you're confused I encourage you to go to http://rhombus-asdf.herokuapp.com and experiment with it, it will definitely make more sense
+
+Also, Rhombus is very imperfect.  My main gripes with it are
+
+- It's not very good at recovering when someone posts a comment where definitions of terms aren't well established.  In other words, there is no way to request elaborations from people.  This is seriously restricting in philosophically heavy arguments
+
+- The parent of any given graph has to be a statement, which seems a bit meh.  
+
+There are some obvious fixes for these things, but I really want to run more tests and think more about it so we can get a grasp on the whole of the problem.  There might be an elegant solution out there.  
+
+Feedback is sorely appreciated.  

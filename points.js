@@ -3,11 +3,23 @@
 var _ = require('lodash');
 var schemata = require('./schemata')
 
+/*
+All server-side logic for handling requests and keeping track of the points is here.
+There is a lot of legacy code involving links.  Don't mind that.  
+*/
+
 
 
 var points = undefined 
 var last_point_id = undefined //such a paradox
 
+
+/*  
+If the amount of watchers becomes nonzero, this function is called.
+It gets all of the points from the database and the last id the server
+handed out, and stores them in program memory. It also destroys the old
+records
+*/
 
 exports.init = function(callback){
 
@@ -45,11 +57,12 @@ exports.init = function(callback){
 
 }
 
+//gets all the original posts
 exports.getOriginals = function(callback){
   callback(_.where(points, {original:true}))
 }
 
-
+//gets a point and all connected points
 exports.request = function(request_id, callback){
   //console.log('data:')
   //console.log(data)
@@ -98,6 +111,7 @@ exports.new_point = function(data, callback){
   callback(a)
 }
 
+//called if amount of watchers becomes 0.  Saves everything to database.
 exports.cleanup = function(callback){
   _.forEach(points, function(point){
     var p = new schemata.point({ 
@@ -131,6 +145,11 @@ exports.cleanup = function(callback){
 
 }
 
+/*
+Recursive. Takes a point (n), an array (a), and the value to be propagated (delta)
+All points that have already been visited are added to a.  a is returned at the 
+end of the function and set to all users (currently)
+*/
 var propogate = function(n, a, delta){
   if (n === undefined || _.find(a, n) !== undefined || delta == 0)
     return a
@@ -138,7 +157,16 @@ var propogate = function(n, a, delta){
   n.propogated++
   a.push(n)
 
-  //the amount of change above 0
+  /*
+  There are six conditions to consider when propagating a value. They are:
+  -the value and delta are positive
+  -the value is positive and delta is negative, but the absolute value of the value is larger
+  -the value is positive and delta is negative, but the absolute value of the value is smaller
+  and the three opposite cases
+
+  In all cases the amount of value to propagate can be defined as the amount of change above 0, 
+  and I'M PRETTY SURE this function will return that value.  
+  */
   var newdelta = pos(n.value + delta) - pos(n.value)
 
   n.value += delta
@@ -158,6 +186,7 @@ var propogate = function(n, a, delta){
 
 }
 
+
 var pos = function(value){
   if(value > 0)
     return value;
@@ -165,7 +194,7 @@ var pos = function(value){
     return 0
 
 }
-
+/*
 
 function addLink(link_point_id, socket){
   //console.log("=======addLink called!")
@@ -263,7 +292,7 @@ function hasCycle(current_point_id, last_point_id, link_point_id){
 
   return hasCycle(points[current_point_id].parent_point_id, current_point_id, link_point_id)
 }
-
+*/
 //archive
 /*
       if(num_watchers == 0){
