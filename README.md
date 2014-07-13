@@ -5,6 +5,28 @@ This is mostly a document on how Rhombus was designed architecturally.  For how 
 This was all built primarily with nodejs, angularjs, socketio, mongodb, and springyjs (a force-directed
 graph library.)
 
+## Getting started
+Install the following packages:  
+	* nodejs  
+	* mongodb
+For OS X using Homebrew do:  
+```sh
+$ brew install nodejs mongodb
+```  
+For Ubuntu and derivatives do:  
+```sh
+$ sudo apt-get install nodejs mongodb
+```
+
+For Arch do:  
+```sh
+$ sudo pacman -S nodejs mongodb
+```
+To run the app do:  
+```sh
+$ node app.js
+```
+
 ## Use model
 
 Relevant clients send a request for a node, and the response is the node and some amount of adjacent graph. Graphs (posts and their conversations) may or may not be connected to other graphs.  Users may have full, partial, or no overlap with other users in terms of the graphs they are looking at.  Users might disconnect at any time without warning.  
