@@ -24,6 +24,7 @@ var mongoose = require('mongoose');
 mongoose.connect(uristring);
 
 var db = mongoose.connection;
+var points = require('./points')
 
 // all environments
 
@@ -41,6 +42,11 @@ app.use(express.methodOverride());
 //app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.get('/reset', function(req, res){
+  points.reset()
+  res.send('reset')
+});
 
 //=======
 //app.set('env', 'production')

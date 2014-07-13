@@ -14,13 +14,17 @@ var points = undefined
 var last_point_id = undefined //such a paradox
 
 
+exports.reset = function(){
+  points = []
+  last_point_id = 0
+}
+
 /*  
 If the amount of watchers becomes nonzero, this function is called.
 It gets all of the points from the database and the last id the server
 handed out, and stores them in program memory. It also destroys the old
 records
 */
-
 exports.init = function(callback){
 
   var done = _.after (2, callback)
