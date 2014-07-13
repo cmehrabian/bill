@@ -40,3 +40,5 @@ Also, Rhombus is very imperfect.  My main gripes with it are
 There are some obvious fixes for these things, but I really want to run more tests and think more about it so we can get a grasp on the whole of the problem.  There might be an elegant solution out there.  
 
 Feedback is sorely appreciated.  
+
+I made a new version.  
