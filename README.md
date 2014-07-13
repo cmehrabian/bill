@@ -1,9 +1,15 @@
+
 # Rhombus 
 
 This is mostly a document on how Rhombus was designed architecturally.  For how Rhombus works, see rhombus.txt.  For what Rhombus is, talk to me.  
 
 This was all built primarily with nodejs, angularjs, socketio, mongodb, and springyjs (a force-directed
 graph library.)
+
+## To run locally
+
+make sure you have mongodb installed first
+npm install && npm start should work after that
 
 ## Use model
 
