@@ -6,10 +6,27 @@ This is mostly a document on how Rhombus was designed architecturally.  For how 
 This was all built primarily with nodejs, angularjs, socketio, mongodb, and springyjs (a force-directed
 graph library.)
 
-## To run locally
+## Getting started
+Install the following packages:  
+	* nodejs  
+	* mongodb
+For OS X using Homebrew do:  
+```sh
+$ brew install nodejs mongodb
+```  
+For Ubuntu and derivatives do:  
+```sh
+$ sudo apt-get install nodejs mongodb
+```
 
-make sure you have mongodb installed first
-npm install && npm start should work after that
+For Arch do:  
+```sh
+$ sudo pacman -S nodejs mongodb
+```
+To run the app do:  
+```sh
+$ node app.js
+```
 
 ## Use model
 
