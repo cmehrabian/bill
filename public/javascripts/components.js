@@ -9,8 +9,8 @@ angular.module('components', [])
 .factory('graph', function($window){
 
 	var resizeCanvas = function(){
-		//canvas.width = $window.innerWidth * .68;
-		canvas.width = $window.innerWidth * .95
+		canvas.width = $window.innerWidth * .68;
+		//canvas.width = $window.innerWidth * .95
 		canvas.height = $window.innerHeight * .95
 	}
 
