@@ -23,6 +23,10 @@ For Arch do:
 ```sh
 $ sudo pacman -S nodejs mongodb
 ```
+Next install node package dependencies:  
+```sh
+$ npm install
+```
 To run the app do:  
 ```sh
 $ node app.js
