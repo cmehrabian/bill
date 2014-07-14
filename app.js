@@ -13,6 +13,10 @@ var server = require('http').createServer(app)
 var io = require('./sockets').listen(server) //this is where sockets.js comes in
 //var _ = require('lodash');
 
+var neo4j = require('neo4j');
+var db = new neo4j.GraphDatabase('http://localhost:7474');
+
+/*
 
 var uristring = 
     process.env.MONGOLAB_URI ||
@@ -24,7 +28,12 @@ var mongoose = require('mongoose');
 mongoose.connect(uristring);
 
 var db = mongoose.connection;
+*/
+
 var points = require('./points')
+
+
+
 
 // all environments
 
@@ -42,11 +51,6 @@ app.use(express.methodOverride());
 //app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.get('/reset', function(req, res){
-  points.reset()
-  res.send('reset')
-});
 
 //=======
 //app.set('env', 'production')

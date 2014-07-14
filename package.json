@@ -10,6 +10,7 @@
     "ejs":"*",
     "socket.io":"0.9",
     "lodash":"*",
-    "mongoose":"*"
+    "mongoose":"*",
+    "neo4j":"*"
     }
 }
