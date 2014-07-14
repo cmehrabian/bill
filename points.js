@@ -1,7 +1,7 @@
 
 //var app = require('./app')
 var _ = require('lodash');
-var schemata = require('./schemata')
+//var schemata = require('./schemata')
 
 /*
 All server-side logic for handling requests and keeping track of the points is here.
@@ -10,8 +10,8 @@ There is a lot of legacy code involving links.  Don't mind that.
 
 
 
-var points = undefined 
-var last_point_id = undefined //such a paradox
+var points = [] 
+var last_point_id = 0 
 
 
 exports.reset = function(){
@@ -28,7 +28,7 @@ records
 exports.init = function(callback){
 
   var done = _.after (2, callback)
-
+/*
   schemata.lastid.find(function(err, id){
     if (err) return console.error(err)
 
@@ -58,7 +58,7 @@ exports.init = function(callback){
 
     done()
   })
-
+*/
 }
 
 //gets all the original posts
@@ -117,6 +117,7 @@ exports.new_point = function(data, callback){
 
 //called if amount of watchers becomes 0.  Saves everything to database.
 exports.cleanup = function(callback){
+  /*
   _.forEach(points, function(point){
     var p = new schemata.point({ 
       username:point.username,
@@ -144,6 +145,8 @@ exports.cleanup = function(callback){
   id.save(function(err, id){
     if (err) return console.error(err)
   })
+
+*/
   points = []
   callback()
 
