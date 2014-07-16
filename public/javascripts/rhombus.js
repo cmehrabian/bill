@@ -19,21 +19,23 @@ angular.module('rhombus', ['components', 'ngRoute'])
 
 .config(function($routeProvider){
 	$routeProvider
-		.when('/', {
-			controller:'discussionCtrl',
-			templateUrl:'views/discussions.html'
+		.when('/',{
+			templateUrl:'views/board.html',
+			controller:'boardCtrl'
 		})
-		.when('/view/:point_id', {
-			templateUrl:'views/graph.html',
-			controller:'graphCtrl'
-		})
+
 		.when('/new',{
 			templateUrl:'views/new.html',
 			controller:'newCtrl'
 		})
+		.when('/view/:point_id', {
+			templateURL:'views/graph.html',
+			controller:'graphCtrl'
+		})
 		.otherwise({
-      		redirectTo:'/'
-    	});
+			templateURL:'views/board.html',
+			controller:'boardCtrl'
+		})
 
 })
 
@@ -137,31 +139,14 @@ angular.module('rhombus', ['components', 'ngRoute'])
 
 })
 
-.controller('discussionCtrl', function($scope, socket){
-
-	$scope.$on('$destroy', function(){
-		socket.removeAllListeners()
-	})
-
-	$scope.discussions = []
-
-	socket.emit('request_discussions', {})
-
-	socket.on('update_discussions', function(data){
-		$scope.discussions = data
-	})
-
-})
-
-.controller('newCtrl', function($scope, socket){
+.controller('newCtrl', function($scope, $location, $http){
 	$scope.username = ''
 	$scope.text = ''
 
-	socket = io.connect(document.URL);
 
 	$scope.submit = function(){
-		
-		socket.emit('new_point', {
+		var data =  
+		{
 			username:$scope.username,
 			value:0,
 			time:_.now(),
@@ -173,10 +158,34 @@ angular.module('rhombus', ['components', 'ngRoute'])
 			original:true,
 			flavor:'comment',
 			propogated:0
-		})
+		}
+
+	$http({method: 'POST', url: '/submit', data: data}).
+	    success(function(data, status, headers, config) {
+	    	$location.path('/');
+	    }).
+	    error(function(data, status, headers, config) {
+	    	console.log(data);
+	    	console.log(status);
+	    	console.log(headers);
+	    	console.log(config);
+	    });
 
 	}
 
+})
 
+.controller('boardCtrl', function($scope, $routeParams, $http){
+  $http({method: 'GET', url: '/requestTopics'}).
+    success(function(data, status, headers, config) {
+    	console.log(data)
 
+    	$scope.topics = data
+    }).
+    error(function(data, status, headers, config) {
+    	console.log(data);
+    	console.log(status);
+    	console.log(headers);
+    	console.log(config);
+    });
 })

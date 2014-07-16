@@ -82,6 +82,10 @@ exports.request = function(request_id, callback){
   
 }
 
+exports.requestTopics = function(callback){
+  callback(_.where(points, {original:true}))
+}
+
 exports.new_point = function(data, callback){
   data.point_id = ++last_point_id
 

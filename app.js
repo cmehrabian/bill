@@ -5,35 +5,16 @@
 
 var express = require('express');
 
-//var http = require('http');
 var path = require('path');
 
 var app = module.exports = express()
 var server = require('http').createServer(app)
 var io = require('./sockets').listen(server) //this is where sockets.js comes in
-//var _ = require('lodash');
 
 var neo4j = require('neo4j');
 var db = new neo4j.GraphDatabase('http://localhost:7474');
 
-/*
-
-var uristring = 
-    process.env.MONGOLAB_URI ||
-    process.env.MONGOHQ_URL ||
-    'mongodb://localhost/test';
-
-
-var mongoose = require('mongoose');
-mongoose.connect(uristring);
-
-var db = mongoose.connection;
-*/
-
 var points = require('./points')
-
-
-
 
 // all environments
 
@@ -64,5 +45,20 @@ if ('development' == app.get('env')) {
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+app.get('/reset', function(req, res){
+  points.reset()
+  res.send('reset')
+});
+
+app.get('/requestTopics', function(req, res){
+  points.requestTopics(function(topics){
+  	console.log(topics)
+  	res.send(topics)});
+});
+
+app.post('/submit', function(req, res, data){
+	points.new_point(req.body, function(){res.send('')});
+})
 
 

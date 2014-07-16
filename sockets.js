@@ -25,13 +25,6 @@ module.exports.listen = function(app){
 
     num_watchers++
 
-    //the homepage. Update discussions returns the list of original posts
-    socket.on('request_discussions', function(data){
-      points.getOriginals(function(list){
-        socket.emit('update_discussions', list)
-      })
-    })
-
     //a request is sent with a point id.
     socket.on('request', function(data){
       var request_id = parseInt(data.point_id)
