@@ -1,7 +1,7 @@
 
 
 /*
-	graph is really the star
+	graph is really the star *
 */
 
 angular.module('components', [])
@@ -83,7 +83,7 @@ angular.module('components', [])
 	        	var s2 = toScreen(p2);
 	        	ctx.beginPath(); 
 				ctx.lineWidth="2";
-				ctx.strokeStyle="black"; // Green path
+				ctx.strokeStyle="black"; 
 
 				var slope = (s2.y - s1.y) / (s2.x - s1.x)
 				var radius = edge.target.data.propogated * 2 + 10
@@ -219,24 +219,6 @@ angular.module('components', [])
 	    	select(layout.nearest(p).node)
 
 		})
-/*
-		canvas.addEventListener('mousemove',function(event){
-			var totalOffsetX = 0;
-	    	var totalOffsetY = 0;
-	    	var canvasX = 0;
-	    	var canvasY = 0;
-	    	var currentElement = this;
-
-	    	do{
-	        	totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
-	        	totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
-	    	}
-	    	while(currentElement = currentElement.offsetParent)
-
-	    	mouse.x = event.pageX - totalOffsetX;
-	    	mouse.y = event.pageY - totalOffsetY;
-		})
-*/
 	}
 
 	var toScreen = function(p) {

@@ -42,7 +42,7 @@
 	 <select ng-hide="flavor != 'link'" ng-model='links[0]' ng-options='point.point_id as point.point_id for point in points'> </select>
 	 <select ng-hide="flavor != 'link'" ng-model='links[1]' ng-options='point.point_id as point.point_id for point in points'> </select>
 
-	 <div ng-hide="flavor != 'comment'">WARNING: Comments break the value propogation chain and should really be avoided if possible.  Only post a comment if what you're saying isn't really an arguable point.  Questions can be phrased as disagreements, and elaborations or sources are agreements</div>
+	 <div ng-hide="flavor != 'comment'">WARNING: Comments break the value propogation chain and should really be avoided if possible.  Only post a comment if what you're saying isn't really an arguable point.  </div>
 	 <div ng-hide="flavor != 'quote'">There is no text limit on posts as of right now, so the quote feature allows long posts to be broken up into constituent points which can individually be argued over.  The body of a quote should feature a subset of text from the parent</div>
 	 <button ng-click='submit()'>Send</button>
 

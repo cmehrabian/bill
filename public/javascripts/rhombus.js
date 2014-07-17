@@ -29,7 +29,7 @@ angular.module('rhombus', ['components', 'ngRoute'])
 			controller:'newCtrl'
 		})
 		.when('/view/:point_id', {
-			templateURL:'views/graph.html',
+			templateUrl:'views/graph.html',
 			controller:'graphCtrl'
 		})
 })
