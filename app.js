@@ -52,9 +52,7 @@ app.get('/reset', function(req, res){
 });
 
 app.get('/requestTopics', function(req, res){
-  points.requestTopics(function(topics){
-  	console.log(topics)
-  	res.send(topics)});
+  points.requestTopics(function(topics){res.send(topics)});
 });
 
 app.post('/submit', function(req, res, data){

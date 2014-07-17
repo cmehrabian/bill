@@ -32,14 +32,10 @@ angular.module('rhombus', ['components', 'ngRoute'])
 			templateURL:'views/graph.html',
 			controller:'graphCtrl'
 		})
-		.otherwise({
-			templateURL:'views/board.html',
-			controller:'boardCtrl'
-		})
-
 })
 
 .controller('graphCtrl', function($scope, graph, $routeParams, socket){
+	console.log($routeParams)
 
 	graph.init()
 
@@ -160,18 +156,18 @@ angular.module('rhombus', ['components', 'ngRoute'])
 			propogated:0
 		}
 
-	$http({method: 'POST', url: '/submit', data: data}).
-	    success(function(data, status, headers, config) {
-	    	$location.path('/');
-	    }).
-	    error(function(data, status, headers, config) {
-	    	console.log(data);
-	    	console.log(status);
-	    	console.log(headers);
-	    	console.log(config);
-	    });
+		$http({method: 'POST', url: '/submit', data: data}).
+		    success(function(data, status, headers, config) {
+		    	$location.path('/');
+		    }).
+		    error(function(data, status, headers, config) {
+		    	console.log(data);
+		    	console.log(status);
+		    	console.log(headers);
+		    	console.log(config);
+		    });
 
-	}
+		}
 
 })
 
