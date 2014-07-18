@@ -59,4 +59,8 @@ app.post('/submit', function(req, res, data){
 	points.new_point(req.body, function(){res.send('')});
 })
 
+app.get('/download', function(req, res){
+    points.download(function(points){res.send(points);});
+});
+
 

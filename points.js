@@ -82,6 +82,11 @@ exports.request = function(request_id, callback){
   
 }
 
+exports.download = function(callback){
+  callback(points);
+}
+
+
 exports.requestTopics = function(callback){
   callback(_.where(points, {original:true}))
 }
