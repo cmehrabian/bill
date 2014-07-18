@@ -81,3 +81,5 @@ And say A1 has a value of 10 and A2 has a value of 4.  When they are linked, the
 ## Closing
 
 There are a lot of interdependent ideas in here so the layout of this document is a bit haphazard.  Feedback on what I can do to improve this would be very appreciated.  Feedback in general is very appreciated.  
+
+Also, the site is up at rhombus-forum.herokuapp.com
