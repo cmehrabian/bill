@@ -164,14 +164,18 @@ exports.cleanup = function(callback){
 /*
 Recursive. Takes a point (n), an array (a), and the value to be propagated (delta)
 All points that have already been visited are added to a.  a is returned at the 
-end of the function and set to all users (currently)
+end of the function and sent to all users (currently)
 */
 var propogate = function(n, a, delta){
-  if (n === undefined || _.find(a, n) !== undefined || delta == 0)
+  if (n === undefined || _.find(a, n) !== undefined)
     return a
 
-  n.propogated++
-  a.push(n)
+  a.push(n);
+
+  if (delta == 0)
+    return a;
+
+  n.propogated++;
 
   /*
   There are six conditions to consider when propagating a value. They are:

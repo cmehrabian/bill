@@ -31,7 +31,6 @@ module.exports.listen = function(app){
       if(!isNaN(request_id)){
         points.request(request_id, function(requested){
           socket.emit('update', requested)
-
         })
       }
       else{
@@ -43,6 +42,7 @@ module.exports.listen = function(app){
     //a request to make a new point and the point information.
     socket.on('new_point', function (data) {
       points.new_point(data, function(modified){
+        console.log(modified);
         socket.emit('update', modified)
         socket.broadcast.emit('update', modified)
       })

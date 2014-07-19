@@ -1,9 +1,5 @@
 
 
-/*
-	graph is really the star *
-*/
-
 angular.module('components', [])
 
 .factory('graph', function($window){
