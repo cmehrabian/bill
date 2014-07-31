@@ -15,9 +15,12 @@ var last_point_id = 0
 
 
 exports.reset = function(){
-  points = []
-  last_point_id = 0
+  points = [];
+  last_point_id = 0;
 }
+
+exports.points = points;
+exports.last_point_id = last_point_id;
 
 /*  
 If the amount of watchers becomes nonzero, this function is called.
@@ -27,7 +30,7 @@ records
 */
 exports.init = function(callback){
 
-  var done = _.after (2, callback)
+  var done = _.after (2, callback);
 /*
   schemata.lastid.find(function(err, id){
     if (err) return console.error(err)
@@ -96,7 +99,8 @@ exports.new_point = function(data, callback){
 
   data.root = data.point_id
 
-  points.push(data)
+  points.push(data);
+
 
   var delta = 1
 
@@ -104,7 +108,7 @@ exports.new_point = function(data, callback){
     delta = 0
 
   a = []
-  a = propogate(data, a, delta)
+  a = propagate(data, a, delta)
 
   var parent = _.find(points, {point_id: data.parent})
   if(parent !== undefined){
@@ -112,16 +116,12 @@ exports.new_point = function(data, callback){
     parent.children.push(data.point_id)
   }
     
-    var modifiedparent = _.find(a, {point_id:data.parent})
+  var modifiedparent = _.find(a, {point_id:data.parent})
 
-    if(modifiedparent === undefined)
-      a.push(parent)
-  
+  if(modifiedparent === undefined && parent !== undefined)
+    a.push(parent);
 
-  var notify = []
-
-
-  callback(a)
+  callback(a);
 }
 
 //called if amount of watchers becomes 0.  Saves everything to database.
@@ -139,7 +139,7 @@ exports.cleanup = function(callback){
       children:point.children,
       links:point.links, 
       original:point.original,
-      propogated:point.propogated,
+      propagated:point.propagated,
       root:point.root
     })
     p.save(function(err, p){
@@ -162,20 +162,23 @@ exports.cleanup = function(callback){
 }
 
 /*
-Recursive. Takes a point (n), an array (a), and the value to be propagated (delta)
+Recursive. Takes a point (n), an array (a), the value to be propagated (delta),
+and a list of nodes that shouldn't be visited (blacklist).  
 All points that have already been visited are added to a.  a is returned at the 
 end of the function and sent to all users (currently)
 */
-var propogate = function(n, a, delta){
-  if (n === undefined || _.find(a, n) !== undefined)
-    return a
+
+//next
+var propagate = function(n, a, delta, blacklist){
+  if (n === undefined || _.find(a, n) !== undefined || (blacklist !== undefined && _.find(n, blacklist) !== undefined))
+    return a;
 
   a.push(n);
 
   if (delta == 0)
     return a;
 
-  n.propogated++;
+  n.propagated++;
 
   /*
   There are six conditions to consider when propagating a value. They are:
@@ -187,20 +190,31 @@ var propogate = function(n, a, delta){
   In all cases the amount of value to propagate can be defined as the amount of change above 0, 
   and I'M PRETTY SURE this function will return that value.  
   */
-  var newdelta = pos(n.value + delta) - pos(n.value)
+  var newdelta = pos(n.value + delta) - pos(n.value);
 
-  n.value += delta
-  n.modified = true
+  n.value += delta;
+
+  // blacklist is also a stand-in boolean for letting propagate know if this value increase counts
+  // for the node WITHOUT the link in addition to with it.  
+  if (blacklist === undefined)
+    n.shadow += delta;
+
+  n.modified = true;
 
   if(n.flavor == 'dissent')
     newdelta = -newdelta
   if(n.flavor == 'comment')
     newdelta = 0
-  if(n.flavor == 'quote')
+  if(n.flavor == 'quote' || n.flavor == 'link')
     newdelta = delta
 
-  var parent = _.find(points, {point_id:n.parent})
-  a = propogate(parent, a, newdelta)
+  _.forEach(n.links, function(link){
+    var node = _.find(points, {point_id:link}); 
+    a = propagate(_.find(node, a, delta, blacklist || []));
+  })
+
+  var parent = _.find(points, {point_id:n.parent});
+  a = propagate(parent, a, newdelta, blacklist)
 
   return a
 
@@ -214,6 +228,118 @@ var pos = function(value){
     return 0
 
 }
+
+// Links are tricky.  The first thing to do when a link is made is check to 
+// see if a cycle has been created.  This basically means following all parents
+// and links and seeing if you end up where you started.  If so, remove the most recent
+// of the two linked points and propagate its inverse value through the graph.
+
+// If it's not linked, then after that we need to consider the situation in which they have
+// a common parent.  Consider this graph
+
+// A1 -> B
+//         > D
+// A2 -> C
+
+// And say A1 has a value of 10 and A2 has a value of 4.  When they are linked, the total value
+// of both A1 and A2 goes to 14.  This means that B gets +4 propagated to it and C gets +10.  D,
+// however, already had both the values of A1 and A2 affecting it, and so logically its value 
+// shouldn't increase.  
+
+// So, the solution to this problem for now is to get all the potential recipient of new values 
+// from both of the newly linked nodes, and remove all the recipient that have duplicates.  
+// We can optimize this later.
+
+function addLink(n){
+  //check if link already exists
+  var left = _.find(points, {point_id:links[0]});
+  var right = _.find(points, {point_id:links[1]});
+  if(_.intersection(left.linkhelpers, right.linkhelpers).length != 0){
+    console.log('link exists!');
+    return;
+  }
+
+  //check for a cycle
+  if(hasCycle(n.links[0], null, n.point_id) || hasCycle(n.links[1], null, n.point_id)){
+    console.log('cycle found!')
+    //fixcycle
+    return
+  }
+
+  //update new-linked nodes to link each other
+  left.links.push(right.point_id);
+  right.links.push(left.point_id);
+
+  //obtain the blacklist of non-unique recipients
+  var nonUnique = getNonUniqueRecipients(n);
+
+  //propogate the values
+  var a = [n];
+  a = propagate(left, a, right.value, nonUnique);
+  a = propagate(right, a, left.value, nonUnique);
+  return a;
+}
+
+function hasCycle(current_id, last_id, origin_id){
+  if(current_id == origin_id)
+    return true;
+  if(current_id == null)
+    return false;
+
+  for(var i = 0; i < points[current_id].links.length; ++i){
+    if(points[current_id].links[i] != last_id)
+      if(hasCycle(points[current_id].links[i], current_id, link_id))
+        return true;
+  }
+
+  return hasCycle(points[current_id].parent, current_id, link_id);
+}
+
+// fix this at some point.  Jeez.  
+function getNonUniqueRecipients(n){
+  a = [];
+  var recipients = getAllRecipients(n, a);
+
+  var min = recipients[0];
+  _.forEach(recipients, function(n){
+    if (min > n)
+      min = n;
+  });
+
+  var bucket = []
+  _.forEach(recipients, function(n){
+    if (bucket[n-min] === undefined)
+      bucket[n-min] = 1;
+    else
+      bucket[n-min]++;
+  })
+
+  var nonUnique = [];
+  _.forEach(bucket, function(n){
+    if(n !== undefined && n != 1)
+      nonUnique.push(n);
+  })
+
+  return nonUnique;
+}
+
+function getAllRecipients(point_id, a){
+  if (point_id === null)
+    return a;
+
+  a.push(point_id);
+
+  var node = __.find(points, {point_id: point_id});
+
+  a = getAllRecipients(node.links[0], a);
+  a = getAllRecipients(node.links[1], a);
+
+  a = getAllRecipients(node.parent, a);
+
+  return a;
+}
+
+
 /*
 
 function addLink(link_point_id, socket){
@@ -248,6 +374,7 @@ function addLink(link_point_id, socket){
 
 }
 
+
 function syncLinks(link_point_id, socket){
   var total = points[points[link_point_id].links[0]].value + points[points[link_point_id].links[1]].value
   points[points[link_point_id].links[0]].shadow = points[points[link_point_id].links[0]].value
@@ -264,11 +391,11 @@ function syncLinks(link_point_id, socket){
 
   a = []
   a[link_point_id] = link_point_id
-  a = propogate(points[link_point_id].links[0], delta1, a, socket, points[link_point_id].CommonParent)
+  a = propagate(points[link_point_id].links[0], delta1, a, socket, points[link_point_id].CommonParent)
 
   //var parent = points[points[link_point_id].links[1]].parent_point_id
 
-  propogate(points[link_point_id].links[1], delta2, a, socket, points[link_point_id].CommonParent) 
+  propagate(points[link_point_id].links[1], delta2, a, socket, points[link_point_id].CommonParent) 
 
 }
 
@@ -277,8 +404,8 @@ function chaseLink(link_point_id, delta, a, socket){
     return a
 
   a[link_point_id] = link_point_id
-  a = propogate(points[link_point_id].links[1], delta, a, socket)
-  return propogate(points[link_point_id].links[0], delta, a, socket)
+  a = propagate(points[link_point_id].links[1], delta, a, socket)
+  return propagate(points[link_point_id].links[0], delta, a, socket)
 
 }
 

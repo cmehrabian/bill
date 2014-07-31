@@ -14,7 +14,7 @@ var io = require('./sockets').listen(server) //this is where sockets.js comes in
 var neo4j = require('neo4j');
 var db = new neo4j.GraphDatabase('http://localhost:7474');
 
-var points = require('./points')
+var rhombus = require('./rhombus')
 
 // all environments
 
@@ -47,20 +47,20 @@ server.listen(app.get('port'), function(){
 });
 
 app.get('/reset', function(req, res){
-  points.reset()
+  rhombus.reset()
   res.send('reset')
 });
 
 app.get('/requestTopics', function(req, res){
-  points.requestTopics(function(topics){res.send(topics)});
+  rhombus.requestTopics(function(topics){res.send(topics)});
 });
 
 app.post('/submit', function(req, res, data){
-	points.new_point(req.body, function(){res.send('')});
+	rhombus.new_point(req.body, function(){res.send('')});
 })
 
 app.get('/download', function(req, res){
-    points.download(function(points){res.send(points);});
+    rhombus.download(function(points){res.send(points);});
 });
 
 

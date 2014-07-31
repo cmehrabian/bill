@@ -1,7 +1,9 @@
 
 # Rhombus 
 
-This is mostly a document on how Rhombus was designed architecturally.  For how Rhombus works, see rhombus.txt.  For what Rhombus is, talk to me.  
+If you don't know what's going on here, I strongly recommend you start with the wiki.
+
+A current working iteration of Rhombus is currently up at 
 
 This was all built primarily with nodejs, angularjs, socketio, mongodb, and springyjs (a force-directed
 graph library.)
@@ -65,18 +67,6 @@ Ostensibly, the net assent of a node is the sum of the values of all of its agre
 The only real nodejs based request handler is for index.html.  All of the actual data transfer and state 
 changes are done in socket.io, in the file sockets.js.  I did this because angular templates allow client-side
 state to change independent of the server, so using traditional async seemed unnecessarily restricting.
-
-### Links
-
-Links are tricky.  The first thing to do when a link is made is check to see if a cycle has been created.  This basically means following all parents and links and seeing if you end up where you started.  If so, remove the most recent of the two linked points and propagate its inverse value through the graph.  
-
-If it's not linked, then there are two possibilities.  Either the linked nodes share a common ancestor or they don't.  If they do, it needs to be found.  Consider this graph
-
-A1 -> B
-		> D
-A2 -> C
-
-And say A1 has a value of 10 and A2 has a value of 4.  When they are linked, the total value of both A1 and A2 goes to 14.  This means that B gets +4 propagated to it and C gets +10.  D, however, already had both the values of A1 and A2 affecting it, and so logically its value shouldn't increase.  So the reason the common parent needs to be found is so we can figure out where to cut off the propagation.  
 
 ## Closing
 

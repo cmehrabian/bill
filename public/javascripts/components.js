@@ -82,7 +82,7 @@ angular.module('components', [])
 				ctx.strokeStyle="black"; 
 
 				var slope = (s2.y - s1.y) / (s2.x - s1.x)
-				var radius = edge.target.data.propogated * 2 + 10
+				var radius = edge.target.data.propagated * 2 + 10
 
 				var tanx = radius / Math.sqrt(Math.pow(slope,2) + 1)
 				var arrowLength = 10
@@ -113,7 +113,7 @@ angular.module('components', [])
 
 
 				//b = c / (sqrt(m+1))
-				//var tangy = (p2.data.propogated + 10) / Math.sqrt(Math.pow(slope, 2) + 1) 
+				//var tangy = (p2.data.propagated + 10) / Math.sqrt(Math.pow(slope, 2) + 1) 
 				//var tangx = tangy * slope
 
 
@@ -151,7 +151,7 @@ angular.module('components', [])
 				}
 	*/
 
-				var radius = node.data.propogated * 2 + 10
+				var radius = node.data.propagated + 10
 				if(mouse.x < s.x + radius && mouse.x > s.x - radius && mouse.y < s.y + radius && mouse.y > s.y - radius){
 				}
 				ctx.fillStyle = 'black'
@@ -164,7 +164,7 @@ angular.module('components', [])
 	      		//console.log(s)
 	      		if(node.data.parent == null){
 		      		ctx.fillStyle = 'gray'
-		      		var len = node.data.propogated * 2 + 30
+		      		var len = node.data.propagated * 2 + 30
 		      		ctx.fillRect(s.x - len / 2, s.y - len/2, len, len)
 				}
 	      		ctx.fillStyle = '#F1F1F2'
@@ -265,8 +265,9 @@ angular.module('components', [])
 			select(_.find(nodes, function(n){return n.data.point_id == parseInt(request_id)}))
 		}
 		else{
+			console.log(nodes);
+			console.log(data);
 			var parent = _.find(nodes, function(n){
-				//console.log(n)
 				return n.data.point_id == data[0].parent
 			})
 

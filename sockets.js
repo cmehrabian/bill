@@ -45,7 +45,7 @@ module.exports.listen = function(app){
         console.log(modified);
         socket.emit('update', modified)
         socket.broadcast.emit('update', modified)
-      })
+      });
       
     });
 

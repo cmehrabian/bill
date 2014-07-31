@@ -1,38 +1,6 @@
 
-/*
-rhombus.js and components.js are angular and make up the core of client-side business logic.
 
-This file contains all the controllers.  
-*/
-
-
-/*
-graphCtrl is strongly coupled with the graph service.  
-graphCtrl is built to be minimalistic, it basically just has 
-some event handlers for socket io and graph selectors, and the logic 
-for sending new nodes.  All the heavy duty lifting with keeping the 
-graph visible is done is the graph service.  
-*/
-
-
-angular.module('rhombus', ['components', 'ngRoute'])
-
-.config(function($routeProvider){
-	$routeProvider
-		.when('/',{
-			templateUrl:'views/board.html',
-			controller:'boardCtrl'
-		})
-
-		.when('/new',{
-			templateUrl:'views/new.html',
-			controller:'newCtrl'
-		})
-		.when('/view/:point_id', {
-			templateUrl:'views/graph.html',
-			controller:'graphCtrl'
-		})
-})
+angular.module('controllers', [])
 
 .controller('graphCtrl', function($scope, graph, $routeParams, socket){
 	console.log($routeParams)
@@ -54,8 +22,7 @@ angular.module('rhombus', ['components', 'ngRoute'])
 	$scope.editing = false
 	$scope.looking = true
 
-	//$scope.flavors = ['comment', 'assent', 'dissent', 'quote', 'link']
-	$scope.flavors = ['comment', 'assent', 'dissent', 'quote']
+	$scope.flavors = ['comment', 'assent', 'dissent', 'quote', 'link']
 
 	var updateSelected = function(selected, children, parent){
 		$scope.selected = selected
@@ -113,14 +80,16 @@ angular.module('rhombus', ['components', 'ngRoute'])
 		var n = {
 			username:$scope.username,
 			value:0,
+			ghostvalue:0,
 			time:_.now(),
 			flavor:$scope.flavor,
 			text:$scope.text,
 			parent:$scope.selected.data.point_id,
 			children:[],
 			links:[],
+			linkhelpers:[],
 			original:false,
-			propogated:0
+			propagated:0
 		}
 
 		$scope.flavor = 'comment'
@@ -145,15 +114,17 @@ angular.module('rhombus', ['components', 'ngRoute'])
 		{
 			username:$scope.username,
 			value:0,
+			ghostvalue:0,
 			time:_.now(),
 			flavor:$scope.flavor,
 			text:$scope.text,
 			parent:null,
 			children:[],
 			links:[], 
+			linkhelpers:[],
 			original:true,
 			flavor:'comment',
-			propogated:0
+			propagated:0
 		}
 
 		$http({method: 'POST', url: '/submit', data: data}).
