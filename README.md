@@ -1,7 +1,7 @@
 
 # Rhombus 
 
-If you don't know what's going on here, all of the information about the project in general is in the [wiki](URL_to_wiki).
+If you don't know what's going on here, all of the information about the project in general is in the [wiki](https://github.com/ndvr/gadfly/wiki).
 
 You can play with the current working iteration [here](http://rhombus-forum.herokuapp.com/#/).
 
