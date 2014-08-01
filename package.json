@@ -1,16 +1,15 @@
 {
   "name": "application-name",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.4.7",
-    "ejs":"*",
-    "socket.io":"0.9",
-    "lodash":"*",
-    "mocha":"*",
-    "should":"*"
-    }
+    "ejs": "^1.0.0",
+    "express": "^3.4.7",
+    "lodash": "^2.4.1",
+    "mocha": "^1.21.3",
+    "should": "^4.0.4",
+    "socket.io": "^0.9.17"
+  }
 }
