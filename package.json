@@ -1,6 +1,11 @@
 {
-  "name": "application-name",
+  "name": "gadfly",
   "version": "0.1.0",
+	"description": "A web application for deconstructive reasoning",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ndvr/gadfly.git"
+	}
   "scripts": {
     "start": "node app.js"
   },
