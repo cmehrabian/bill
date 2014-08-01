@@ -2,19 +2,14 @@
 var socketio = require('socket.io')
 var points = require('./points')
 
-
-/*
-This file basically has all the de facto request handlers for rhombus.  
-All the method calls themselves are defined in points.js and are called with
-a callback in which the socket response is emitted.  This is to make the code 
-cleaner if a request has to make an asynchronous database query.  
-*/
-
+// All the method calls themselves are defined in rhombus.js and are called with
+// a callback in which the socket response is emitted.  This is to make the code 
+// cleaner if a request has to make an asynchronous database query.  
 
 module.exports.listen = function(app){
-  io = socketio.listen(app)
+  io = socketio.listen(app);
 
-  var num_watchers = 0
+  var num_watchers = 0;
 
   io.sockets.on('connection', function (socket) {
     if(num_watchers == 0){
@@ -23,7 +18,7 @@ module.exports.listen = function(app){
       })
     }
 
-    num_watchers++
+    ++num_watchers;
 
     //a request is sent with a point id.
     socket.on('request', function(data){
@@ -52,7 +47,7 @@ module.exports.listen = function(app){
     socket.on('disconnect', function (data) {
       console.log('client disconnected')
 
-      --num_watchers
+      --num_watchers;
 
       if(num_watchers == 0){
         points.cleanup(function(){
@@ -61,9 +56,5 @@ module.exports.listen = function(app){
       }
 
     })
-
-
   })
-
-
 }
