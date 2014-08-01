@@ -5,7 +5,6 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "ejs": "^1.0.0",
     "express": "^3.4.7",
     "lodash": "^2.4.1",
     "mocha": "^1.21.3",
