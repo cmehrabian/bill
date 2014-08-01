@@ -1,12 +1,8 @@
-
-
 angular.module('components', [])
-
 .factory('graph', function($window){
 
 	var resizeCanvas = function(){
 		canvas.width = $window.innerWidth * .68;
-		//canvas.width = $window.innerWidth * .95
 		canvas.height = $window.innerHeight * .95
 	}
 
@@ -34,10 +30,6 @@ angular.module('components', [])
 	var mouse = {x:0, y:0}
 
 	var init = function(){
-		/*
-		if(canvas == null) 
-			console.log('shit is really, really fucked') 
-*/
 		canvas = document.getElementById('graphcanvas')
 		ctx = canvas.getContext("2d")
 
@@ -64,11 +56,6 @@ angular.module('components', [])
 
 			Springy.requestAnimationFrame(adjust);
 		});
-
-
-
-
-
 
 		renderer = new Springy.Renderer(layout,
 			function clear(){
@@ -109,48 +96,13 @@ angular.module('components', [])
 				ctx.fill();
 				ctx.restore();
 
-
-
-
-				//b = c / (sqrt(m+1))
-				//var tangy = (p2.data.propagated + 10) / Math.sqrt(Math.pow(slope, 2) + 1) 
-				//var tangx = tangy * slope
-
-
 				ctx.moveTo(s1.x, s1.y)
 				ctx.lineTo(s2.x, s2.y)
 				ctx.stroke()
 
 			},
 			function drawNode(node, p){
-				//console.log(currentBB)
 	      		var s = toScreen(p)
-
-
-	      		  //var radgrad = ctx.createRadialGradient(60,60,0,60,60,60);
-				  //radgrad.addColorStop(0, 'rgba(255,0,0,1)');
-				  //radgrad.addColorStop(0.8, 'rgba(228,0,0,.9)');
-				  //radgrad.addColorStop(1, 'rgba(228,0,0,0)');
-				  /*
-				if(node.data.value != 0){
-				    var radgrad = ctx.createRadialGradient(s.x,s.y,0,node.data.value * 5 + 60 ,60,60);
-				    if(node.data.value > 0){
-				    	var color = 'green'
-				    
-				    }
-				    else{
-				    	var color = 'red'
-				    }
-
-				    radgrad.addColorStop(0, color)
-				    radgrad.addColorStop(1, color)
-
-				    ctx.fillStyle = radgrad
-				    ctx.fillRect(s.x - 100, s.y - 100, 200, 200)
-
-				}
-	*/
-
 				var radius = node.data.propagated + 10
 				if(mouse.x < s.x + radius && mouse.x > s.x - radius && mouse.y < s.y + radius && mouse.y > s.y - radius){
 				}
@@ -161,7 +113,6 @@ angular.module('components', [])
 					str += '...'
 				ctx.fillText(str, s.x + radius + 10, s.y + radius + 10)
 
-	      		//console.log(s)
 	      		if(node.data.parent == null){
 		      		ctx.fillStyle = 'gray'
 		      		var len = node.data.propagated * 2 + 30
@@ -213,7 +164,6 @@ angular.module('components', [])
 	    	var p = fromScreen({x: canvasX, y: canvasY});
 
 	    	select(layout.nearest(p).node)
-
 		})
 	}
 
@@ -231,12 +181,7 @@ angular.module('components', [])
 		return new Springy.Vector(px, py);
 	};
 
-
-
-
 	var update = function(data, request_id){
-
-
 		if(nodes.length == 0){
 			_.forEach(data, function(point){
 
@@ -286,11 +231,8 @@ angular.module('components', [])
 					}).data = p
 				})
 			}
-
 			select(selected)
-
 		}
-
 	}
 
 	var select = function(node){
@@ -318,8 +260,7 @@ angular.module('components', [])
 	var registerSelectionChange = function(callback){
 		notify = callback
 	}
-
-
+	
 	return {
 		update:update,
 		init:init,

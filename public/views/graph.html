@@ -1,42 +1,35 @@
 
 
  <canvas id="graphcanvas"></canvas>
- <!--canvas id="springydemo"></canvas-->
-
-<!-- ng-hide='!looking || editing'-->
 
  <div 
  class="point-window" 
  ng-class="{'assent':'green','dissent':'red','comment':'white','quote':'white'}[selected.data.flavor]">
-	 	<div style='float:left;width:25%;'>point id: {{selected.data.point_id}} </div>
-	 	<div style='float:left;width:25%;'>user:{{selected.data.username}}</div>
-	 	<div style='float:left;width:25%;'>net assent: {{selected.data.value}}</div>
-	 	<div style='width:24%;'>flavor: {{selected.data.flavor}}</div>
+ 	<div style='float:left;width:25%;'>point id: {{selected.data.point_id}} </div>
+ 	<div style='float:left;width:25%;'>user:{{selected.data.username}}</div>
+ 	<div style='float:left;width:25%;'>net assent: {{selected.data.value}}</div>
+ 	<div style='width:24%;'>flavor: {{selected.data.flavor}}</div>
 
-	 	<div 
-	 	ng-click='select(parent)'
-	 	ng-class="{'assent':'green','dissent':'red','comment':'white','quote':'white'}[parent.data.flavor]" 
-	 	style='border:1px solid black;'>
-	 		parent: {{parent.data.text}} </div>
+ 	<div 
+ 	ng-click='select(parent)'
+ 	ng-class="{'assent':'green','dissent':'red','comment':'white','quote':'white'}[parent.data.flavor]" 
+ 	style='border:1px solid black;'>
+ 		parent: {{parent.data.text}} </div>
 
-	 	<div>body: {{selected.data.text}}</div>
-	 	<!--button ng-click='editing = true'>Respond</button-->
-	 	<div>Children:</div>
-	 	<div ng-repeat='child in children' 
-	 	ng-click='select(child)'
-	 	ng-class="{'assent':'green','dissent':'red','comment':'white','quote':'white'}[child.data.flavor]" 
-	 	style='border:1px solid;'>
-	 		<div>net assent: {{child.data.value}} Text: {{child.data.text}}</div>
- 		</div>
+ 	<div>body: {{selected.data.text}}</div>
+ 	<div>Children:</div>
+ 	<div ng-repeat='child in children' 
+ 	ng-click='select(child)'
+ 	ng-class="{'assent':'green','dissent':'red','comment':'white','quote':'white'}[child.data.flavor]" 
+ 	style='border:1px solid;'>
+ 		<div>net assent: {{child.data.value}} Text: {{child.data.text}}</div>
+		</div>
  </div>
 
 
  <div id="submit-window">
-  	<!--div ng-click='cancel()'>[cancel]</div-->
-
 	 <p> parent text: {{selected.data.text}} </p>
 	 <input type="text" ng-model="username" size="30" placeholder="username"></input>
-	 <!--select ng-model="parent_id" ng-options='point.point_id as point.point_id for point in points'></select-->
 	 <textarea class='text-submit' ng-model="text" placeholder="text body" style='width:98%;height:30%'></textarea>
 	 <select ng-model='flavor' ng-options='flavor as flavor for flavor in flavors'></select>
 	 <select ng-hide="flavor != 'link'" ng-model='links[0]' ng-options='point.point_id as point.point_id for point in points'> </select>
@@ -51,5 +44,3 @@
 	 <button ng-click='submit()'>Send</button>
 
  </div>
-
- <!--button id='reset' ng-click='reset()'>reset</button-->

@@ -1,7 +1,4 @@
-
-
 angular.module('controllers', [])
-
 .controller('graphCtrl', function($scope, graph, $routeParams, socket){
 	console.log($routeParams)
 
@@ -50,32 +47,22 @@ angular.module('controllers', [])
 		$scope.editing = false
 	}
 
-
-
 	socket.emit('request', {
 		point_id:$routeParams.point_id
 	})
 
-
   	socket.on('update', function (data) {
-
-
   		graph.update(data, $routeParams.point_id)
-
-		//$scope.$digest()
 	});
 
   	$scope.reset = function(){
   		console.log($scope.selected)
   	}
 
-
-
 	$scope.submit = function(){
 
 		if($scope.selected == null)
 			return
-
 
 		var n = {
 			username:$scope.username,
@@ -95,13 +82,9 @@ angular.module('controllers', [])
 		$scope.flavor = 'comment'
 		$scope.text = ''
 
-
 		socket.emit('new_point', n)
-
 		$scope.editing = false
-		
 	}
-
 })
 
 .controller('newCtrl', function($scope, $location, $http){
