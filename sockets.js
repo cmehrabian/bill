@@ -1,6 +1,6 @@
 
 var socketio = require('socket.io');
-var points = require('./points');
+var rhombus = require('./rhombus');
 
 // All the method calls themselves are defined in rhombus.js and are called with
 // a callback in which the socket response is emitted.  This is to make the code 
@@ -13,7 +13,7 @@ module.exports.listen = function(app){
 
   io.sockets.on('connection', function (socket) {
     if(num_watchers == 0){
-      points.init(function(){
+      rhombus.init(function(){
         console.log('initialized');
       })
     }
@@ -38,13 +38,12 @@ module.exports.listen = function(app){
       console.log('client disconnected');
 
       --num_watchers;
-
       if(num_watchers == 0){
         points.cleanup(function(){
           console.log('cleaned up');
-        })
+        });
       }
 
-    })
-  })
+    });
+  });
 }
