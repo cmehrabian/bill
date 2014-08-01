@@ -24,7 +24,7 @@ module.exports.listen = function(app){
     socket.on('request', function(data){
       var request_id = parseInt(data.point_id);
       if(!isNaN(request_id)){
-        points.request(request_id, function(requested){
+        rhombus.request(request_id, function(requested){
           socket.emit('update', requested);
         });
       }
@@ -39,7 +39,7 @@ module.exports.listen = function(app){
 
       --num_watchers;
       if(num_watchers == 0){
-        points.cleanup(function(){
+        rhombus.cleanup(function(){
           console.log('cleaned up');
         });
       }
