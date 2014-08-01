@@ -5,25 +5,24 @@ If you don't know what's going on here, all of the information about the project
 
 You can play with the current working iteration [here](http://rhombus-forum.herokuapp.com/#/).
 
-This was all built primarily with nodejs, angularjs, socketio, mongodb, and springyjs (a force-directed
+This was all built primarily with nodejs, angularjs, socketio, and springyjs (a force-directed
 graph library.)
 
 ## Getting started
 Install the following packages:  
 	* nodejs  
-	* mongodb
 For OS X using Homebrew do:  
 ```sh
-$ brew install nodejs mongodb
+$ brew install nodejs
 ```  
 For Ubuntu and derivatives do:  
 ```sh
-$ sudo apt-get install nodejs mongodb
+$ sudo apt-get install nodejs
 ```
 
 For Arch do:  
 ```sh
-$ sudo pacman -S nodejs mongodb
+$ sudo pacman -S nodejs
 ```
 Next install node package dependencies:  
 ```sh
