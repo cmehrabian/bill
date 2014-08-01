@@ -10,7 +10,6 @@
     "ejs":"*",
     "socket.io":"0.9",
     "lodash":"*",
-    "neo4j":"*",
     "mocha":"*",
     "should":"*"
     }
