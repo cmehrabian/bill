@@ -1,14 +1,7 @@
-
-//var app = require('./app')
 var _ = require('lodash');
-//var schemata = require('./schemata')
 
-/*
-All server-side logic for handling requests and keeping track of the points is here.
-There is a lot of legacy code involving links.  Don't mind that.  
-*/
-
-
+// All server-side logic for handling requests and keeping track of the points is here.
+// There is a lot of legacy code involving links.  Don't mind that.  
 
 var points = [] 
 var last_point_id = 0 
@@ -22,46 +15,12 @@ exports.reset = function(){
 exports.points = points;
 exports.last_point_id = last_point_id;
 
-/*  
-If the amount of watchers becomes nonzero, this function is called.
-It gets all of the points from the database and the last id the server
-handed out, and stores them in program memory. It also destroys the old
-records
-*/
+// If the amount of watchers becomes nonzero, this function is called.
+// It gets all of the points from the database and the last id the server
+// handed out, and stores them in program memory. It also destroys the old
+// records.
+
 exports.init = function(callback){
-
-  var done = _.after (2, callback);
-/*
-  schemata.lastid.find(function(err, id){
-    if (err) return console.error(err)
-
-    if(last_point_id === undefined){
-      last_point_id = 0
-    }
-    else{
-      last_point_id = id[0].last_point_id
-    }
-    console.log('last_point_id set to:')
-    console.log(last_point_id)
-
-    var query = schemata.lastid.remove()
-    query.exec()
-
-    done()
-  })
-
-  schemata.point.find(function(err, p){
-    if(err) return console.error(err)
-    points = p
-
-    console.log('returned from points query:')
-    console.log(points)
-    var query = schemata.point.remove()
-    query.exec()
-
-    done()
-  })
-*/
 }
 
 //gets all the original posts
@@ -71,8 +30,6 @@ exports.getOriginals = function(callback){
 
 //gets a point and all connected points
 exports.request = function(request_id, callback){
-  //console.log('data:')
-  //console.log(data)
   console.log('points:')
   console.log(points)
   var point = _.find(points, {point_id:request_id})
@@ -101,7 +58,6 @@ exports.new_point = function(data, callback){
 
   points.push(data);
 
-
   var delta = 1
 
   if(data.flavor == 'quote')
@@ -126,49 +82,15 @@ exports.new_point = function(data, callback){
 
 //called if amount of watchers becomes 0.  Saves everything to database.
 exports.cleanup = function(callback){
-  /*
-  _.forEach(points, function(point){
-    var p = new schemata.point({ 
-      username:point.username,
-      point_id:point.point_id,
-      value:point.value,
-      time:point.time,
-      flavor:point.flavor,
-      text:point.text,
-      parent:point.parent,
-      children:point.children,
-      links:point.links, 
-      original:point.original,
-      propagated:point.propagated,
-      root:point.root
-    })
-    p.save(function(err, p){
-      if (err) return console.error(err)
-    })
-  })
-
-  var id = new schemata.lastid({
-    last_point_id:last_point_id
-  })
-
-  id.save(function(err, id){
-    if (err) return console.error(err)
-  })
-
-*/
-  points = []
-  callback()
-
+  callback();
 }
 
-/*
-Recursive. Takes a point (n), an array (a), the value to be propagated (delta),
-and a list of nodes that shouldn't be visited (blacklist).  
-All points that have already been visited are added to a.  a is returned at the 
-end of the function and sent to all users (currently)
-*/
 
-//next
+// Recursive. Takes a point (n), an array (a), the value to be propagated (delta),
+// and a list of nodes that shouldn't be visited (blacklist).  
+// All points that have already been visited are added to a.  a is returned at the 
+// end of the function and sent to all users (currently)
+
 var propagate = function(n, a, delta, blacklist){
   if (n === undefined || _.find(a, n) !== undefined || (blacklist !== undefined && _.find(n, blacklist) !== undefined))
     return a;
@@ -180,16 +102,16 @@ var propagate = function(n, a, delta, blacklist){
 
   n.propagated++;
 
-  /*
-  There are six conditions to consider when propagating a value. They are:
-  -the value and delta are positive
-  -the value is positive and delta is negative, but the absolute value of the value is larger
-  -the value is positive and delta is negative, but the absolute value of the value is smaller
-  and the three opposite cases
+  
+  // There are six conditions to consider when propagating a value. They are:
+  // -the value and delta are positive
+  // -the value is positive and delta is negative, but the absolute value of the value is larger
+  // -the value is positive and delta is negative, but the absolute value of the value is smaller
+  // and the three opposite cases
 
-  In all cases the amount of value to propagate can be defined as the amount of change above 0, 
-  and I'M PRETTY SURE this function will return that value.  
-  */
+  // In all cases the amount of value to propagate can be defined as the amount of change above 0, 
+  // and I'M PRETTY SURE this function will return that value.  
+  
   var newdelta = pos(n.value + delta) - pos(n.value);
 
   n.value += delta;
@@ -339,41 +261,7 @@ function getAllRecipients(point_id, a){
   return a;
 }
 
-
 /*
-
-function addLink(link_point_id, socket){
-  //console.log("=======addLink called!")
-  //console.log(link_point_id)
-  points[points[link_point_id].links[0]].links.push(link_point_id)
-  points[points[link_point_id].links[1]].links.push(link_point_id)
-
-  if(hasCycle(points[link_point_id].links[0], link_point_id, link_point_id) || hasCycle(points[link_point_id].links[1], link_point_id, link_point_id)){
-    console.log("cycle found!")
-
-    var most_recent, least_recent;
-
-    if(points[link_point_id].links[0].point_point_id > points[link_point_id].links[1].point_point_id){
-      most_recent = points[link_point_id].links[0]
-      least_recent = points[link_point_id].links[1]
-    }
-    else{
-      least_recent = points[link_point_id].links[0]
-      most_recent = points[link_point_id].links[1]
-    }
-
-    points[most_recent].origin_point_id = points[most_recent].parent_point_id
-    points[most_recent].parent_point_id = points[least_recent].parent_point_id
-
-
-  }
-
-  points[link_point_id].CommonParent = findCommonParent(points[link_point_id].links[0], points[link_point_id].links[1])
-
-  syncLinks(link_point_id, socket);
-
-}
-
 
 function syncLinks(link_point_id, socket){
   var total = points[points[link_point_id].links[0]].value + points[points[link_point_id].links[1]].value
@@ -399,16 +287,6 @@ function syncLinks(link_point_id, socket){
 
 }
 
-function chaseLink(link_point_id, delta, a, socket){
-  if(a[link_point_id] !== undefined)
-    return a
-
-  a[link_point_id] = link_point_id
-  a = propagate(points[link_point_id].links[1], delta, a, socket)
-  return propagate(points[link_point_id].links[0], delta, a, socket)
-
-}
-
 //returns the common parent node or null if it doesn't exist.  
 function findCommonParent(first_point_id, second_point_id){
   a = []
@@ -424,103 +302,3 @@ function findCommonParentHelper(point_point_id, a){
   a[point_point_id] = point_point_id
   return findCommonParentHelper(points[point_point_id].parent_point_id, a)
 }
-
-function hasCycle(current_point_id, last_point_id, link_point_id){
-  if(current_point_id == link_point_id)
-    return true
-  if(current_point_id == null)
-    return false
-
-  for(var i = 0; i < points[current_point_id].links.length; ++i){
-    if(points[current_point_id].links[i] != last_point_id)
-      if(hasCycle(points[current_point_id].links[i], current_point_id, link_point_id))
-        return true
-  }
-
-  return hasCycle(points[current_point_id].parent_point_id, current_point_id, link_point_id)
-}
-*/
-//archive
-/*
-      if(num_watchers == 0){
-        var lastpoint_id = new mid({
-          lastpoint_id:points.getLastId()
-        })
-
-
-      lastpoint_id.save(function(err, lastpoint_id){
-          if (err) return console.err(err)
-          console.log('saved last point as:')
-          console.log(lastpoint_id)
-        })
-      }
-
-
-*/
-
-
-/*
-  data.watchers = []
-
-  if(points[data.parent] !== undefined){
-    points[data.parent].children.push(data.point_id)
-    data.watchers = points[data.parent].watchers
-  }
-  else{
-    data.watchers.push(socket)
-  }
-
-  _.forEach(a, function(point){
-    _.forEach(point.watchers, function(w){
-      var not = _.find(notify, {watcher:w})
-      if(not === undefined){
-        not = {}
-        not.watcher = w
-        not.points = []
-        notify.push(not)
-      }
-      not.points.push(point)
-    })
-    delete point.watchers
-  })
-
-
-  _.forEach(notify, function(chain){
-    chain.watcher.emit('update', chain.points)
-    _.forEach(chain, function(not){
-      if(not.watchers === undefined)
-        not.watchers = []
-      not.watchers.push(chain.watcher)
-
-    })
-  })
-*/
-
-
-/*
-  var query_recur = function(err, n, a){
-    if(point_id === undefined || _.find(a, {point_id:point_id}) !== undefined)
-      return
-
-    mNode.find({point_id:point_id}, function(err, o){
-      if (err) return console.error(err);
-      console.log('database lookup for id ' + point_id + ' found:')
-      console.log(o)
-      a.push(o)
-      found = o
-      _.forEach(found.children, function(child){
-        query_recur(child, a)
-      })
-
-      query_recur(found.parent, a)
-
-    })
-    //console.log('query_recur so far:')
-    //console.log(a)
-  }
-
-
-});
-
-
-*/
