@@ -1,6 +1,6 @@
 
 var socketio = require('socket.io')
-var points = require('./points')
+var points = require('./rhombus')
 
 
 /*
