@@ -1,9 +1,12 @@
 
+// Currently the tests are used for keeping track of all 
+// the Rhombus logic.  
+
 var should = require('should');
-var points = require('../points');
+var rhombus = require('../rhombus');
 var _ = require('lodash');
 
-describe('points', function(){
+describe('rhombus', function(){
 
 
 	var one = {
@@ -84,12 +87,12 @@ describe('points', function(){
 
 
 	before(function(){
-		points.reset();
-		//points.init();
+		rhombus.reset();
+		//rhombus.init();
 	});
 
 	it('should submit one point accurately', function(){
-		points.new_point(one, function(modified){
+		rhombus.new_point(one, function(modified){
 			modified.should.be.ok;
 			modified.length.should.be.equal(1);
 			modified[0].value.should.be.equal(1);
@@ -99,7 +102,7 @@ describe('points', function(){
 	});
 
 	it('should propagate an agreement appropriately', function(){
-		points.new_point(two, function(modified){
+		rhombus.new_point(two, function(modified){
 			modified.should.be.ok;
 			modified.length.should.be.equal(2);
 
@@ -114,7 +117,7 @@ describe('points', function(){
 	});
 
 	it('should propagate a chained disagreement appropriately', function(){
-		points.new_point(three, function(modified){
+		rhombus.new_point(three, function(modified){
 			modified.should.be.ok;
 			modified.length.should.be.equal(3);
 
@@ -138,7 +141,7 @@ describe('points', function(){
 	});
 
 	it('should handle a new agreement appropriately', function(){
-		points.new_point(four, function(modified){
+		rhombus.new_point(four, function(modified){
 			modified.should.be.ok;
 			modified.length.should.be.equal(2);
 
@@ -157,7 +160,7 @@ describe('points', function(){
 	});
 
 	it('should link the two agreements appropriately', function(){
-		points.new_point(five, function(modified){
+		rhombus.new_point(five, function(modified){
 			modified.should.be.ok;
 			modified.length.should.be.equal(3);
 
