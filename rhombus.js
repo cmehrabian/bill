@@ -3,8 +3,8 @@ var _ = require('lodash');
 // All server-side logic for handling requests and keeping track of the points is here.
 // There is a lot of legacy code involving links.  Don't mind that.  
 
-var points = [] 
-var last_point_id = 0 
+var points = [] ;
+var last_point_id = 0; 
 
 
 exports.reset = function(){
@@ -48,31 +48,31 @@ exports.download = function(callback){
 
 
 exports.requestTopics = function(callback){
-  callback(_.where(points, {original:true}))
+  callback(_.where(points, {original:true}));
 }
 
 exports.new_point = function(data, callback){
-  data.point_id = ++last_point_id
+  data.point_id = ++last_point_id;
 
-  data.root = data.point_id
+  data.root = data.point_id;
 
   points.push(data);
 
-  var delta = 1
+  var delta = 1;
 
   if(data.flavor == 'quote')
-    delta = 0
+    delta = 0;
 
-  a = []
-  a = propagate(data, a, delta)
+  a = [];
+  a = propagate(data, a, delta);
 
   var parent = _.find(points, {point_id: data.parent})
   if(parent !== undefined){
-    data.root = parent.root
-    parent.children.push(data.point_id)
+    data.root = parent.root;
+    parent.children.push(data.point_id);
   }
     
-  var modifiedparent = _.find(a, {point_id:data.parent})
+  var modifiedparent = _.find(a, {point_id:data.parent});
 
   if(modifiedparent === undefined && parent !== undefined)
     a.push(parent);
@@ -124,11 +124,11 @@ var propagate = function(n, a, delta, blacklist){
   n.modified = true;
 
   if(n.flavor == 'dissent')
-    newdelta = -newdelta
+    newdelta = -newdelta;
   if(n.flavor == 'comment')
-    newdelta = 0
+    newdelta = 0;
   if(n.flavor == 'quote' || n.flavor == 'link')
-    newdelta = delta
+    newdelta = delta;
 
   _.forEach(n.links, function(link){
     var node = _.find(points, {point_id:link}); 
@@ -138,8 +138,7 @@ var propagate = function(n, a, delta, blacklist){
   var parent = _.find(points, {point_id:n.parent});
   a = propagate(parent, a, newdelta, blacklist)
 
-  return a
-
+  return a;
 }
 
 
@@ -147,7 +146,7 @@ var pos = function(value){
   if(value > 0)
     return value;
   else
-    return 0
+    return 0;
 
 }
 
@@ -183,9 +182,9 @@ function addLink(n){
 
   //check for a cycle
   if(hasCycle(n.links[0], null, n.point_id) || hasCycle(n.links[1], null, n.point_id)){
-    console.log('cycle found!')
+    console.log('cycle found!');
     //fixcycle
-    return
+    return;
   }
 
   //update new-linked nodes to link each other
