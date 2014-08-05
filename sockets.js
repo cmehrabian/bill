@@ -6,6 +6,8 @@ var rhombus = require('./rhombus');
 // a callback in which the socket response is emitted.  This is to make the code 
 // cleaner if a request has to make an asynchronous database query.  
 
+var io;
+
 module.exports.listen = function(app){
   io = socketio.listen(app);
 
@@ -17,7 +19,6 @@ module.exports.listen = function(app){
         console.log('initialized');
       })
     }
-
     ++num_watchers;
 
     //a request is sent with a point id.
@@ -31,19 +32,21 @@ module.exports.listen = function(app){
       else{
         console.log('user requested ' + data.point_id + ' which is not a number');
       }
- 
     })
 
     socket.on('disconnect', function (data) {
       console.log('client disconnected');
-
       --num_watchers;
       if(num_watchers == 0){
         rhombus.cleanup(function(){
           console.log('cleaned up');
         });
       }
-
     });
+
   });
+}
+
+module.exports.update = function(modified){
+  io.sockets.emit('update', modified);
 }

@@ -210,8 +210,6 @@ angular.module('components', [])
 			select(_.find(nodes, function(n){return n.data.point_id == parseInt(request_id)}))
 		}
 		else{
-			console.log(nodes);
-			console.log(data);
 			var parent = _.find(nodes, function(n){
 				return n.data.point_id == data[0].parent
 			})
