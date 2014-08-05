@@ -1,9 +1,9 @@
 
 # Rhombus 
 
-If you don't know what's going on here, all of the information about the project in general is in the [wiki](https://github.com/ndvr/gadfly/wiki).
+If you don't know what's going on here, all of the information about the project in general is [in the wiki](https://github.com/ndvr/gadfly/wiki).
 
-You can play with the current working iteration [here](http://rhombus-forum.herokuapp.com/#/).
+Here's where you can play with the [current working iteration](http://rhombus-forum.herokuapp.com/#/).
 
 This was all built primarily with nodejs, angularjs, socketio, and springyjs (a force-directed
 graph library.)
