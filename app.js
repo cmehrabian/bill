@@ -7,7 +7,7 @@ var express = require('express');
 var path = require('path');
 var app = module.exports = express()
 var server = require('http').createServer(app)
-var io = require('./sockets').listen(server) 
+var sockets = require('./sockets').listen(server);
 var rhombus = require('./rhombus')
 
 app.set('port', process.env.PORT || 3000);
@@ -39,11 +39,12 @@ app.get('/requestTopics', function(req, res){
 });
 
 app.post('/submit', function(req, res, data){
-	rhombus.new_point(req.body, function(){res.send('')});
+	rhombus.new_point(req.body, function(modified){
+		require('./sockets').update(modified);
+		console.log('websocket sent', modified);
+	});
 })
 
 app.get('/download', function(req, res){
     rhombus.download(function(points){res.send(points);});
 });
-
-

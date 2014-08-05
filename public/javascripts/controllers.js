@@ -1,6 +1,5 @@
 angular.module('controllers', [])
-.controller('graphCtrl', function($scope, graph, $routeParams, socket){
-	console.log($routeParams)
+.controller('graphCtrl', function($scope, graph, $routeParams, socket, $http){
 
 	graph.init()
 
@@ -19,7 +18,7 @@ angular.module('controllers', [])
 	$scope.editing = false
 	$scope.looking = true
 
-	$scope.flavors = ['comment', 'assent', 'dissent', 'quote', 'link']
+	$scope.flavors = ['comment', 'assent', 'dissent', 'quote']
 
 	var updateSelected = function(selected, children, parent){
 		$scope.selected = selected
@@ -82,7 +81,9 @@ angular.module('controllers', [])
 		$scope.flavor = 'comment'
 		$scope.text = ''
 
-		socket.emit('new_point', n)
+		// we don't really care about the response.
+		$http({method: 'POST', url: '/submit', data: n})
+
 		$scope.editing = false
 	}
 })
@@ -121,15 +122,13 @@ angular.module('controllers', [])
 		    	console.log(config);
 		    });
 
-		}
+	}
 
 })
 
 .controller('boardCtrl', function($scope, $routeParams, $http){
   $http({method: 'GET', url: '/requestTopics'}).
     success(function(data, status, headers, config) {
-    	console.log(data)
-
     	$scope.topics = data
     }).
     error(function(data, status, headers, config) {
