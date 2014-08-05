@@ -1,16 +1,24 @@
 {
-  "name": "application-name",
+  "name": "gadfly",
   "version": "0.1.0",
-  "private": true,
+	"description": "A web application for deconstructive reasoning",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ndvr/gadfly.git"
+	},
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.4.7",
-    "ejs":"*",
-    "socket.io":"0.9",
-    "lodash":"*",
-    "mocha":"*",
-    "should":"*"
-    }
+    "chai": "^1.9.1",
+    "express": "^3.4.7",
+    "gulp": "^3.8.6",
+    "gulp-mocha": "^0.5.2",
+    "gulp-traceur": "^0.9.0",
+    "lodash": "^2.4.1",
+    "mocha": "^1.21.3",
+    "should": "^4.0.4",
+    "socket.io": "^0.9.17",
+    "traceur": "0.0.52"
+  }
 }
