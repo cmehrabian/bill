@@ -1,6 +1,5 @@
 
-// Currently the tests are used for keeping track of all 
-// the Rhombus logic.  
+// These tests are used to verify the Rhombus logic.
 
 var should = require('should');
 var rhombus = require('../rhombus');
@@ -71,6 +70,22 @@ describe('rhombus', function(){
 	}
 
 	var five = {
+		username:'fightrr',
+		value:0,
+		ghostvalue:0,
+		time:_.now(),
+		flavor:'quote',
+		text:'"oy"',
+		parent:4,
+		children:[],
+		links:[],
+		linkhelpers:[],
+		original:false,
+		propagated:0
+
+	}
+
+	var six = {
 		username:'Lies',
 		value:0,
 		ghostvalue:0,
@@ -158,6 +173,19 @@ describe('rhombus', function(){
 
 		})
 	});
+
+	it('should add a quote appropriately', function(){
+		rhombus.new_point(four, function(modified){
+			modified.should.be.ok;
+			modified.length.should.be.equal(1);
+
+			//five
+			modified[0].point_id.should.equal(5);
+			modified[0].value.should.be.equal(0);
+			modified[0].flavor.should.be.equal('quote');
+	})
+
+	it('should')
 
 	it('should link the two agreements appropriately', function(){
 		rhombus.new_point(five, function(modified){
