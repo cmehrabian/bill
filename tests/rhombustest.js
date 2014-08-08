@@ -114,7 +114,6 @@ describe('rhombus', function(){
 		});
 	});
 
-
 	it('should add a quote appropriately', function(){
 		rhombus.new_point(four, function(modified){
 			modified.should.be.ok;
