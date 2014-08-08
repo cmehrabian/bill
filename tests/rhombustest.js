@@ -8,7 +8,7 @@ var _ = require('lodash');
 describe('rhombus', function(){
 
 
-	var one = {
+	var orig = {
 		username:'Nancy',
 		value:0,
 		ghostvalue:0,
@@ -23,83 +23,6 @@ describe('rhombus', function(){
 		propagated:0
 	}
 
-	var two = {
-		username:'Jeff',
-		value:0,
-		ghostvalue:0,
-		time:_.now(),
-		flavor:'assent',
-		text:'yee',
-		parent:1,
-		children:[],
-		links:[],
-		linkhelpers:[],
-		original:false,
-		propagated:0
-	}
-
-	var three = {
-		username:'Marshall',
-		value:0,
-		ghostvalue:0,
-		time:_.now(),
-		flavor:'dissent',
-		text:'fuckoff, m8',
-		parent:2,
-		children:[],
-		links:[],
-		linkhelpers:[],
-		original:false,
-		propagated:0
-
-	}
-
-	var four = {
-		username:'Sawdust',
-		value:0,
-		ghostvalue:0,
-		time:_.now(),
-		flavor:'assent',
-		text:'oy',
-		parent:1,
-		children:[],
-		links:[],
-		linkhelpers:[],
-		original:false,
-		propagated:0
-	}
-
-	var five = {
-		username:'fightrr',
-		value:0,
-		ghostvalue:0,
-		time:_.now(),
-		flavor:'quote',
-		text:'"oy"',
-		parent:4,
-		children:[],
-		links:[],
-		linkhelpers:[],
-		original:false,
-		propagated:0
-
-	}
-
-	var six = {
-		username:'Lies',
-		value:0,
-		ghostvalue:0,
-		time:_.now(),
-		flavor:'link',
-		text:'',
-		parent:1,
-		children:[],
-		links:[],
-		linkhelpers:[2, 4],
-		original:false,
-		propagated:0
-	}
-
 
 	before(function(){
 		rhombus.reset();
@@ -107,7 +30,7 @@ describe('rhombus', function(){
 	});
 
 	it('should submit one point accurately', function(){
-		rhombus.new_point(one, function(modified){
+		rhombus.new_point(orig, function(modified){
 			modified.should.be.ok;
 			modified.length.should.be.equal(1);
 			modified[0].value.should.be.equal(1);
@@ -117,7 +40,7 @@ describe('rhombus', function(){
 	});
 
 	it('should propagate an agreement appropriately', function(){
-		rhombus.new_point(two, function(modified){
+		rhombus.new_point(createPoint('assent', 1), function(modified){
 			modified.should.be.ok;
 			modified.length.should.be.equal(2);
 
@@ -132,7 +55,7 @@ describe('rhombus', function(){
 	});
 
 	it('should propagate a chained disagreement appropriately', function(){
-		rhombus.new_point(three, function(modified){
+		rhombus.new_point(createPoint('dissent', 2), function(modified){
 			modified.should.be.ok;
 			modified.length.should.be.equal(3);
 
@@ -156,7 +79,7 @@ describe('rhombus', function(){
 	});
 
 	it('should handle a new agreement appropriately', function(){
-		rhombus.new_point(four, function(modified){
+		rhombus.new_point(createPoint('assent', 1), function(modified){
 			modified.should.be.ok;
 			modified.length.should.be.equal(2);
 
@@ -170,9 +93,27 @@ describe('rhombus', function(){
 			modified[1].value.should.be.equal(2);
 			modified[1].children.length.should.equal(2);
 			modified[1].children.should.containEql(modified[0].point_id);
-
-		})
+		});
 	});
+
+	it('should handle a new disagreement appropriately', function(){
+		rhombus.new_point(createPoint('assent', 1), function(modified){
+			modified.should.be.ok;
+			modified.length.should.be.equal(2);
+
+			//four
+			modified[0].point_id.should.equal(4);
+			modified[0].value.should.be.equal(1);
+			modified[0].flavor.should.be.equal('assent');
+
+			//one
+			modified[1].point_id.should.equal(1);
+			modified[1].value.should.be.equal(2);
+			modified[1].children.length.should.equal(2);
+			modified[1].children.should.containEql(modified[0].point_id);
+		});
+	});
+
 
 	it('should add a quote appropriately', function(){
 		rhombus.new_point(four, function(modified){
@@ -185,24 +126,22 @@ describe('rhombus', function(){
 			modified[0].flavor.should.be.equal('quote');
 	})
 
-	it('should')
-
-	it('should link the two agreements appropriately', function(){
-		rhombus.new_point(five, function(modified){
-			modified.should.be.ok;
-			modified.length.should.be.equal(3);
-
-			//four
-			modified[0].point_id.should.equal(4);
-			modified[0].value.should.be.equal(1);
-			modified[0].flavor.should.be.equal('assent');
-
-			//one
-			modified[1].point_id.should.equal(1);
-			modified[1].value.should.be.equal(2);
-			modified[1].children.length.should.equal(2);
-			modified[1].children.should.containEql(modified[0].point_id);
-
-		})
-	})
 });
+
+var createPoint = function(flavor, target){
+	n = {
+		username:'Nancy',
+		value:0,
+		ghostvalue:0,
+		time:_.now(),
+		flavor:flavor,
+		text:'Hello!',
+		parent:target,
+		children:[],
+		links:[],
+		linkhelpers:[],
+		original:false,
+		propagated:0
+	};
+	return n;
+}
