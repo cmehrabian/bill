@@ -1,0 +1,34 @@
+<head>
+  <title>d3test</title>
+</head>
+
+<body>
+	{{> graph}}
+  {{> hello}}
+<!--   {{> submitbox}}
+ -->
+</body>
+
+
+
+<template name="hello">
+	<input type="button" value="Add" />
+ <h1>Hello World!</h1>
+  {{greeting}}
+  {{#each nodes}}
+  	<p>{{text}} {{_id}}</p>
+
+  {{/each}}
+</template>
+
+<template name="submitbox">
+	<div id="submitbox-container">
+		<textarea id="submitbox-body"></textarea>
+	</div>
+</template>
+
+<template name="graph">
+	<div id="graph-container">
+	</div>
+</template>
+
