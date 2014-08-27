@@ -1,0 +1,21 @@
+<h>Welcome</h1>
+
+<p3>Boards:</p3>
+
+<p3>Topics:</p3>
+
+<div ng-repeat='topic in topics'>
+	
+	<a ng-href='#/view/{{topic.point_id}}'>
+		<h2>{{topic.text}}</h2>
+	</a>
+	<div class='topic-floatbar'>
+		<p>By:{{topic.username}}</p>
+		<p>Value:{{topic.value}}</p>
+		<p>id:{{topic.point_id}}</p>
+	</div>
+
+
+</div>
+
+<a href='#/new'> <p>New Post</p> </a>
