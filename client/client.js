@@ -23,28 +23,18 @@ Template.hello.nodes = function () {
 };
 
 Template.graph.rendered = function(){
-  //var self = this;
+  var self = this;
   //self.node = self.find('svg');
-  var graphElem = d3.select('#graph-container')
-    .append('svg')
-    .attr('id', 'graph')
-    .attr("width", 400)
-    .attr("height", 400)
-
+  if(self.graphElem === undefined){
+    self.graphElem = d3.select('#graph');
+  } 
 
   force = d3.layout.force()
     .linkDistance(80)
     .charge(-120)
     .gravity(.05)
     .size([400, 400])
-    .on("tick", tick);
-
-  //link = graphElem.selectAll(".link");
-  //node = graphElem.selectAll(".node");
-
-  //var data = [];
-  //var datalinks = [];
-
+    .on("tick", tick)
 
   Deps.autorun(function(){
     var nodes = Nodes.find().fetch()
@@ -53,25 +43,22 @@ Template.graph.rendered = function(){
       links = [ {"source":  0, "target":  1} ]
     }
 
-    graphElem.selectAll('.node')
+    self.graphElem.selectAll('.node')
       .data(nodes)
         .enter()
           .append("circle")
           .attr("class", "node")
           .attr("r", 12)
+          .attr("id", function(d){ return d._id;})
           .attr("cx", function() { return Math.random() * 400; })
           .attr("cy", function() { return Math.random() * 400; })
-          //.on("click", click);
+          .on("click", click);
 
-    graphElem.selectAll('.link')
+    self.graphElem.selectAll('.link')
       .data(links)
         .enter()
           .append("link")
           .attr("class", "link");
-    // link = link.data(datalinks)
-    //   .enter().append("line")
-    //     .attr("class", "link");
-
 
     force
       .nodes(nodes)
@@ -79,14 +66,10 @@ Template.graph.rendered = function(){
       .start()
   })
 
-  Deps.autorun(function(){
-
-  })
-
   function tick() {
 
-    var node = d3.selectAll('.node');
-    var link = d3.selectAll('.link');
+    var node = self.graphElem.selectAll('.node');
+    var link = self.graphElem.selectAll('.link');
 
     link.attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
@@ -98,17 +81,18 @@ Template.graph.rendered = function(){
   }
 
   function click(d) {
-  if (d3.event.defaultPrevented)
-    return;
+    if (d3.event.defaultPrevented)
+      return;
 
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
-  }
-  update();
-  
+    // FIXME, store previous selected DOM node so we don't have to 
+    // reselect
+    console.log(self.graphElem.select('#' + d._id)
+      .classed('selected', true));
+
+    var selected_id = Session.get('selected');
+    self.graphElem.select('#' + selected_id)
+      .classed('selected', false);
+
+    Session.set('selected', d._id);
   }
 }

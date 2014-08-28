@@ -3,13 +3,9 @@
 </head>
 
 <body>
-	{{> graph}}
+  {{> graph}}
   {{> hello}}
-<!--   {{> submitbox}}
- -->
 </body>
-
-
 
 <template name="hello">
 	<input type="button" value="Add" />
@@ -29,6 +25,8 @@
 
 <template name="graph">
 	<div id="graph-container">
+		<svg id="graph">
+		</svg>
 	</div>
 </template>
 
