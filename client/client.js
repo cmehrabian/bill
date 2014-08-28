@@ -22,10 +22,13 @@ Template.hello.events({
       Nodes.remove({_id: id});
       Session.set('selected', undefined);
 
-      d3.select('#graph')
-        .select('#'+ id)
-        .remove()
+      // d3.select('#graph')
+      //   .select('#'+ id)
+      //   .remove();
     }
+  },
+  'click #drop': function(){
+    Meteor.call('dropNodes');
   }
 });
 
@@ -56,7 +59,7 @@ Template.graph.rendered = function(){
     }
 
     var DOMnodes = self.graphElem.selectAll('.node')
-      .data(nodes)
+      .data(nodes, function(d){ return d._id});
 
     DOMnodes.enter()
       .append("circle")
@@ -66,6 +69,9 @@ Template.graph.rendered = function(){
       .attr("cx", function() { return Math.random() * 400; })
       .attr("cy", function() { return Math.random() * 400; })
       .on("click", click)
+
+    DOMnodes.exit()
+      .remove()
 
     self.graphElem.selectAll('.link')
       .data(links)
