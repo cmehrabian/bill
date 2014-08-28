@@ -21,10 +21,6 @@ Template.hello.events({
     if (id){
       Nodes.remove({_id: id});
       Session.set('selected', undefined);
-
-      // d3.select('#graph')
-      //   .select('#'+ id)
-      //   .remove();
     }
   },
   'click #drop': function(){
@@ -53,6 +49,8 @@ Template.graph.rendered = function(){
   //FIXME this whole thing can definitely be optimized
   Deps.autorun(function(){
     var nodes = Nodes.find().fetch()
+
+    console.log(nodes);
     var links = []
     if (nodes.length > 1){
       links = [ {"source":  0, "target":  1} ]
@@ -65,9 +63,7 @@ Template.graph.rendered = function(){
       .append("circle")
       .attr("class", "node")
       .attr("r", 12)
-      .attr("id", function(d){ return d._id;})
-      .attr("cx", function() { return Math.random() * 400; })
-      .attr("cy", function() { return Math.random() * 400; })
+      .attr("id", function(d){ return 'name' + d._id;})
       .on("click", click)
 
     DOMnodes.exit()
@@ -105,10 +101,10 @@ Template.graph.rendered = function(){
 
     //FIXME, keep track of last selectedDOMNode (globals vs same template)
     var selected_id = Session.get('selected');
-    self.graphElem.select('#' + selected_id)
+    self.graphElem.select('#name' + selected_id)
       .classed('selected', false);
 
-    self.graphElem.select('#' + d._id)
+    self.graphElem.select('#name' + d._id)
       .classed('selected', true);
 
     Session.set('selected', d._id);
