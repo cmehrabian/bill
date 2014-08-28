@@ -4,7 +4,6 @@ Meteor.subscribe('edges');
 Meteor.startup(function(){
   width = 960;
   height = 500;
-
 })
 
 Template.hello.greeting = function () {
@@ -13,15 +12,24 @@ Template.hello.greeting = function () {
 
 Template.hello.events({
   'click #add': function () {
-    Nodes.insert({text:'hello'});
+    var id = Nodes.insert({text:'hello'});
+    var selected = Session.get('selected');
+    if(!selected)
+      return;
+
+    Links.insert(
+      {
+        source:Session.get('selected'),
+        target:id 
+      });
   },
   'click #remove': function(){
     var id = Session.get('selected');
 
-    if (id){
-      Nodes.remove({_id: id});
-      Session.set('selected', undefined);
-    }
+    if (id)
+      Meteor.call('deleteNode', id);
+
+    Session.set('selected', undefined);
   },
   'click #drop': function(){
     Meteor.call('dropNodes');
@@ -46,18 +54,34 @@ Template.graph.rendered = function(){
     .size([1600, 500])
     .on("tick", tick)
 
-  //FIXME this whole thing can definitely be optimized
+  //FIXME figure out how to optimize this
   Deps.autorun(function(){
-    var nodes = Nodes.find().fetch()
-
-    console.log(nodes);
-    var links = []
-    if (nodes.length > 1){
-      links = [ {"source":  0, "target":  1} ]
-    }
+    var nodes = Nodes.find().fetch();
+    var meteorLinks = Links.find().fetch();
 
     var DOMnodes = self.graphElem.selectAll('.node')
       .data(nodes, function(d){ return d._id});
+
+    var links = []
+    meteorLinks.forEach(function(e){
+      // Get the source and target nodes
+      var sourceNode = nodes.filter(function(n) { return n._id === e.source; })[0],
+          targetNode = nodes.filter(function(n) { return n._id === e.target; })[0];
+
+      // Add the edge to the array
+      links.push({source: sourceNode, target: targetNode});
+
+    });
+
+    var DOMLinks = self.graphElem.selectAll('.link')
+      .data(links)
+
+    DOMLinks.enter()
+          .append("line")
+          .attr("class", "link")
+
+    DOMLinks.exit()
+      .remove();
 
     DOMnodes.enter()
       .append("circle")
@@ -65,16 +89,13 @@ Template.graph.rendered = function(){
       .attr("r", 12)
       .attr("id", function(d){ return 'name' + d._id;})
       .on("click", click)
+      //.call(force.drag);
 
     DOMnodes.exit()
       .remove()
 
-    self.graphElem.selectAll('.link')
-      .data(links)
-        .enter()
-          .append("link")
-          .attr("class", "link")
-
+    console.log(links);
+    
     force
       .nodes(nodes)
       .links(links)
