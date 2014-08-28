@@ -89,13 +89,11 @@ Template.graph.rendered = function(){
       .attr("r", 12)
       .attr("id", function(d){ return 'name' + d._id;})
       .on("click", click)
-      //.call(force.drag);
+      .call(force.drag);
 
     DOMnodes.exit()
       .remove()
 
-    console.log(links);
-    
     force
       .nodes(nodes)
       .links(links)
