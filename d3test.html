@@ -8,7 +8,8 @@
 </body>
 
 <template name="hello">
-	<input type="button" value="Add" />
+	<input id="add" type="button" value="Add" />
+	<input id="remove" type="button" value="remove" />
  <h1>Hello World!</h1>
   {{greeting}}
   {{#each nodes}}
@@ -25,7 +26,7 @@
 
 <template name="graph">
 	<div id="graph-container">
-		<svg id="graph">
+		<svg id="graph" width="1200" height="500">
 		</svg>
 	</div>
 </template>
