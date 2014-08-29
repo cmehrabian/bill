@@ -4,25 +4,36 @@
 
 <body>
   {{> graph}}
+  {{> submitbox}}
+  {{> nodeviewer}}
   {{> hello}}
 </body>
 
 <template name="hello">
-	<input id="add" type="button" value="Add" />
+<!-- 	<input id="add" type="button" value="Add" />
 	<input id="remove" type="button" value="remove" />
-	<input id="drop" type="button" value="drop" />
- <h1>Hello World!</h1>
+ -->	<input id="drop" type="button" value="drop" />
+<!--  <h1>Hello World!</h1>
   {{greeting}}
   {{#each nodes}}
   	<p>{{text}} {{_id}}</p>
 
   {{/each}}
-</template>
+ --></template>
 
 <template name="submitbox">
 	<div id="submitbox-container">
-		<textarea id="submitbox-body"></textarea>
+		<p>Username</p>
+		<input type="text" id="username-submit" value="{{username}}"/>
+		<p>Body</p>
+		<textarea id="body-submit"></textarea>
+		<input id="submit" type="button" value="submit"/>
 	</div>
+</template>
+
+<template name="nodeviewer">
+	{{username}}
+	{{body}}
 </template>
 
 <template name="graph">

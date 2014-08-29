@@ -40,6 +40,45 @@ Template.hello.nodes = function () {
   return Nodes.find();
 };
 
+// FIXME - don't do a query per field.  Either have Session selected
+// be the node itself or figure out how to set template variables
+Template.nodeviewer.username = function () {
+  return Nodes.findOne({_id: Session.get('selected')}).username;
+}
+
+Template.nodeviewer.body = function () {
+  return Nodes.findOne({_id: Session.get('selected')}).body;
+}
+
+Template.submitbox.events({
+  'click #submit': function () {
+    var username = document.getElementById("username-submit").value;
+    var nodeBody = document.getElementById("body-submit").value;
+    Session.set('username', username);
+
+    var id = Nodes.insert({
+      username: username,
+      body: nodeBody
+    });
+
+    var selected = Session.get('selected');
+    if(!selected)
+      return;
+
+    Links.insert(
+      {
+        source:Session.get('selected'),
+        target:id 
+      });
+
+    document.getElementById("body-submit").value;
+  }
+})
+
+Template.submitbox.username = function () {
+  return Session.get('username');
+}
+
 Template.graph.rendered = function(){
   var self = this;
 
