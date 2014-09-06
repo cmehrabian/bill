@@ -4,49 +4,30 @@ Meteor.subscribe('edges');
 Meteor.startup(function(){
   width = 960;
   height = 500;
+  var one = Nodes.findOne({});
+  Session.set('selected', one);
 })
 
-Template.hello.greeting = function () {
-  return "Welcome to d3test.";
-};
-
-Template.hello.events({
-  'click #add': function () {
-    var id = Nodes.insert({text:'hello'});
-    var selected = Session.get('selected');
-    if(!selected)
-      return;
-
-    Links.insert(
-      {
-        source:Session.get('selected'),
-        target:id 
-      });
-  },
-  'click #remove': function(){
-    var id = Session.get('selected');
-
-    if (id)
-      Meteor.call('deleteNode', id);
-
-    Session.set('selected', undefined);
-  },
+Template.dropper.events({
   'click #drop': function(){
     Meteor.call('dropNodes');
   }
 });
 
-Template.hello.nodes = function () {
-  return Nodes.find();
-};
-
 // FIXME - don't do a query per field.  Either have Session selected
 // be the node itself or figure out how to set template variables
+// ... or does meteor take care of this?
 Template.nodeviewer.username = function () {
+  // FIXME This check shouldn't be necessary.  
+  if (! Session.get('selected'))
+    return undefined;
   return Nodes.findOne({_id: Session.get('selected')}).username;
 }
 
 Template.nodeviewer.body = function () {
+  // FIXME This check shouldn't be necessary.  
+  if (! Session.get('selected'))
+    return undefined;
   return Nodes.findOne({_id: Session.get('selected')}).body;
 }
 
@@ -67,8 +48,8 @@ Template.submitbox.events({
 
     Links.insert(
       {
-        source:Session.get('selected'),
-        target:id 
+        target:Session.get('selected'),
+        source:id 
       });
 
     document.getElementById("body-submit").value;
@@ -108,7 +89,8 @@ Template.graph.rendered = function(){
           targetNode = nodes.filter(function(n) { return n._id === e.target; })[0];
 
       // Add the edge to the array
-      links.push({source: sourceNode, target: targetNode});
+      if(sourceNode && targetNode)
+        links.push({source: sourceNode, target: targetNode});
 
     });
 
@@ -116,8 +98,9 @@ Template.graph.rendered = function(){
       .data(links)
 
     DOMLinks.enter()
-          .append("line")
+          .append("path")
           .attr("class", "link")
+          .attr("marker-end", "url(#Triangle)")
 
     DOMLinks.exit()
       .remove();
@@ -140,15 +123,34 @@ Template.graph.rendered = function(){
   })
 
   function tick() {
-
     var node = self.graphElem.selectAll('.node');
     var link = self.graphElem.selectAll('.link');
+    var leftjoin = self.graphElem.selectAll('.leftjoin');
+    var rightjoin = self.graphElem.selectAll('.rightjoin');
 
-    link.attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
+    link.attr("d", function(d) {
+      var s2 = d.target;
+      var s1 = d.source;
 
+      var slope = (s2.y - s1.y) / (s2.x - s1.x)
+      var radius = 20;
+
+      var tanx = radius / Math.sqrt(Math.pow(slope,2) + 1)
+      var arrowLength = 10
+      var arrowWidth = 2
+
+      if(s2.x > s1.x)
+        tanx = -tanx
+
+      var tany = slope * tanx
+
+      tanx += s2.x
+      tany += s2.y
+
+      return "M " + d.source.x + " " + d.source.y + " L " + tanx + " " +
+      tany; 
+    })
+    
     node.attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
   }
