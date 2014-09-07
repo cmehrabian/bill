@@ -65,6 +65,11 @@ Template.graph.rendered = function(){
     .size([1600, 500])
     .on("tick", tick)
 
+  // if the user is trying to add an edge, this variable keeps track 
+  // of the node it's coming from so we can recalculate the arrow's 
+  // base coordinates.  
+  var potentialSource = null;
+
   //FIXME figure out how to optimize this
   Deps.autorun(function(){
 
@@ -143,7 +148,7 @@ Template.graph.rendered = function(){
   function tick() {
     var node = self.graphElem.selectAll('.node');
     var link = self.graphElem.selectAll('.link');
-    var potentialLink = self.graphElem.selectAll('.potential-link')
+    var potentialLink = self.graphElem.select('.potential-link');
 
     link.attr("d", function(d) {
       var offsets = getOffsetCoordinates(d.source, d.target);
@@ -154,6 +159,8 @@ Template.graph.rendered = function(){
     
     node.attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
+
+    console.log('tick');
 
   }
 
@@ -174,7 +181,7 @@ Template.graph.rendered = function(){
 
 
   function doubleclick(d){
-    self.DOMnodes.on('click', null);
+    potentialSource = true;
 
     var newLink = self.graphElem.append('line')
       .attr('class', 'potential-link')
@@ -193,9 +200,9 @@ Template.graph.rendered = function(){
 
     self.graphElem.on('click', function() {
       newLink.remove();
+      potentialSource = null;
 
       var clickedElem_id = d3.select(d3.event.target).attr('id');
-      console.log(clickedElem_id)
       // HAHAH THIS COULD BREAK PHILOSOPHICAL CRISIS
       if(clickedElem_id){
         if (clickedElem_id.indexOf("name") == -1)

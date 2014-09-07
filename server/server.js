@@ -17,7 +17,7 @@ Meteor.methods({
 	},
 	newLink: function(source_id, target_id){
 		var link = Links.findOne({source: source_id, target: target_id})
-		if (link){
+		if (link || source_id == target_id){
 			return;
 		}
 		if (target_id && source_id){
