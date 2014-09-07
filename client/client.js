@@ -127,20 +127,20 @@ Template.graph.rendered = function(){
       var s2 = target;
       var s1 = source;
 
-      var slope = (s2.y - s1.y) / (s2.x - s1.x)
+      var slope = (s2.y - s1.y) / (s2.x - s1.x);
       var radius = 20;
 
-      var tanx = radius / Math.sqrt(Math.pow(slope,2) + 1)
-      var arrowLength = 10
-      var arrowWidth = 2
+      var tanx = radius / Math.sqrt(Math.pow(slope,2) + 1);
+      var arrowLength = 10;
+      var arrowWidth = 2;
 
       if(s2.x > s1.x)
-        tanx = -tanx
+        tanx = -tanx;
 
-      var tany = slope * tanx
+      var tany = slope * tanx;
 
-      tanx += s2.x
-      tany += s2.y
+      tanx += s2.x;
+      tany += s2.y;
 
       return {x: tanx, y: tany};
   }
@@ -160,8 +160,11 @@ Template.graph.rendered = function(){
     node.attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
 
-    console.log('tick');
+    if(!potentialSource)
+      return;
 
+    potentialLink.attr("x1", potentialSource.x)
+      .attr("x2", potentialSource.y);
   }
 
   function mouseover(d) {
@@ -179,9 +182,8 @@ Template.graph.rendered = function(){
     Session.set('selected', d._id);
   }
 
-
   function doubleclick(d){
-    potentialSource = true;
+    potentialSource = d;
 
     var newLink = self.graphElem.append('line')
       .attr('class', 'potential-link')
@@ -205,11 +207,12 @@ Template.graph.rendered = function(){
       var clickedElem_id = d3.select(d3.event.target).attr('id');
       // HAHAH THIS COULD BREAK PHILOSOPHICAL CRISIS
       if(clickedElem_id){
-        if (clickedElem_id.indexOf("name") == -1)
-          return;
-        var target_id = clickedElem_id.replace("name", "");
-        Meteor.call('newLink', d._id, target_id);
+        if (clickedElem_id.indexOf("name") != -1){
+          var target_id = clickedElem_id.replace("name", "");
+          Meteor.call('newLink', d._id, target_id);
+        }
       }
+
       // clean up the event handlers.
       self.graphElem.on('click', null);
       self.graphElem.on('mousemove', null);
