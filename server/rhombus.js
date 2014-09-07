@@ -1,11 +1,7 @@
-var _ = require('lodash');
 
 // All server-side logic for handling requests and keeping track of the points is here.
 
-var points = [] ;
-var last_point_id = 0; 
-
-
+/*
 exports.reset = function(){
   points = [];
   last_point_id = 0;
@@ -45,12 +41,12 @@ exports.download = function(callback){
   callback(points);
 }
 
-
 exports.requestTopics = function(callback){
   callback(_.where(points, {original:true}));
 }
+*/
 
-exports.new_point = function(data, callback){
+var newNode = function(data, callback){
   data.point_id = ++last_point_id;
 
   data.root = data.point_id;
@@ -79,6 +75,7 @@ exports.new_point = function(data, callback){
   callback(a);
 }
 
+/*
 //called if amount of watchers becomes 0.  Saves everything to database.
 exports.cleanup = function(callback){
   callback();
@@ -256,3 +253,5 @@ function getAllRecipients(point_id, a){
 
   return a;
 }
+
+*/

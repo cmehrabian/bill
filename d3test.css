@@ -11,7 +11,7 @@
 }
 
 /* Refers to the lines showing arrow direction */
-.join {
+.potential-link {
 	stroke: #000;
   	stroke-width: 1.5px;
 }
