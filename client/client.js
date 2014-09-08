@@ -54,9 +54,11 @@ Template.submitbox.username = function () {
 Template.graph.rendered = function(){
   var self = this;
 
-  if(self.graphElem === undefined){
-    self.graphElem = d3.select('#graph');
-  } 
+  self.graphElem = d3.select('#graph');
+  self.edges = self.graphElem.select('#edges');
+  self.nodes = self.graphElem.select('#nodes');
+
+  console.log(self.edges);
 
   force = d3.layout.force()
     .linkDistance(80)
@@ -65,18 +67,13 @@ Template.graph.rendered = function(){
     .size([1600, 500])
     .on("tick", tick)
 
-  // if the user is trying to add an edge, this variable keeps track 
-  // of the node it's coming from so we can recalculate the arrow's 
-  // base coordinates.  
-  var potentialSource = null;
-
   //FIXME figure out how to optimize this
   Deps.autorun(function(){
 
     var nodes = Nodes.find().fetch();
     var meteorLinks = Links.find().fetch();
 
-    var DOMnodes = self.graphElem.selectAll('.node')
+    var DOMnodes = self.nodes.selectAll("*")
       .data(nodes, function(d){ return d._id});
 
     var links = []
@@ -91,13 +88,13 @@ Template.graph.rendered = function(){
 
     });
 
-    var DOMLinks = self.graphElem.selectAll('.link')
+    var DOMLinks = self.edges.selectAll("*")
       .data(links)
 
     DOMLinks.enter()
-          .append("path")
-          .attr("class", "link")
-          .attr("marker-end", "url(#Triangle)")
+      .append("path")
+      .attr("class", "edge comment-edge")
+      .attr("marker-end", "url(#Triangle)")
 
     DOMLinks.exit()
       .remove();
@@ -107,7 +104,7 @@ Template.graph.rendered = function(){
       .append("circle")
       .attr("class", "node")
       .attr("r", 12)
-      .attr("id", function(d){ return 'name' + d._id;})
+      .attr("id", function(d){ return 'name' + d._id; })
       .on("mouseover", mouseover)
       .on("dblclick", doubleclick)
       .call(force.drag());
@@ -147,8 +144,8 @@ Template.graph.rendered = function(){
 
   function tick() {
     var node = self.graphElem.selectAll('.node');
-    var link = self.graphElem.selectAll('.link');
-    var potentialLink = self.graphElem.select('.potential-link');
+    var link = self.graphElem.selectAll('.edge');
+    var potentialLink = self.graphElem.select('#potential-edge');
 
     link.attr("d", function(d) {
       var offsets = getOffsetCoordinates(d.source, d.target);
@@ -159,12 +156,6 @@ Template.graph.rendered = function(){
     
     node.attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
-
-    if(!potentialSource)
-      return;
-
-    potentialLink.attr("x1", potentialSource.x)
-      .attr("x2", potentialSource.y);
   }
 
   function mouseover(d) {
@@ -183,10 +174,9 @@ Template.graph.rendered = function(){
   }
 
   function doubleclick(d){
-    potentialSource = d;
 
     var newLink = self.graphElem.append('line')
-      .attr('class', 'potential-link')
+      .attr('id', 'potential-edge')
       .attr('x1', d.x)
       .attr('y1', d.y)
       .attr('x2', d.x)
@@ -202,7 +192,6 @@ Template.graph.rendered = function(){
 
     self.graphElem.on('click', function() {
       newLink.remove();
-      potentialSource = null;
 
       var clickedElem_id = d3.select(d3.event.target).attr('id');
       // HAHAH THIS COULD BREAK PHILOSOPHICAL CRISIS

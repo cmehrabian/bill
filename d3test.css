@@ -5,13 +5,20 @@
   	fill: #ccc;
 }
 
-.link {
-	stroke: #000;
+#edges {
   	stroke-width: 1.5px;
 }
 
-/* Refers to the lines showing arrow direction */
-.potential-link {
+.comment-edge{
+	stroke: #000;
+}
+
+/* 
+	Refers to the lines showing arrow direction
+	We this as a unique ID so tick() doesn't
+	get confused.
+*/
+#potential-edge {
 	stroke: #000;
   	stroke-width: 1.5px;
 }
