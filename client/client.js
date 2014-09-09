@@ -58,7 +58,10 @@ Template.graph.rendered = function(){
   self.edges = self.graphElem.select('#edges');
   self.nodes = self.graphElem.select('#nodes');
 
-  console.log(self.edges);
+  // var meteorNodes = [];
+  // var meteorLinks = [];
+  var nodes = []
+  var links = []
 
   force = d3.layout.force()
     .linkDistance(80)
@@ -67,25 +70,51 @@ Template.graph.rendered = function(){
     .size([1600, 500])
     .on("tick", tick)
 
-  //FIXME figure out how to optimize this
+  // Calculating node changes
   Deps.autorun(function(){
 
-    var nodes = Nodes.find().fetch();
-    var meteorLinks = Links.find().fetch();
+    var meteorNodes = Nodes.find().fetch();
 
+    var newNodes = _.difference(meteorNodes, nodes);
+    newNodes.forEach(function(n){
+      nodes.push(n);
+    });
+
+    // LOOKINTO, does the selection change dynamically when elements are added?
     var DOMnodes = self.nodes.selectAll("*")
       .data(nodes, function(d){ return d._id});
 
-    var links = []
-    meteorLinks.forEach(function(e){
-      // Get the source and target nodes
+    // 'name' + d._id is because the id field isn't allowed to begin with numbers.
+    DOMnodes.enter()
+      .append("circle")
+      .attr("class", "node")
+      .attr("r", 12)
+      .attr("id", function(d){ return 'name' + d._id; })
+      .on("mouseover", mouseover)
+      .on("dblclick", doubleclick)
+      .call(force.drag());
+
+    // FIXME- This won't work as expected, get it to run like data selection.
+    DOMnodes.exit()
+      .remove()
+
+    force
+      .nodes(nodes)
+      .start()
+  })
+
+  Deps.autorun(function(){
+    var meteorLinks = Links.find().fetch();
+
+    var newLinks = _.difference(meteorLinks, links);
+
+    newLinks.forEach(function(e){
       var sourceNode = nodes.filter(function(n) { return n._id === e.source; })[0],
           targetNode = nodes.filter(function(n) { return n._id === e.target; })[0];
 
       // Add the edge to the array
       if(sourceNode && targetNode)
         links.push({source: sourceNode, target: targetNode});
-
     });
 
     var DOMLinks = self.edges.selectAll("*")
@@ -99,25 +128,9 @@ Template.graph.rendered = function(){
     DOMLinks.exit()
       .remove();
 
-    // 'name' + d._id is because the id field isn't allowed to begin with numbers.
-    DOMnodes.enter()
-      .append("circle")
-      .attr("class", "node")
-      .attr("r", 12)
-      .attr("id", function(d){ return 'name' + d._id; })
-      .on("mouseover", mouseover)
-      .on("dblclick", doubleclick)
-      .call(force.drag());
-
-    DOMnodes.exit()
-      .remove()
-
     force
-      .nodes(nodes)
       .links(links)
       .start()
-
-    self.DOMnodes = DOMnodes;
   })
 
   function getOffsetCoordinates(source, target){
