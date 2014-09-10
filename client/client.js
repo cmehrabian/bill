@@ -91,7 +91,7 @@ Template.graph.rendered = function(){
     .linkDistance(80)
     .charge(-160)
     .gravity(.05)
-    .size([1600, 500])
+    .size([1200, 500])
     .on("tick", tick)
 
   // Calculating node changes
@@ -212,6 +212,9 @@ Template.graph.rendered = function(){
   }
 
   function doubleclick(d){
+
+    if(newLink)
+      newLink.remove();
 
     newLink = self.graphElem.append('line')
       .attr('id', 'potential-edge')
