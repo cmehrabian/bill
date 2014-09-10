@@ -1,6 +1,8 @@
 Meteor.subscribe('nodes');
 Meteor.subscribe('edges');
 
+var newLink;
+
 Meteor.startup(function(){
   width = 960;
   height = 500;
@@ -11,6 +13,31 @@ Template.dropper.events({
     Meteor.call('dropNodes');
   }
 });
+
+Template.container.creatingEdge = function () {
+  return !!Session.get('creatingEdge');
+}
+
+Template.edgeSubmitter.events({
+  'click #submit-edge': function () {
+    var newEdge = Session.get('creatingEdge');
+    if(!newEdge)
+      return;
+
+    var edgeTypeBox = document.getElementById("edge-type");
+    var edgeType = edgeTypeBox.options[edgeTypeBox.selectedIndex].value;
+
+    newEdge.type = edgeType;
+
+    Meteor.call('newEdge', newEdge);
+    newLink.remove();
+    Session.set('creatingEdge', null);
+  },
+  'click #cancel-submit-edge': function () {
+    Session.get('creatingEdge').domLink.remove();
+    Session.set('creatingEdge', null);
+  }
+})
 
 // FIXME - don't do a query per field.  Either have Session selected
 // be the node itself or figure out how to set template variables
@@ -58,14 +85,12 @@ Template.graph.rendered = function(){
   self.edges = self.graphElem.select('#edges');
   self.nodes = self.graphElem.select('#nodes');
 
-  // var meteorNodes = [];
-  // var meteorLinks = [];
   var nodes = []
   var links = []
 
   force = d3.layout.force()
     .linkDistance(80)
-    .charge(-120)
+    .charge(-160)
     .gravity(.05)
     .size([1600, 500])
     .on("tick", tick)
@@ -84,12 +109,12 @@ Template.graph.rendered = function(){
     var DOMnodes = self.nodes.selectAll("*")
       .data(nodes, function(d){ return d._id});
 
-    // 'name' + d._id is because the id field isn't allowed to begin with numbers.
+    // 'node' + d._id is because the id field isn't allowed to begin with numbers.
     DOMnodes.enter()
       .append("circle")
       .attr("class", "node")
       .attr("r", 12)
-      .attr("id", function(d){ return 'name' + d._id; })
+      .attr("id", function(d){ return 'node' + d._id; })
       .on("mouseover", mouseover)
       .on("dblclick", doubleclick)
       .call(force.drag());
@@ -103,6 +128,7 @@ Template.graph.rendered = function(){
       .start()
   })
 
+  // Calculates link changes.  
   Deps.autorun(function(){
     var meteorLinks = Links.find().fetch();
 
@@ -177,10 +203,10 @@ Template.graph.rendered = function(){
 
     //FIXME, keep track of last selectedDOMNode (globals vs same template)
     var selected_id = Session.get('selected');
-    self.graphElem.select('#name' + selected_id)
+    self.graphElem.select('#node' + selected_id)
       .classed('selected', false);
 
-    self.graphElem.select('#name' + d._id)
+    self.graphElem.select('#node' + d._id)
       .classed('selected', true);
 
     Session.set('selected', d._id);
@@ -188,7 +214,7 @@ Template.graph.rendered = function(){
 
   function doubleclick(d){
 
-    var newLink = self.graphElem.append('line')
+    newLink = self.graphElem.append('line')
       .attr('id', 'potential-edge')
       .attr('x1', d.x)
       .attr('y1', d.y)
@@ -204,14 +230,21 @@ Template.graph.rendered = function(){
     });
 
     self.graphElem.on('click', function() {
-      newLink.remove();
 
       var clickedElem_id = d3.select(d3.event.target).attr('id');
-      // HAHAH THIS COULD BREAK PHILOSOPHICAL CRISIS
       if(clickedElem_id){
-        if (clickedElem_id.indexOf("name") != -1){
-          var target_id = clickedElem_id.replace("name", "");
-          Meteor.call('newLink', d._id, target_id);
+
+        // HAHAH THIS COULD BREAK /me PHILOSOPHICAL CRISIS
+        if (clickedElem_id.indexOf("node") != -1){
+          var target_id = clickedElem_id.replace("node", "");
+          var newEdge = {
+            source: d._id,
+            target: target_id
+          }
+          Session.set('creatingEdge', newEdge);
+        }
+        else{
+          newLink.remove();
         }
       }
 

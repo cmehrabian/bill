@@ -15,7 +15,9 @@ Meteor.methods({
 		// Note: if ever done RESTfully, add a data quality check. 
 		node._id = Nodes.insert(node);
 	},
-	newLink: function(source_id, target_id){
+	newEdge: function(edge){
+		var source_id = edge.source;
+		var target_id = edge.target;
 		var link = Links.findOne({source: source_id, target: target_id})
 		if (link || source_id == target_id){
 			return;
@@ -23,7 +25,8 @@ Meteor.methods({
 		if (target_id && source_id){
 			Links.insert({
 				source: source_id,
-				target: target_id
+				target: target_id,
+				type: edge.type
 			});
 		}
 	}

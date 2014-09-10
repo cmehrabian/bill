@@ -3,14 +3,35 @@
 </head>
 
 <body>
+	{{> container}}
+</body>
+
+<template name="container">
   {{> graph}}
-  {{> submitbox}}
+
+  {{#if creatingEdge}}
+  	{{> edgeSubmitter}}
+  {{else}}
+  	{{> submitbox}}
+  {{/if}}
+
   {{> nodeviewer}}
   {{> dropper}}
-</body>
+</template>
 
 <template name="dropper">
  	<input id="drop" type="button" value="drop" />
+</template>
+
+<template name="edgeSubmitter">
+	<div id="submitbox">
+		<select id="edge-type">
+			<option value="disagreement"> disagreement </option>
+			<option value="agreement"> agreement </option>
+		</select>
+		<input id="submit-edge" type="button" value="submit"/>
+		<input id="cancel-submit-edge" type="button" value="cancel"/>
+	</div>
 </template>
 
 <template name="submitbox">
@@ -20,7 +41,7 @@
 		<p>Body</p>
 		<textarea id="body-submit"></textarea>
 		<input id="submit-node" type="button" value="submit"/>
-		<p> doubleclick to add edges! </p>
+		<p> double click to add edges! </p>
 	</div>
 </template>
 
@@ -39,10 +60,10 @@
 	<div id="graph-container">
 		<svg id="graph" width="1200" height="500">
 			<g id="edges">
-				
+
 			</g>
 			<g id="nodes">
-				
+
 			</g>
 
 			<defs>
