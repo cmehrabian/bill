@@ -13,6 +13,13 @@
 	stroke: #000;
 }
 
+.agreement-edge{
+	stroke: #009933;
+}
+
+.disagreement-edge{
+	stroke: #CC0000;
+}
 /* 
 	Refers to the lines showing arrow direction
 	We this as a unique ID so tick() doesn't

@@ -26,7 +26,6 @@ Template.edgeSubmitter.events({
 
     var edgeTypeBox = document.getElementById("edge-type");
     var edgeType = edgeTypeBox.options[edgeTypeBox.selectedIndex].value;
-
     newEdge.type = edgeType;
 
     Meteor.call('newEdge', newEdge);
@@ -34,7 +33,7 @@ Template.edgeSubmitter.events({
     Session.set('creatingEdge', null);
   },
   'click #cancel-submit-edge': function () {
-    Session.get('creatingEdge').domLink.remove();
+    newLink.remove();
     Session.set('creatingEdge', null);
   }
 })
@@ -128,7 +127,7 @@ Template.graph.rendered = function(){
       .start()
   })
 
-  // Calculates link changes.  
+  // Calculates link changes.
   Deps.autorun(function(){
     var meteorLinks = Links.find().fetch();
 
@@ -140,7 +139,7 @@ Template.graph.rendered = function(){
 
       // Add the edge to the array
       if(sourceNode && targetNode)
-        links.push({source: sourceNode, target: targetNode});
+        links.push({source: sourceNode, target: targetNode, type:e.type});
     });
 
     var DOMLinks = self.edges.selectAll("*")
@@ -148,7 +147,7 @@ Template.graph.rendered = function(){
 
     DOMLinks.enter()
       .append("path")
-      .attr("class", "edge comment-edge")
+      .attr("class", function(e) { return "edge " + e.type + "-edge"})
       .attr("marker-end", "url(#Triangle)")
 
     DOMLinks.exit()

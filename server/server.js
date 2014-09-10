@@ -22,6 +22,7 @@ Meteor.methods({
 		if (link || source_id == target_id){
 			return;
 		}
+
 		if (target_id && source_id){
 			Links.insert({
 				source: source_id,
