@@ -41,18 +41,19 @@ Template.edgeSubmitter.events({
 // be the node itself or figure out how to set template variables
 // ... or does meteor take care of this?
 Template.nodeviewer.username = function () {
-  // FIXME This check shouldn't be necessary.
-  // and should be working.
-  if (! Session.get('selected'))
-    return undefined;
-  return Nodes.findOne({_id: Session.get('selected')}).username;
+  var node = Nodes.findOne({_id: Session.get('selected')});
+  if(node)
+    return node.username;
+  else
+    return "";
 }
 
 Template.nodeviewer.body = function () {
-  // FIXME This check shouldn't be necessary.  
-  if (! Session.get('selected'))
-    return undefined;
-  return Nodes.findOne({_id: Session.get('selected')}).body;
+  var node = Nodes.findOne({_id: Session.get('selected')});
+  if(node)
+    return node.username;
+  else
+    return "";
 }
 
 Template.submitbox.events({
