@@ -130,14 +130,13 @@ Template.graph.rendered = function(){
   Deps.autorun(function(){
     var meteorLinks = Links.find().fetch();
     var newLinks = _.difference(meteorLinks, links);
-
     newLinks.forEach(function(e){
       var sourceNode = nodes.filter(function(n) { return n._id === e.source; })[0],
           targetNode = nodes.filter(function(n) { return n._id === e.target; })[0];
 
       // Add the edge to the array
       if(sourceNode && targetNode)
-        links.push({source: sourceNode, target: targetNode, type:e.type});
+        links.push({source: sourceNode, target: targetNode, type:e.type, _id:e._id});
     });
 
     var DOMLinks = self.edges.selectAll("*")
@@ -249,14 +248,25 @@ Template.graph.rendered = function(){
 
     var mousedOver = Session.get('mousedOver');
     if(mousedOver){
-      (self.graphElem.select("circle[_id=node" + mousedOver._id + "]") ||
-       self.graphElem.select("path[_id=edge"+ mousedOver._id + "]"))
-        .classed('highlighted', false);
+      var c = self.graphElem.select("circle[_id=node" + mousedOver._id + "]")
+      var p = self.graphElem.select("path[_id=edge"+ mousedOver._id + "]")
+
+
+      if(c[0][0])
+        c.classed('highlighted', false);
+
+      if(p[0][0])
+        p.classed('highlighted', false);
     }
 
-    (self.graphElem.select("circle[_id=node" + d._id + "]") ||
-     self.graphElem.select("path[_id=edge"+ d._id + "]"))
-      .classed('highlighted', true);
+    var c = self.graphElem.select("circle[_id=node" + d._id + "]")
+    var p = self.graphElem.select("path[_id=edge"+ d._id + "]")
+
+    if(c[0][0])
+      c.classed('highlighted', true);
+
+    if(p[0][0])
+      p.classed('highlighted', true);
 
     Session.set('mousedOver', d);
   }
@@ -292,18 +302,27 @@ Template.graph.rendered = function(){
   function selectHighlighted(){
     //FIXME, keep track of last selectedDOMNode (globals vs same template)
     var selected_id = Session.get('selected');
-    (self.graphElem.select('circle[_id=node' + selected_id + ']') ||
-     self.graphElem.select("path[_id=edge"+ selected._id + "]"))
-      .classed('selected', false);
+    var c = self.graphElem.select("circle[_id=node" + selected_id + "]")
+    var p = self.graphElem.select("path[_id=edge"+ selected_id + "]")
+
+    if(c[0][0])
+      c.classed('selected', false);
+
+    if(p[0][0])
+      p.classed('selected', false);
 
     var mousedOver = Session.get('mousedOver');
 
-    (self.graphElem.select('circle[_id=node' + mousedOver._id + ']') ||
-     self.graphElem.select("path[_id=edge"+ mousedOver._id + "]"))
-      .classed('selected', true);
+    var c = self.graphElem.select("circle[_id=node" + mousedOver._id + "]")
+    var p = self.graphElem.select("path[_id=edge"+ mousedOver._id + "]")
+
+    if(c[0][0])
+      c.classed('selected', true);
+
+    if(p[0][0])
+      p.classed('selected', true);
 
     Session.set('selected', mousedOver._id);
-
   }
 }
 
