@@ -20,6 +20,10 @@
 .disagreement-edge{
 	stroke: #CC0000;
 }
+
+.highlighted{
+	stroke: #FFFF00;
+}
 /* 
 	Refers to the lines showing arrow direction
 	We this as a unique ID so tick() doesn't
@@ -31,7 +35,7 @@
 }
 
 .selected {
-	fill: yellow;
+	fill: red;
 }
 
 /* FIXME - doesn't work?? */

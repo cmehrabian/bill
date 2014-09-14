@@ -14,13 +14,14 @@ Template.dropper.events({
   }
 });
 
-Template.container.creatingEdge = function () {
-  return !!Session.get('creatingEdge');
+Template.container.newEdge = function () {
+  var state = Session.get('state')
+  return state && state.name == "submittingEdge"
 }
 
 Template.edgeSubmitter.events({
   'click #submit-edge': function () {
-    var newEdge = Session.get('creatingEdge');
+    var newEdge = Session.get('state').data;
     if(!newEdge)
       return;
 
@@ -29,12 +30,10 @@ Template.edgeSubmitter.events({
     newEdge.type = edgeType;
 
     Meteor.call('newEdge', newEdge);
-    newLink.remove();
-    Session.set('creatingEdge', null);
+    Session.set("state", new State("view"));
   },
   'click #cancel-submit-edge': function () {
-    newLink.remove();
-    Session.set('creatingEdge', null);
+    Session.set('state', new State("view"));
   }
 })
 
@@ -113,7 +112,7 @@ Template.graph.rendered = function(){
       .append("circle")
       .attr("class", "node")
       .attr("r", 12)
-      .attr("id", function(d){ return 'node' + d._id; })
+      .attr("_id", function(d){ return "node" + d._id; })
       .on("mouseover", mouseover)
       .on("dblclick", doubleclick)
       .call(force.drag());
@@ -130,7 +129,6 @@ Template.graph.rendered = function(){
   // Calculates link changes.
   Deps.autorun(function(){
     var meteorLinks = Links.find().fetch();
-
     var newLinks = _.difference(meteorLinks, links);
 
     newLinks.forEach(function(e){
@@ -148,7 +146,9 @@ Template.graph.rendered = function(){
     DOMLinks.enter()
       .append("path")
       .attr("class", function(e) { return "edge " + e.type + "-edge"})
+      .attr("_id", function(e) { return "edge" + e._id })
       .attr("marker-end", "url(#Triangle)")
+      .on("mouseover", mouseover);
 
     DOMLinks.exit()
       .remove();
@@ -156,6 +156,53 @@ Template.graph.rendered = function(){
     force
       .links(links)
       .start()
+  })
+
+  // handles logic for state changes
+  Deps.autorun(function(){
+    var state = Session.get('state');
+
+    // state should only be around when graph first spins up
+    if(!state){
+      Session.set('state', new State("view"));
+    }
+    // Just looking around at stuff.
+    else if(state.name == "view"){
+      if(newLink){
+        newLink.remove();
+        newLink = undefined;
+      }
+      self.graphElem.on('click', selectHighlighted);
+      self.graphElem.on('mousemove', null);
+    }
+    // after a doubleclick, choose the edge target
+    else if(state.name == "chooseTarget"){
+
+      var d = state.data.source;
+
+      newLink = self.graphElem.append('line')
+        .attr('id', 'potential-edge')
+        .attr('x1', d.x)
+        .attr('y1', d.y)
+        .attr('x2', d.x)
+        .attr('y2', d.y)
+        .attr("marker-end", "url(#Triangle)")
+        .attr("source", "node" + d._id)
+
+      self.graphElem.on('mousemove', function() {
+        var mouse = d3.mouse(this);
+        var offsets = getOffsetCoordinates({x: d.x, y: d.y}, {x: mouse[0], y: mouse[1]});
+        newLink.attr("x2", offsets.x);
+        newLink.attr("y2", offsets.y);
+      });
+
+      self.graphElem.on('click', chooseTarget);
+    }
+    // after the edge target is chosen, confirm submission
+    else if(state.name == "submittingEdge"){
+      self.graphElem.on('mousemove', null);
+      self.graphElem.on('click', selectHighlighted);
+    }
   })
 
   function getOffsetCoordinates(source, target){
@@ -200,59 +247,67 @@ Template.graph.rendered = function(){
     if (d3.event.defaultPrevented)
       return;
 
-    //FIXME, keep track of last selectedDOMNode (globals vs same template)
-    var selected_id = Session.get('selected');
-    self.graphElem.select('#node' + selected_id)
-      .classed('selected', false);
+    var mousedOver = Session.get('mousedOver');
+    if(mousedOver){
+      (self.graphElem.select("circle[_id=node" + mousedOver._id + "]") ||
+       self.graphElem.select("path[_id=edge"+ mousedOver._id + "]"))
+        .classed('highlighted', false);
+    }
 
-    self.graphElem.select('#node' + d._id)
-      .classed('selected', true);
+    (self.graphElem.select("circle[_id=node" + d._id + "]") ||
+     self.graphElem.select("path[_id=edge"+ d._id + "]"))
+      .classed('highlighted', true);
 
-    Session.set('selected', d._id);
+    Session.set('mousedOver', d);
   }
 
   function doubleclick(d){
+    if (d3.event.defaultPrevented)
+      return;
 
-    if(newLink)
-      newLink.remove();
-
-    newLink = self.graphElem.append('line')
-      .attr('id', 'potential-edge')
-      .attr('x1', d.x)
-      .attr('y1', d.y)
-      .attr('x2', d.x)
-      .attr('y2', d.y)
-      .attr("marker-end", "url(#Triangle)")
-
-    self.graphElem.on('mousemove', function() {
-      var mouse = d3.mouse(this);
-      var offsets = getOffsetCoordinates({x: d.x, y: d.y}, {x: mouse[0], y: mouse[1]});
-      newLink.attr("x2", offsets.x);
-      newLink.attr("y2", offsets.y);
-    });
-
-    self.graphElem.on('click', function() {
-
-      var clickedElem_id = d3.select(d3.event.target).attr('id');
-      if(clickedElem_id){
-
-        // HAHAH THIS COULD BREAK /me PHILOSOPHICAL CRISIS
-        if (clickedElem_id.indexOf("node") != -1){
-          var target_id = clickedElem_id.replace("node", "");
-          var newEdge = {
-            source: d._id,
-            target: target_id
-          }
-          Session.set('creatingEdge', newEdge);
-        }
-        else{
-          newLink.remove();
-        }
-      }
-
-      // clean up the event handlers.
-      self.graphElem.on('click', null);
-      self.graphElem.on('mousemove', null);
-    });
+    source = d;
+    Session.set("state", new State("chooseTarget", {source:d} ));
   }
+
+  function chooseTarget(){
+    var source = Session.get("state").data.source
+    var clickedElem_id = d3.select(d3.event.target).attr('_id');
+    // HAHAH THIS COULD BREAK /me PHILOSOPHICAL CRISIS
+    if(clickedElem_id && clickedElem_id.indexOf("node") != -1){
+      var target_id = clickedElem_id.replace("node", "");
+      var source_id = source._id.replace("node", "");
+      var newEdge = {
+        source: source_id,
+        target: target_id
+      }
+      Session.set("state", new State("submittingEdge", newEdge));
+    }
+    else{
+      Session.set("state", new State("view"));
+    }
+
+    self.graphElem.on('mousemove', null);
+  }
+
+  function selectHighlighted(){
+    //FIXME, keep track of last selectedDOMNode (globals vs same template)
+    var selected_id = Session.get('selected');
+    (self.graphElem.select('circle[_id=node' + selected_id + ']') ||
+     self.graphElem.select("path[_id=edge"+ selected._id + "]"))
+      .classed('selected', false);
+
+    var mousedOver = Session.get('mousedOver');
+
+    (self.graphElem.select('circle[_id=node' + mousedOver._id + ']') ||
+     self.graphElem.select("path[_id=edge"+ mousedOver._id + "]"))
+      .classed('selected', true);
+
+    Session.set('selected', mousedOver._id);
+
+  }
+}
+
+function State(name, data){
+  this.name = name;
+  this.data = data;
 }
