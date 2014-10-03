@@ -1,12 +1,5 @@
-<head>
-  <title>d3test</title>
-</head>
 
-<body>
-	{{> container}}
-</body>
-
-<template name="container">
+<template name="graphview">
   {{> graph}}
 
   {{#if newEdge}}
@@ -17,6 +10,30 @@
 
   {{> nodeviewer}}
   {{> dropper}}
+</template>
+
+<template name="graph">
+	<div id="graph-container">
+		<svg id="graph" width="1200" height="500">
+			<g id="edges">
+
+			</g>
+			<g id="nodes">
+
+			</g>
+
+			<defs>
+        <marker id="Triangle"
+                viewBox="0 0 10 10" 
+                refX="1" refY="5"
+                markerWidth="6" 
+                markerHeight="6"
+                orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" />
+	    	</marker>
+    	</defs>
+		</svg>
+	</div>
 </template>
 
 <template name="dropper">
@@ -55,28 +72,3 @@
 		</div>
 	</div>
 </template>
-
-<template name="graph">
-	<div id="graph-container">
-		<svg id="graph" width="1200" height="500">
-			<g id="edges">
-
-			</g>
-			<g id="nodes">
-
-			</g>
-
-			<defs>
-        <marker id="Triangle"
-                viewBox="0 0 10 10" 
-                refX="1" refY="5"
-                markerWidth="6" 
-                markerHeight="6"
-                orient="auto">
-            <path d="M 0 0 L 10 5 L 0 10 z" />
-	    	</marker>
-    	</defs>
-		</svg>
-	</div>
-</template>
-
