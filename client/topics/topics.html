@@ -1,11 +1,14 @@
 <template name="topics">
 	<h2> Topics: </h2>
- 	<button id="new"> New </button>
-
+	<div>
+ 		<a href="new"> New </a>
+ 	</div>
  	{{#each topic}}
 		<div>
-			<p class="graphlink" id="node{{_id}}">{{body}}</p>
+<!-- 			<p class="graphlink" id="node{{_id}}">{{body}}</p>
 			{{this._id}}
+ -->
+ 			<a href="view"> {{_id}}: {{body}} </a>		
 		</div>
 	{{/each}}
 </template>

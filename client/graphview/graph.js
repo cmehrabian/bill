@@ -1,3 +1,5 @@
+var newLink;
+
 Template.graph.rendered = function(){
   var self = this;
 
@@ -8,6 +10,8 @@ Template.graph.rendered = function(){
   var nodes = []
   var links = []
 
+  var meteorNodes = [];
+
   force = d3.layout.force()
     .linkDistance(80)
     .charge(-160)
@@ -15,10 +19,17 @@ Template.graph.rendered = function(){
     .size([1200, 500])
     .on("tick", tick)
 
+  // Will change when target changes, loads all connected nodes.
+  Deps.autorun(function(){
+    var target_id = Session.get('target_id')
+
+    var target = Nodes.findOne({_id:target_id});
+
+    meteorNodes = Nodes.find({root:target.root_id}).fetch();
+  })
+
   // Calculating node changes
   Deps.autorun(function(){
-
-    var meteorNodes = Nodes.find().fetch();
 
     var newNodes = _.difference(meteorNodes, nodes);
     newNodes.forEach(function(n){

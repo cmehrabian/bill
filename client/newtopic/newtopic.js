@@ -12,7 +12,7 @@ Template.newtopic.events({
 
     Meteor.call('newNode', node);
     document.getElementById("body-submit").value = "";
-    // Router.go('topics');
-    Session.set('route', 'topics');
+    Router.go('/');
+    //Session.set('route', 'topics');
   }
 })

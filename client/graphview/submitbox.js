@@ -8,7 +8,8 @@ Template.submitbox.events({
     var node = {
       username: username,
       body: nodeBody,
-      type: "statement"
+      type: "statement",
+      root_id: Session.get('target_id')
     }
 
     Meteor.call('newNode', node);
