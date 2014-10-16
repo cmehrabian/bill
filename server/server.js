@@ -9,11 +9,14 @@ Meteor.methods({
 	},
 	deleteNode: function(id){
 		Nodes.remove({_id: id});
-    Links.remove({$or: [{source: id}, {target: id}]});
+    	Links.remove({$or: [{source: id}, {target: id}]});
 	},
 	newNode: function(node){
 		// Note: if ever done RESTfully, add a data quality check. 
 		node._id = Nodes.insert(node);
+		if(!node.root_id){
+			Nodes.update(node._id, {$set: {root_id: node._id}});
+		}
 	},
 	newEdge: function(edge){
 		var source_id = edge.source;

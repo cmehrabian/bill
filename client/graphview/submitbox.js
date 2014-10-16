@@ -5,11 +5,12 @@ Template.submitbox.events({
     var nodeBody = document.getElementById("body-submit").value;
     Session.set('username', username);
 
+    console.log(Session.get("target_id"))
     var node = {
       username: username,
       body: nodeBody,
       type: "statement",
-      root_id: Session.get('target_id')
+      root_id: Session.get("target_id")
     }
 
     Meteor.call('newNode', node);

@@ -1,6 +1,8 @@
 var newLink;
 
 Template.graph.rendered = function(){
+
+  Session.set("state", new State("view"));
   var self = this;
 
   self.graphElem = d3.select('#graph');
@@ -11,6 +13,10 @@ Template.graph.rendered = function(){
   var links = []
 
   var meteorNodes = [];
+  var meteorEdges = [];
+
+  var targetType;
+  var target;
 
   force = d3.layout.force()
     .linkDistance(80)
@@ -23,13 +29,31 @@ Template.graph.rendered = function(){
   Deps.autorun(function(){
     var target_id = Session.get('target_id')
 
-    var target = Nodes.findOne({_id:target_id});
 
-    meteorNodes = Nodes.find({root:target.root_id}).fetch();
+
+    if(target = Nodes.findOne({_id:target_id})){
+      targetType = "node";
+    }
+    else if(target = Links.findOne({_id:target_id})){
+      targetType = "edge";
+    }
+
+    nodes = [];
+    links = [];
+
   })
 
   // Calculating node changes
   Deps.autorun(function(){
+    if(targetType == "node"){
+      meteorNodes = Nodes.find({root_id:target.root_id}).fetch();
+    }
+    else if(targetType == "edge"){
+      meteorNodes = Nodes.find({root_id:target_id}).fetch();
+    }
+    else {
+      return;
+    }
 
     var newNodes = _.difference(meteorNodes, nodes);
     newNodes.forEach(function(n){

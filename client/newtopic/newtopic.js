@@ -7,7 +7,7 @@ Template.newtopic.events({
     var node = {
       username: username,
       body: nodeBody,
-      type: "statement",
+      type: "statement"
     }
 
     Meteor.call('newNode', node);
