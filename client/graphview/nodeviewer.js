@@ -13,7 +13,16 @@ Template.nodeviewer.username = function () {
 Template.nodeviewer.body = function () {
   var node = Nodes.findOne({_id: Session.get('selected')});
   if(node)
-    return node.username;
+    return node.body;
   else
     return "";
+}
+
+Template.nodeviewer._id = function() {
+  var node = Nodes.findOne({_id: Session.get('selected')});
+  if(node)
+    return node._id;
+  else
+    return "";
+
 }
