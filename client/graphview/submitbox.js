@@ -1,11 +1,15 @@
 
+Template.submitbox.username = function () {
+  return Session.get('username');
+}
+
+
 Template.submitbox.events({
   'click #submit-node': function () {
     var username = document.getElementById("username-submit").value;
     var nodeBody = document.getElementById("body-submit").value;
     Session.set('username', username);
 
-    console.log(Session.get("target_id"))
     var node = {
       username: username,
       body: nodeBody,
@@ -13,12 +17,17 @@ Template.submitbox.events({
       root_id: Session.get("target_id")
     }
 
-    Meteor.call('newNode', node);
+    var edgeTypeBox = document.getElementById("edge-type");
+    var edgeType = edgeTypeBox.options[edgeTypeBox.selectedIndex].value;
+
+    var edge = {}
+    edge.type = edgeType;
+    edge.root_id = Session.get("target_id");
+    edge.target_id = Session.get("selected");
+
+
+    Meteor.call('newNode', node, edge);
     document.getElementById("body-submit").value = "";
+
   }
 })
-
-Template.submitbox.username = function () {
-  return Session.get('username');
-}
-

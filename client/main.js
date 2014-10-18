@@ -24,3 +24,7 @@ Router.route("new", {template:"newtopic"});
 
 // If target is edge:
 // 	find all nodes and edges with root as target
+
+// Cleanup: selected to selected_id
+// In general, specify xxx_id with things that are IDs
+// make edge/link stuff consistent

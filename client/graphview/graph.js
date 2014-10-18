@@ -3,6 +3,7 @@ var newLink;
 Template.graph.rendered = function(){
 
   Session.set("state", new State("view"));
+  Session.set("selected", undefined);
   var self = this;
 
   self.graphElem = d3.select('#graph');
@@ -28,8 +29,6 @@ Template.graph.rendered = function(){
   // Will change when target changes, loads all connected nodes.
   Deps.autorun(function(){
     var target_id = Session.get('target_id')
-
-
 
     if(target = Nodes.findOne({_id:target_id})){
       targetType = "node";

@@ -2,11 +2,7 @@
 <template name="graphview">
   {{> graph}}
 
-  {{#if newEdge}}
-  	{{> edgeSubmitter}}
-  {{else}}
-  	{{> submitbox}}
-  {{/if}}
+  {{> submitbox}}
 
   {{> nodeviewer}}
   {{> dropper}}
