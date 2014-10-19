@@ -37,8 +37,8 @@ Template.graph.rendered = function(){
       targetType = "edge";
     }
 
-    nodes = [];
-    links = [];
+    // nodes = [];
+    // links = [];
 
   })
 
@@ -58,6 +58,7 @@ Template.graph.rendered = function(){
     newNodes.forEach(function(n){
       nodes.push(n);
     });
+
 
     // LOOKINTO, does the selection change dynamically when elements are added?
     var DOMnodes = self.nodes.selectAll("*")
