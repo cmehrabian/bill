@@ -10,21 +10,25 @@ Template.submitbox.events({
     var nodeBody = document.getElementById("body-submit").value;
     Session.set('username', username);
 
+    var target_id = Session.get("target_id");
+    var selected_id = Session.get("selected");
+    if(!selected_id)
+    	return;
+
     var node = {
       username: username,
       body: nodeBody,
       type: "statement",
-      root_id: Session.get("target_id")
+      root_id: target_id
     }
 
     var edgeTypeBox = document.getElementById("edge-type");
     var edgeType = edgeTypeBox.options[edgeTypeBox.selectedIndex].value;
 
-    var edge = {}
+    var edge = {};
     edge.type = edgeType;
-    edge.root_id = Session.get("target_id");
-    edge.target_id = Session.get("selected");
-
+    edge.root_id = target_id
+    edge.target_id = selected_id;
 
     Meteor.call('newNode', node, edge);
     document.getElementById("body-submit").value = "";

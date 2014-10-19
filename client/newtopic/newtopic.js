@@ -10,7 +10,7 @@ Template.newtopic.events({
       type: "statement"
     }
 
-    Meteor.call('newNode', node);
+    Meteor.call('newNode', node, {});
     document.getElementById("body-submit").value = "";
     Router.go('/');
     //Session.set('route', 'topics');

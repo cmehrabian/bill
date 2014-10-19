@@ -21,6 +21,10 @@
 	stroke: #CC0000;
 }
 
+.quote-edge{
+	stroke: #4c4c4c;
+}
+
 .highlighted{
 	stroke: #FFFF00;
 }
