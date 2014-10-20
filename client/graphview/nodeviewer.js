@@ -10,5 +10,4 @@ Template.nodeviewer.events({
 		Meteor.call("deleteNode", Session.get("selected"));
 		Session.set("selected", undefined);
 	}
-
 })

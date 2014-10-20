@@ -15,6 +15,8 @@ Template.dropper.events({
 Router.route("", {template:"topics"});
 Router.route("view", {template:"graphview"});
 Router.route("new", {template:"newtopic"});
+Router.route("what", {template:"what"});
+Router.route("how", {template:"how"});
 
 // If target is node:
 // 	if root is self:
