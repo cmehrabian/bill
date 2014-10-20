@@ -8,6 +8,8 @@ Meteor.methods({
 		Links.remove({});
 	},
 	deleteNode: function(id){
+		var node = Nodes.findOne({_id:id});
+		propagate(id, - node.value);
 		Nodes.remove({_id: id});
     	Links.remove({$or: [{source: id}, {target: id}]});
 	},

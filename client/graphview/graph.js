@@ -37,8 +37,8 @@ Template.graph.rendered = function(){
       targetType = "edge";
     }
 
-    // nodes = [];
-    // links = [];
+    nodes = [];
+    links = [];
 
   })
 
