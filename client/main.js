@@ -8,7 +8,7 @@ Meteor.startup(function(){
 
 Template.dropper.events({
   'click #drop': function(){
-    Meteor.call('dropNodes');
+    Meteor.call('dropNodes', Session.get("target_id"));
   }
 });
 

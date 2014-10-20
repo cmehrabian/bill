@@ -3,9 +3,9 @@ Meteor.startup(function () {
 });
 
 Meteor.methods({
-	dropNodes: function(){
-		Nodes.remove({});
-		Links.remove({});
+	dropNodes: function(target_id){
+		Nodes.remove({root_id:target_id});
+		Links.remove({root_id:target_id});
 	},
 	deleteNode: function(id){
 		var node = Nodes.findOne({_id:id});
