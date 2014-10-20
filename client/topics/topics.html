@@ -3,11 +3,22 @@
 	<div>
  		<a href="new"> New </a>
  	</div>
- 	{{#each topic}}
-		<div>
- 			<a href="view" class="graphlink"> {{_id}}: {{body}} </a>		
-		</div>
-	{{/each}}
+ 	<div class="knowledge">
+ 		<em> "Things that are right"</em>
+	 	{{#each correct}}
+			<div>
+	 			<a href="view" class="graphlink"> {{_id}}: {{body}} </a>
+			</div>
+		{{/each}}
+	</div>
+	<div class="knowledge">
+ 		<em> "Things that are not right"</em>
+	 	{{#each incorrect}}
+			<div>
+	 			<a href="view" class="graphlink"> {{_id}}: {{body}} </a>
+			</div>
+		{{/each}}
+	</div>
 	<div>
 		<a href="what"> What is this?</a>
 	</div>

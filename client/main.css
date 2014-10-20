@@ -1,4 +1,8 @@
 /* CSS declarations go here */
+.knowledge {
+	border: 1px solid;
+}
+
 .node {
   	stroke: #000;
   	stroke-width: 1.5px;

@@ -30,3 +30,4 @@ Router.route("how", {template:"how"});
 // Cleanup: selected to selected_id
 // In general, specify xxx_id with things that are IDs
 // make edge/link stuff consistent
+// use consistent "box" name scheme
