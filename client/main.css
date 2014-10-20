@@ -67,7 +67,7 @@
 	z-index:1;	
 }
 
-#nodeviewer-padding
+.viewer-padding
 {
 	position:relative;
 	margin-left:20px;
@@ -87,7 +87,7 @@
 	top:52%;
 	left:70%;
 	bottom:2%;
-	background-color: #F1F1F2;
+	background-color: white;
 	border-color:black;
 	border:1px solid;
 	z-index:1;
