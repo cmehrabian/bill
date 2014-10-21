@@ -9,6 +9,10 @@
   	fill: #ccc;
 }
 
+.unread {
+	stroke:#0000ff;
+}
+
 #edges {
   	stroke-width: 3px;
 }

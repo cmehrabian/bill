@@ -37,22 +37,17 @@ Template.graph.rendered = function(){
       targetType = "edge";
     }
 
-    nodes = [];
-    links = [];
+    // nodes = [];
+    // links = [];
 
   })
 
   // Calculating node changes
   Deps.autorun(function(){
-    if(targetType == "node"){
-      meteorNodes = Nodes.find({root_id:target.root_id}).fetch();
-    }
-    else if(targetType == "edge"){
-      meteorNodes = Nodes.find({root_id:target_id}).fetch();
-    }
-    else {
-      return;
-    }
+    meteorNodes = Nodes.find({root_id:target.root_id}).fetch();
+    
+    if(nodes.length == 0)
+      var isFresh = true;
 
     var newNodes = _.difference(meteorNodes, nodes);
     newNodes.forEach(function(n){
@@ -65,14 +60,26 @@ Template.graph.rendered = function(){
       .data(nodes, function(d){ return d._id});
 
     // 'node' + d._id is because the id field isn't allowed to begin with numbers.
-    DOMnodes.enter()
-      .append("circle")
-      .attr("class", "node")
-      .attr("r", 12)
-      .attr("_id", function(d){ return "node" + d._id; })
-      .on("mouseover", mouseover)
-      .on("dblclick", doubleclick)
-      .call(force.drag());
+    if(isFresh){
+      DOMnodes.enter()
+        .append("circle")
+        .attr("class", "node")
+        .attr("r", 12)
+        .attr("_id", function(d){ return "node" + d._id; })
+        .on("mouseover", mouseover)
+        .on("dblclick", doubleclick)
+        .call(force.drag());
+    }
+    else{
+      DOMnodes.enter()
+        .append("circle")
+        .attr("class", "node unread") // here's the difference
+        .attr("r", 12)
+        .attr("_id", function(d){ return "node" + d._id; })
+        .on("mouseover", mouseover)
+        .on("dblclick", doubleclick)
+        .call(force.drag());
+    }
 
     // FIXME- This won't work as expected, get it to run like data selection.
     DOMnodes.exit()
@@ -273,8 +280,10 @@ Template.graph.rendered = function(){
     var c = self.graphElem.select("circle[_id=node" + mousedOver._id + "]")
     var p = self.graphElem.select("path[_id=edge"+ mousedOver._id + "]")
 
-    if(c[0][0])
+    if(c[0][0]){
       c.classed('selected', true);
+      c.classed('unread', false);
+    }
 
     if(p[0][0])
       p.classed('selected', true);

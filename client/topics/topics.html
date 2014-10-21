@@ -7,7 +7,7 @@
  		<em> "Things that are right"</em>
 	 	{{#each correct}}
 			<div>
-	 			<a href="view" class="graphlink"> {{_id}}: {{body}} </a>
+	 			<a href="view" class="graphlink"> {{body}} : Value: {{value}}</a>
 			</div>
 		{{/each}}
 	</div>
@@ -15,7 +15,7 @@
  		<em> "Things that are not right"</em>
 	 	{{#each incorrect}}
 			<div>
-	 			<a href="view" class="graphlink"> {{_id}}: {{body}} </a>
+	 			<a href="view" class="graphlink"> {{body}} : Value {{value}}</a>
 			</div>
 		{{/each}}
 	</div>
