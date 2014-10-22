@@ -1,5 +1,21 @@
 <template name="how">
-	<div>
-		Placeholder!
+	<div style="text-align:center;">
+		<h2> How to use </h2>
+		<img src="draftexample.jpg" class="bordered"/>
+		<p> You use Gadfly to have arguments. </p>
+		<p> All individual points are called nodes, and they're represented by circles. </p>
+		<img src="op.jpg" class="bordered"/>
+		<p> Every new node starts with a value of 1.  This value is kind of like how "correct" people think it is. The higher the value, the more correct.</p>
+		<p> You can use a new point to agree or disagree with someone else's point.  In this example, someone created a node that said "it's too cold, and my feet hurt" to disagree with "we should go to the beach".</p>
+		<img src="op2.jpg" class="bordered"/>
+		<p> Since this new node disagreed with the original node, the new node's value is subtracted from this original node. Since "it's too cold, and my feet hurt" starts with a value of 1, that makes "we should go to the beach" have 0.  If this point were an agreement instead, it would add its value, and the value of "we should go to the beach" would be 2.</p>
+		<p> Responding to "it's too cold, and my feet hurt" might be weird though, because it's not clear if the response would be for "it's too cold" or "my feet hurt".</p>
+		<p> That's why there are quotes. </p>
+		<img src="op3.jpg" class="bordered"/>
+		<p> Quotes must contain exact text from the node that they refer to.  Quotes start at a value of 0 because they aren't actually a point that has already been stated. </p>
+		<p> You can agree or disagree with a quote just like any other node, and its value is applied to the thing it quotes. </p>
+		<img src="op4.jpg" class="bordered"/>
+		<p> It's a bit confusing at first, but it becomes more familiar over time.  Feel free to create test topics and play around with it. </p>
+		<p> That's it for now.  There are actually a lot more things I want to do to make the system more resilient, like prevent misquotes, or handle duplicate points, but those are hard to do and I'd like a better idea of what it's like to use this thing for now. </p>
 	</div>
 </template>

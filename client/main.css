@@ -1,4 +1,9 @@
 /* CSS declarations go here */
+
+.bordered {
+	border: 1px solid;
+}
+
 .knowledge {
 	border: 1px solid;
 }
