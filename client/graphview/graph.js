@@ -2,6 +2,8 @@ var newLink;
 
 Template.graph.rendered = function(){
 
+  Session.set('target_id', Router.current().params._id)
+
   Session.set("state", new State("view"));
   Session.set("selected", undefined);
   var self = this;
