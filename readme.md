@@ -4,4 +4,6 @@ At a laughably abstract level, the reason why I'm doing this is because I think 
 
 I've put a lot of thought into this project.  
 
-Send me an email at tylsmith@gmail.com for any reason at all.  
+Send me an email at tylsmith@gmail.com for any reason at all.
+
+[A currentish version of the webapp should be up here](http://gadfly.meteor.com/)
