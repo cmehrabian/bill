@@ -12,11 +12,23 @@ Template.dropper.events({
   }
 });
 
-Router.route("", {template:"topics"});
-Router.route("view", {template:"graphview"});
-Router.route("new", {template:"newtopic"});
-Router.route("what", {template:"what"});
-Router.route("how", {template:"how"});
+// Router.route("", {template:"topics"});
+// Router.route("view", {template:"graphview"});
+// Router.route("new", {template:"newtopic"});
+// Router.route("what", {template:"what"});
+// Router.route("how", {template:"how"});
+
+Router.route('/', function () {
+  this.render('topics');
+});
+
+Router.route('/view/:_id', function () {
+  var target = Nodes.findOne({_id: this.params._id}) || Links.findOne({_id: this.params._id});
+  if(target)
+  	this.render('graphview', {target: target});
+  else
+  	this.render('notfound');
+});
 
 // If target is node:
 // 	if root is self:
