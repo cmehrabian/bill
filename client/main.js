@@ -12,12 +12,6 @@ Template.dropper.events({
   }
 });
 
-// Router.route("", {template:"topics"});
-// Router.route("view", {template:"graphview"});
-// Router.route("new", {template:"newtopic"});
-// Router.route("what", {template:"what"});
-// Router.route("how", {template:"how"});
-
 Router.route('/', function () {
   this.render('topics');
 });
@@ -28,6 +22,18 @@ Router.route('/view/:_id', function () {
     this.render('graphview', {target_id: target});
   else
   	this.render('notfound');
+});
+
+Router.route("new", function () {
+	this.render("newtopic");
+});
+
+Router.route("what", function () {
+	this.render("what");
+});
+
+Router.route("how", function () { 
+	this.render("how");
 });
 
 // If target is node:
