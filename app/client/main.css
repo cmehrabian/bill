@@ -1,5 +1,17 @@
 /* CSS declarations go here */
 
+.bbdate {
+	font-weight: bold;
+}
+
+.bbpost {
+	margin: 10px;
+}
+
+.bbwrapper {
+	margin: 50px;
+}
+
 .bordered {
 	border: 1px solid;
 }
