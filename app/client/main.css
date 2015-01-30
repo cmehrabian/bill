@@ -78,8 +78,12 @@
 
 /* FIXME - doesn't work?? */
 #graph {
-	width: 1200;
-	height: 500;
+	/*width: 1200;
+	height: 500;*/
+	top: 5%;
+	bottom:5%;
+	left:2%;
+	right:60%;
 }
 
 #discussion-floatbar{

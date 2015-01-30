@@ -4,7 +4,6 @@
  		<a href="new"> New </a>
  	</div>
  	<div class="knowledge">
- 		<em> "Things that are right"</em>
 	 	{{#each correct}}
 			<div>
 	 			<a href="view/{{_id}}" class="graphlink"> {{body}} : Value: {{value}}</a>
@@ -12,7 +11,6 @@
 		{{/each}}
 	</div>
 	<div class="knowledge">
- 		<em> "Things that are not right"</em>
 	 	{{#each incorrect}}
 			<div>
 	 			<a href="view/{{_id}}" class="graphlink"> {{body}} : Value {{value}}</a>
