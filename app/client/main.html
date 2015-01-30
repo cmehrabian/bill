@@ -5,13 +5,23 @@
 <body>
 </body>
 
-<template name="layout">
+<!--template name="layout">
 	<div style="float:right;">
 		{{> loginButtons align="right"}}
 	</div>
 	{{> yield}}
+</template-->
+
+<body>{{> topBar}}</body>
+
+<template name ="topBar">
+	<dl class="sub-nav"> <dt><a href="/">Gadfly:</a></dt>
+		<dd class="active"><a href="https://github.com/prudentbot/gadfly">Github</a></dd>
+	</dl>
 </template>
 
+
+>>>>>>> 4219355295eece6b0a1722bc461a2c0ca20bda2e
 <template name="dropper">
 	{{#if isUserAdmin}}
  		<input id="drop" type="button" value="DESTROY EVERYTHING" />
