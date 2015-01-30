@@ -12,6 +12,25 @@ Template.dropper.events({
   }
 });
 
+// THIS IS NOT SECURE
+Template.dropper.isUserAdmin = function(){
+  var adminEmail = Meteor.user().emails[0].address;
+  if( adminEmail === "tylsmith@gmail.com"){
+    return true;
+  } else {
+    return false;
+    //add some logic for displaying error template.
+  }
+}
+
+Accounts.ui.config({
+  passwordSignupFields: "USERNAME_AND_OPTIONAL_EMAIL"
+})
+
+Router.configure({
+   layoutTemplate: 'layout'
+ });
+
 Router.route('/', function () {
   this.render('topics');
 });
@@ -35,6 +54,8 @@ Router.route("what", function () {
 Router.route("how", function () { 
 	this.render("how");
 });
+
+// Trello
 
 // If target is node:
 // 	if root is self:

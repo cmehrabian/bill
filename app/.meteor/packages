@@ -10,3 +10,6 @@ d3
 alethes:lodash
 iron:router
 
+accounts-ui
+accounts-password
+ryw:blog

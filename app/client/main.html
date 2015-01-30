@@ -2,8 +2,20 @@
   <title>Gadfly</title>
 </head>
 
+<body>
+</body>
+
+<template name="layout">
+	<div style="float:right;">
+		{{> loginButtons align="right"}}
+	</div>
+	{{> yield}}
+</template>
+
 <template name="dropper">
- 	<input id="drop" type="button" value="DESTROY EVERYTHING" />
+	{{#if isUserAdmin}}
+ 		<input id="drop" type="button" value="DESTROY EVERYTHING" />
+ 	{{/if}}
 </template>
 
 <template name="bulletinBoard">
@@ -19,7 +31,7 @@
 				I added a janky mockup of an update board!  Next on my implementation list is integrating an account system.  This would be kind of like a gateway feature to allow for a few different things.
 				<table border="1">
 					<tr> - Karma tracking on a per-user basis. </tr>
-					<tr> - Ability to subscribe to get development updates via the Gadfly account. </tr>
+					<tr> - Ability to subscribe to development updates via the Gadfly account. </tr>
 					<tr> - Stopping people from destroying my meticulously hand-copied example arguments.  I was kind of asking for it labeling the button DESTROY EVERYTHING, but having about an hour's worth of work wiped away in an instant still kind of stings. </tr>
 				</table> 
 				To name a few. 
