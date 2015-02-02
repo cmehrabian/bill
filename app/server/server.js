@@ -2,10 +2,10 @@ Meteor.startup(function () {
 
 });
 
-// Blog.config({
-//     adminRole: 'prudentbot',
-//     authorRole: 'prudentbot'
-//   });
+Blog.config({
+    adminRole: 'prudentbot',
+    authorRole: 'prudentbot'
+  });
 
 Meteor.methods({
 	dropNodes: function(target_id){
