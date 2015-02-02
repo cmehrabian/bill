@@ -1,11 +1,24 @@
 /* CSS declarations go here */
 
+#informative-wrapper {
+	margin:50px;
+}
+
+.bbpar {
+	margin-top: 8px;
+}
+
+.bbtext {
+	margin: 5px;
+}
+
 .bbdate {
 	font-weight: bold;
 }
 
 .bbpost {
 	margin: 10px;
+	margin-top: 30px;
 }
 
 .bbwrapper {
