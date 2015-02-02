@@ -1,5 +1,12 @@
 /* CSS declarations go here */
 
+#centerImg {
+    margin-left: auto;
+    margin-right: auto;
+    width: 6em
+}
+
+
 .bordered {
 	border: 1px solid;
 }
