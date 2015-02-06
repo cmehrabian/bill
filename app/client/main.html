@@ -6,6 +6,9 @@
 </body>
 
 <template name="layout">
+	<div class="centerImg">
+		<img class="logo-img" src="gadfly_web_black.png" alt="">
+	</div>
 	<!--div style="float:right;">
 		{{> loginButtons align="right"}}
 	</div-->
@@ -21,7 +24,7 @@
 <body></body>
 
 <template name ="topBar">
-	<dl class="sub-nav"> <dt><a href="/">Gadfly:</a></dt>
+	<dl class="sub-nav nav-links"> <dt><a href="/">Gadfly:</a></dt>
 		<dd class="active"><a href="https://github.com/prudentbot/gadfly">Github</a></dd>
 	</dl>
 </template>
@@ -33,6 +36,7 @@
 </template>
 
 <template name="bulletinBoard">
+<hr>
 	<div class="bbwrapper">
 		<div id="bbinfo">
 			This is the update board for Gadfly!  I'll post any major announcements here.
@@ -43,16 +47,16 @@
 			</div>
 			<div class="bbtext">
 				<div class="bbpar">
-					Some interesting stuff happened recently!  I guess first is that I gave a lightning talk at the Meteor devshop a few days ago, <a href="https://www.youtube.com/watch?v=jFDY4fPxJ78&feature=youtu.be&t=1h41m12s"> which you can watch here if you're interested. </a> I basically just give an very philosophical nutshell to a bunch of people in three minutes.  
+					Some interesting stuff happened recently!  I guess first is that I gave a lightning talk at the Meteor devshop a few days ago, <a href="https://www.youtube.com/watch?v=jFDY4fPxJ78&feature=youtu.be&t=1h41m12s"> which you can watch here if you're interested. </a> I basically just give an very philosophical nutshell to a bunch of people in three minutes.
 				</div>
 				<div class="bbpar">
-					At this point I've got a few overall design directions that I could potentially go in with the site, and I really have to do some thinking/testing to explore options.  One thought-provoking piece of feedback that I got at the devshop was that I could do semantic analysis of threads already made in other websites (such as Reddit, as in the Rebecca Watson example), which would make it so that Gadfly generates graphs from arguments that already exist.  If I went that way, I would have a lot of data to work with the begin with, and it would turn Gadfly into less of a webapp and more of a curated wiki-style thing, where people's interaction with the site is kind of more like gardening the data that's picked up.  I'm open minded to the direction, but it would be a lot of work and there are a lot of other options too.  Regardless I'm definitely going to do some research into semantic analysis from a feasibility perspective.  
+					At this point I've got a few overall design directions that I could potentially go in with the site, and I really have to do some thinking/testing to explore options.  One thought-provoking piece of feedback that I got at the devshop was that I could do semantic analysis of threads already made in other websites (such as Reddit, as in the Rebecca Watson example), which would make it so that Gadfly generates graphs from arguments that already exist.  If I went that way, I would have a lot of data to work with the begin with, and it would turn Gadfly into less of a webapp and more of a curated wiki-style thing, where people's interaction with the site is kind of more like gardening the data that's picked up.  I'm open minded to the direction, but it would be a lot of work and there are a lot of other options too.  Regardless I'm definitely going to do some research into semantic analysis from a feasibility perspective.
 				</div>
 				<div class="bbpar">
 					In the short term, I want to get a mailing list set up so that anyone interested can subscribe to receive updates.  I'm also considering adding user accounts (and integrating it with the mailing list).
 				</div>
-				<div class="bbpar">  
-					Also, Michael Betts made several style updates recently and even made a super cute logo, so he's employee of the month for sure.  
+				<div class="bbpar">
+					Also, Michael Betts made several style updates recently and even made a super cute logo, so he's employee of the month for sure.
 				</div>
 			</div>
 		</div>
@@ -67,15 +71,15 @@
 					<tr> - Karma tracking on a per-user basis. </tr>
 					<tr> - Ability to subscribe to development updates via the Gadfly account. </tr>
 					<tr> - Stopping people from destroying my meticulously hand-copied example arguments.  I was kind of asking for it labeling the button DESTROY EVERYTHING, but having about an hour's worth of work wiped away in an instant still kind of stings. </tr>
-				</table> 
-				To name a few. 
+				</table>
+				To name a few.
 
 				I'm also considering suggestions for features to implement next.
 
 				<!--table border="1">
 					<tr> - Adding a traditional reddit-style way to view comments.  The reason why I didn't do this initially is because if the site works in the way I imagine it should, then it may be normal to enter a thread many, many generations down from the parent post, so I suspect the typical reddit-view might be hard to navigate.  On the other hand, chasing down circles isn't exactly optimal either. </tr>
 					<tr> - Adding a more traditional, wiki-like way to view comments.  The reason why this would be good is that someone that doesn't want to actively contribute to an argument, but, for example, wants to know about some issue, can look at it in a way that doesn't necessary bombard them with  a full contextual map of the argument.  The way I imagine it looking is that each page is a individual post, with a reference to the parent and a list of all the arguments for and against it that you can click on to get to a page just like the one you were just at only with the one you clicked as the main post.  I think this would be awesome if like, for example, someone wanted to know about a bill being passed in state legislature, and just wanted all the arguments for and against the bill, and wanted to follow the argument as it got more and more esoteric, and it could do all that without having to deal with the graph-view.  This is definitely on the todo list, but as of right now I'm still playing with the way people interact, so this is probably not top priority. </tr>
-					<tr> -  
+					<tr> -
 				</table-->
 
 			</div>
