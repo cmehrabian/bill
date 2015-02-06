@@ -1,25 +1,31 @@
 
 <template name="submitbox">
-	<div id="submitbox">
-		<div class="viewer-padding">
-			<div>
-				<p>Username</p>
-				<input type="text" id="username-submit" value="{{username}}"/>
-			</div>
-			<div>
-				<p>Body</p>
-				<textarea id="body-submit"></textarea>
-			</div>
-			<div>
-				<select id="edge-type">
-					<option value="disagreement"> disagreement </option>
-					<option value="agreement"> agreement </option>
-					<option value="quote"> quote </option>
-				</select>
-			</div>
-			<div>
-				<input id="submit-node" type="button" value="submit"/>
-			</div>
-		</div>
-	</div>
+    <div id="submitbox">
+        <div class="viewer-padding">
+            {{#if isLoggedIn }}
+                <div>
+                    <p> Commenting as <em class="text-username"> {{loggedInUsername}} </em> </p>
+                </div>
+            {{else}}
+                <div>
+                    <p>Username</p>
+                    <input type="text" id="username-submit" value="{{username}}"/>
+                </div>
+            {{/if}}
+            <div>
+                <p>Body</p>
+                <textarea id="body-submit"></textarea>
+            </div>
+            <div>
+                <select id="edge-type">
+                    <option value="disagreement"> disagreement </option>
+                    <option value="agreement"> agreement </option>
+                    <option value="quote"> quote </option>
+                </select>
+            </div>
+            <div>
+                <input id="submit-node" type="button" value="submit"/>
+            </div>
+        </div>
+    </div>
 </template>

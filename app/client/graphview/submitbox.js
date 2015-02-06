@@ -3,10 +3,20 @@ Template.submitbox.username = function () {
   return Session.get('username');
 }
 
+Template.submitbox.isLoggedIn = function (){
+  return !!Meteor.user()
+}
+
+Template.submitbox.loggedInUsername = function (){
+  return Meteor.user().username
+}
 
 Template.submitbox.events({
   'click #submit-node': function () {
-    var username = document.getElementById("username-submit").value;
+    if(!!Meteor.user())
+      var username = Meteor.user().username;
+    else
+      var username = document.getElementById("username-submit").value;
     var nodeBody = document.getElementById("body-submit").value;
     Session.set('username', username);
 

@@ -1,4 +1,7 @@
 /* CSS declarations go here */
+.text-username {
+	color:blue;
+}
 
 #informative-wrapper {
 	margin:50px;
