@@ -2,6 +2,10 @@ Meteor.startup(function () {
 
 });
 
+Meteor.publish("allUserData", function () {
+    return Meteor.users.find({}, {fields: {'posts': 1}});
+});
+
 Meteor.methods({
 	dropNodes: function(target_id){
 		Nodes.remove({root_id:target_id});
@@ -17,7 +21,12 @@ Meteor.methods({
 		// Note: if ever done RESTfully, add a data quality check. 
 		node.datatype = "node";
 		node.value = 0;
+    node.timestamp = new Date().getTime();
 		node._id = Nodes.insert(node);
+
+    if(node.user){
+      Meteor.users.update({_id: node.user._id}, {$addToSet: {posts: node._id}});
+    }
 
 		if(!node.root_id){
 			Nodes.update(node._id, {$set: {root_id: node._id}});

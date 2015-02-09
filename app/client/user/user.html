@@ -1,0 +1,10 @@
+
+<template name="user">
+	<div>User: <em class="text-username">{{user.username}} </em> </div>
+	<div>
+		<h3> Posts </h3>
+		{{#each posts}}
+			<p> <a href="/view/{{_id}}"> {{body}} </a>: value {{value}}, date {{timestamp}} </p>
+		{{/each}}
+	</div>
+</template>

@@ -1,10 +1,12 @@
 Meteor.subscribe('nodes');
 Meteor.subscribe('edges');
+Meteor.subscribe("allUserData");
 
 Meteor.startup(function(){
   width = 960;
   height = 500;
 })
+
 
 Template.dropper.events({
   'click #drop': function(){
@@ -12,14 +14,16 @@ Template.dropper.events({
   }
 });
 
-// THIS IS NOT SECURE
+// FIXME: THIS IS NOT SECURE
 Template.dropper.isUserAdmin = function(){
-  var adminEmail = Meteor.user().emails[0].address;
-  if( adminEmail === "tylsmith@gmail.com"){
-    return true;
-  } else {
-    return false;
-    //add some logic for displaying error template.
+  if(Meteor.user() && Meteor.user().emails){
+    var adminEmail = Meteor.user().emails[0].address;
+    if( adminEmail === "tylsmith@gmail.com"){
+      return true;
+    } else {
+      return false;
+      //add some logic for displaying error template.
+    }
   }
 }
 
@@ -42,6 +46,14 @@ Router.route('/view/:_id', function () {
   else
   	this.render('notfound');
 });
+
+Router.route("/user/:_username", function () {
+  var user = Meteor.users.findOne({username:this.params._username});
+  if(user)
+    this.render('user');
+  else
+    this.render('notfound');
+})
 
 Router.route("new", function () {
 	this.render("newtopic");

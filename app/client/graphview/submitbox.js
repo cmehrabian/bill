@@ -13,10 +13,14 @@ Template.submitbox.loggedInUsername = function (){
 
 Template.submitbox.events({
   'click #submit-node': function () {
-    if(!!Meteor.user())
+    if(!!Meteor.user()){
       var username = Meteor.user().username;
-    else
+      var user = Meteor.user();
+    }
+    else {
       var username = document.getElementById("username-submit").value;
+      var user = null;
+    }
     var nodeBody = document.getElementById("body-submit").value;
     Session.set('username', username);
 
@@ -29,7 +33,8 @@ Template.submitbox.events({
       username: username,
       body: nodeBody,
       type: "statement",
-      root_id: target_id
+      root_id: target_id,
+      user: user
     }
 
     var edgeTypeBox = document.getElementById("edge-type");
