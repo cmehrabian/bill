@@ -24,7 +24,7 @@ Template.submitbox.events({
     var nodeBody = document.getElementById("body-submit").value;
     Session.set('username', username);
 
-    var target_id = Session.get("target_id");
+    var target_id = Nodes.findOne({_id:Session.get("target_id")}).root_id
     var selected_id = Session.get("selected");
     if(!selected_id)
     	return;
