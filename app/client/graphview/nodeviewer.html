@@ -3,7 +3,11 @@
 	<div id="nodeviewer">
 		<div class="viewer-padding">
 			<div>
-				Username: {{selected.username}}
+				{{#if registeredCommenter}}
+					Username: <a href="/user/{{registeredCommenter.username}}"> <em class="text-username">{{selected.username}} </em> </a>
+				{{else}}
+					Username: {{selected.username}}
+				{{/if}}
 			</div>
 			<div>
 				value: {{selected.value}}
