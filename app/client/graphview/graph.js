@@ -38,10 +38,6 @@ Template.graph.rendered = function(){
     else if(target = Links.findOne({_id:target_id})){
       targetType = "edge";
     }
-
-    // nodes = [];
-    // links = [];
-
   })
 
   // Calculating node changes
