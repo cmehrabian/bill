@@ -21,7 +21,7 @@ Template.graph.rendered = function(){
   var targetType;
   var target;
 
-  force = d3.layout.force()
+  var force = d3.layout.force()
     .linkDistance(80)
     .charge(-160)
     .gravity(.05)
