@@ -3,7 +3,7 @@
 /* Not exactly sure where these styles should go. */
 .nav-links {
 	margin: 0 2rem;
-	float: right;
+	float: left;
 }
 
 #informative-wrapper {
@@ -81,6 +81,21 @@
 	stroke: #009933;
 }
 
+.agreement-select{
+	background-color: #009933;
+	color: #FFF;
+}
+
+.disagreement-select{
+	background-color: #CC0000;
+	color: #FFF;
+}
+
+.quote-select{
+	background-color: #DAA520;
+	color: #FFF;
+}
+
 .disagreement-edge{
 	stroke: #CC0000;
 }
@@ -91,6 +106,11 @@
 
 .highlighted{
 	stroke: #FFFF00;
+}
+
+select:hover{
+	background-color: #999;
+	color: #FFF;
 }
 /*
 	Refers to the lines showing arrow direction

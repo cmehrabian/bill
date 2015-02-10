@@ -47,7 +47,7 @@ Template.graph.rendered = function(){
   // Calculating node changes
   Deps.autorun(function(){
     meteorNodes = Nodes.find({root_id:target.root_id}).fetch();
-    
+
     if(nodes.length == 0)
       var isFresh = true;
 
@@ -203,7 +203,7 @@ Template.graph.rendered = function(){
       return "M " + d.source.x + " " + d.source.y + " L " + offsets.x + " " +
       offsets.y;
     })
-    
+
     node.attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
   }
