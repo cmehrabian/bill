@@ -3,7 +3,7 @@ Meteor.startup(function () {
 });
 
 Meteor.publish("allUserData", function () {
-    return Meteor.users.find({}, {fields: {'posts': 1}});
+    return Meteor.users.find({}, {fields: {'posts': 1, 'value': 1}});
 });
 
 Meteor.methods({
@@ -83,6 +83,9 @@ var propagate = function(node_id, delta){
   var newdelta = pos(node.value + delta) - pos(node.value);
 
   Nodes.update(node_id, {$inc: {value:delta}});
+  if(node.user){
+    Meteor.users.update({username:node.user.username}, {$inc: {value:delta}});
+  }
 
   // n.modified = true;
 
