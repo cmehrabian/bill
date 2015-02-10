@@ -1,6 +1,37 @@
 /* CSS declarations go here */
 
-/* Not exactly sure where these styles should go. */
+/* UNIVERSAL */
+.bordered {
+	border: 1px solid;
+}
+.red{
+	background-color: #FF9966
+}
+
+.green{
+	background-color: #99FF66
+}
+
+.white{
+	background-color: #F1F1F2
+}
+.center{
+	margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+/* FRONT PAGE */
+#centerImg {
+  margin: 10px;
+}
+
+.logo-img {
+	width: 15%;
+}
+.logo {
+	margin-left: 370px
+}
 .nav-links {
 	margin: 0 2rem;
 	float: left;
@@ -31,19 +62,6 @@
 	margin: 50px;
 }
 
-#centerImg {
-  margin: 10px;
-}
-
-.logo-img {
-	width: 15%;
-}
-
-
-.bordered {
-	border: 1px solid;
-}
-
 .knowledge {
 	padding: 10px;
 	margin: 15px;
@@ -59,6 +77,12 @@
 	border:1px solid #d8d8d8;
 }
 
+/* GRAPH AND SUBMISSION FORMS*/
+#graphcanvas {
+	position:relative;
+	border-color:black;
+	border:1px solid;
+}
 .node {
   	stroke: #000;
   	stroke-width: 1.5px;
@@ -73,42 +97,42 @@
   	stroke-width: 3px;
 }
 
-.comment-edge{
+.comment-edge {
 	stroke: #000;
 }
 
-.agreement-edge{
+.agreement-edge {
 	stroke: #009933;
 }
 
-.agreement-select{
+.agreement-select {
 	background-color: #009933;
 	color: #FFF;
 }
 
-.disagreement-select{
+.disagreement-select {
 	background-color: #CC0000;
 	color: #FFF;
 }
 
-.quote-select{
+.quote-select {
 	background-color: #DAA520;
 	color: #FFF;
 }
 
-.disagreement-edge{
+.disagreement-edge {
 	stroke: #CC0000;
 }
 
-.quote-edge{
+.quote-edge {
 	stroke: #4c4c4c;
 }
 
-.highlighted{
+.highlighted {
 	stroke: #FFFF00;
 }
 
-select:hover{
+select:hover {
 	background-color: #999;
 	color: #FFF;
 }
@@ -132,13 +156,12 @@ select:hover{
 	height: 500;*/
 }
 
-#discussion-floatbar{
+#discussion-floatbar {
 	margin-left:auto;
 	margin-right:auto;
 }
 
-#nodeviewer
-{
+#nodeviewer {
 	position:absolute;
 	right:2%;
 	top:5%;
@@ -151,8 +174,7 @@ select:hover{
 	z-index:1;
 }
 
-.viewer-padding
-{
+.viewer-padding {
 	position:relative;
 	margin-left:20px;
 	margin-right:20px;
@@ -163,8 +185,7 @@ select:hover{
 	overflow:hidden;
 }
 
-#submitbox
-{
+#submitbox {
 	position:absolute;
 
 	right:2%;
@@ -178,35 +199,9 @@ select:hover{
 	opacity:.9;
 	overflow-y:auto;
 }
-
-#graphcanvas{
-	position:relative;
-	border-color:black;
-	border:1px solid;
-}
-
-#reset{
+#reset {
 	position:absolute;
 	right:2%;
 	bottom:2%;
 }
 
-.red{
-	background-color: #FF9966
-}
-
-.green{
-	background-color: #99FF66
-}
-
-.white{
-	background-color: #F1F1F2
-}
-.center{
-	margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-}
-.logo {
-	margin-left: 370px
-}
