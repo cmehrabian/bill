@@ -65,8 +65,8 @@ Template.graph.rendered = function(){
     if(isFresh){
       DOMnodes.enter()
         .append("circle")
-        .attr("class", "node")
-        .attr("r", 12)
+        .attr("class",function(d) { return "node " + d.type; })
+        .attr("r", function(d){ return d.value * 5; })
         .attr("_id", function(d){ return "node" + d._id; })
         .on("mouseover", mouseover)
         .on("dblclick", doubleclick)
@@ -76,7 +76,7 @@ Template.graph.rendered = function(){
       DOMnodes.enter()
         .append("circle")
         .attr("class", "node unread") // here's the difference
-        .attr("r", 12)
+        .attr("r", function(d){ return d.value * 5 })
         .attr("_id", function(d){ return "node" + d._id; })
         .on("mouseover", mouseover)
         .on("dblclick", doubleclick)
