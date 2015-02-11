@@ -1,4 +1,7 @@
 /* CSS declarations go here */
+.text-username {
+	color:blue;
+}
 
 /* UNIVERSAL */
 .bordered {

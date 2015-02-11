@@ -5,6 +5,13 @@ Template.nodeviewer.selected = function () {
   return Nodes.findOne({_id: selected_id}) || Links.findOne({_id: selected_id});
 }
 
+Template.nodeviewer.registeredCommenter = function () {
+	var selected = Template.nodeviewer.selected();
+	if (selected && selected.user)
+		return selected.user;
+	return null;
+}
+
 Template.nodeviewer.events({
 	'click #delete-node': function () {
 		Meteor.call("deleteNode", Session.get("selected"));

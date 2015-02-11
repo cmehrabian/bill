@@ -3,14 +3,28 @@ Template.submitbox.username = function () {
   return Session.get('username');
 }
 
+Template.submitbox.isLoggedIn = function (){
+  return !!Meteor.user()
+}
+
+Template.submitbox.loggedInUsername = function (){
+  return Meteor.user().username
+}
 
 Template.submitbox.events({
   'click #submit-node': function () {
-    var username = document.getElementById("username-submit").value;
+    if(!!Meteor.user()){
+      var username = Meteor.user().username;
+      var user = Meteor.user();
+    }
+    else {
+      var username = document.getElementById("username-submit").value;
+      var user = null;
+    }
     var nodeBody = document.getElementById("body-submit").value;
     Session.set('username', username);
 
-    var target_id = Session.get("target_id");
+    var target_id = Nodes.findOne({_id:Session.get("target_id")}).root_id
     var selected_id = Session.get("selected");
     if(!selected_id)
     	return;
@@ -19,7 +33,8 @@ Template.submitbox.events({
       username: username,
       body: nodeBody,
       type: "statement",
-      root_id: target_id
+      root_id: target_id,
+      user: user
     }
 
     var edgeTypeBox = document.getElementById("edge-type");

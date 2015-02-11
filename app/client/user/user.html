@@ -1,0 +1,11 @@
+
+<template name="user">
+	<div>User: <em class="text-username">{{user.username}} </em> </div>
+	<div>Total value: {{user.value}} </div>
+	<div>
+		<h3> Posts </h3>
+		{{#each posts}}
+			<p> <a href="/view/{{_id}}"> {{body}} </a>: value {{value}}</p>
+		{{/each}}
+	</div>
+</template>

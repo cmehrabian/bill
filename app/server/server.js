@@ -2,10 +2,9 @@ Meteor.startup(function () {
 
 });
 
-Blog.config({
-    adminRole: 'prudentbot',
-    authorRole: 'prudentbot'
-  });
+Meteor.publish("allUserData", function () {
+    return Meteor.users.find({}, {fields: {'posts': 1, 'value': 1}});
+});
 
 Meteor.methods({
 	dropNodes: function(target_id){
@@ -22,7 +21,12 @@ Meteor.methods({
 		// Note: if ever done RESTfully, add a data quality check. 
 		node.datatype = "node";
 		node.value = 0;
+    node.timestamp = new Date().getTime();
 		node._id = Nodes.insert(node);
+
+    if(node.user){
+      Meteor.users.update({_id: node.user._id}, {$addToSet: {posts: node._id}});
+    }
 
 		if(!node.root_id){
 			Nodes.update(node._id, {$set: {root_id: node._id}});
@@ -79,6 +83,9 @@ var propagate = function(node_id, delta){
   var newdelta = pos(node.value + delta) - pos(node.value);
 
   Nodes.update(node_id, {$inc: {value:delta}});
+  if(node.user){
+    Meteor.users.update({username:node.user.username}, {$inc: {value:delta}});
+  }
 
   // n.modified = true;
 

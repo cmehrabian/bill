@@ -6,17 +6,17 @@
 </body>
 
 <template name="layout">
-	<div class="centerImg">
-		<img class="logo-img" src="gadfly_web_black.png" alt="">
-	</div>
-	<!--div style="float:right;">
+	<div>
+		<div style="float:left; margin:15px;">
+			{{> topBar}}
+		</div>
+
+		<div style="float:right; margin-right:15px;"> 
 		{{> loginButtons align="right"}}
-	</div-->
-	{{> topBar}}
-	<!--div class="center logo">
-	<a><img src="gadflylogo.png" /></a>
-	</div-->
-	<div style="margin:20px">
+		</div>
+	</div>
+
+	<div style="clear:both; margin:10px">
 		{{> yield}}
 	</div>
 </template>
@@ -75,12 +75,6 @@
 				To name a few.
 
 				I'm also considering suggestions for features to implement next.
-
-				<!--table border="1">
-					<tr> - Adding a traditional reddit-style way to view comments.  The reason why I didn't do this initially is because if the site works in the way I imagine it should, then it may be normal to enter a thread many, many generations down from the parent post, so I suspect the typical reddit-view might be hard to navigate.  On the other hand, chasing down circles isn't exactly optimal either. </tr>
-					<tr> - Adding a more traditional, wiki-like way to view comments.  The reason why this would be good is that someone that doesn't want to actively contribute to an argument, but, for example, wants to know about some issue, can look at it in a way that doesn't necessary bombard them with  a full contextual map of the argument.  The way I imagine it looking is that each page is a individual post, with a reference to the parent and a list of all the arguments for and against it that you can click on to get to a page just like the one you were just at only with the one you clicked as the main post.  I think this would be awesome if like, for example, someone wanted to know about a bill being passed in state legislature, and just wanted all the arguments for and against the bill, and wanted to follow the argument as it got more and more esoteric, and it could do all that without having to deal with the graph-view.  This is definitely on the todo list, but as of right now I'm still playing with the way people interact, so this is probably not top priority. </tr>
-					<tr> -
-				</table-->
 
 			</div>
 		</div>

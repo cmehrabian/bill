@@ -1,25 +1,33 @@
 
 <template name="submitbox">
-	<div id="submitbox">
-		<div class="viewer-padding">
-			<div>
-				<p>Username</p>
-				<input type="text" id="username-submit" value="{{username}}"/>
-			</div>
-			<div>
-				<select onchange="this.className=this.options[this.selectedIndex].className" class="disagreement-select" id="edge-type">
-					<option class="disagreement-select" value="disagreement"> disagreement </option>
-					<option class="agreement-select" value="agreement"> agreement </option>
-					<option class="quote-select" value="quote"> quote </option>
-				</select>
-			</div>
-			<div>
-				<p>Body</p>
-				<textarea id="body-submit"></textarea>
-			</div>
-			<div>
-				<input id="submit-node" type="button" value="submit"/>
-			</div>
-		</div>
-	</div>
+    <div id="submitbox">
+        <div class="viewer-padding">
+            {{#if isLoggedIn }}
+                <div>
+                    <p> Commenting as <em class="text-username"> {{loggedInUsername}} </em> </p>
+                </div>
+            {{else}}
+                <!-- FIXME: add code to check if username is taken by a registered user -->
+                <div>
+                    <p>Username</p>
+                    <input type="text" id="username-submit" value="{{username}}"/>
+                </div>
+            {{/if}}
+            <div>
+                <p>Body</p>
+                <textarea id="body-submit"></textarea>
+            </div>
+            <div>
+                <select onchange="this.className=this.options[this.selectedIndex].className" class="disagreement-select" id="edge-type">
+                    <option class="disagreement-select" value="disagreement"> disagreement </option>
+                    <option class="agreement-select" value="agreement"> agreement </option>
+                    <option class="quote-select" value="quote"> quote </option>
+                </select>
+            </div>
+            <div>
+                <input id="submit-node" type="button" value="submit"/>
+            </div>
+        </div>
+    </div>
+
 </template>
