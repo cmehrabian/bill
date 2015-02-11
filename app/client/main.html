@@ -11,8 +11,10 @@
 			{{> topBar}}
 		</div>
 
-		<div style="float:right; margin-right:15px;"> 
-		{{> loginButtons align="right"}}
+		<div style="float:right; margin-right:15px;">
+			{{#if Meteor}}
+			{{/if}}
+			{{> loginButtons align="right"}}
 		</div>
 	</div>
 
@@ -20,8 +22,6 @@
 		{{> yield}}
 	</div>
 </template>
-
-<body></body>
 
 <template name ="topBar">
 	<dl class="sub-nav nav-links"> <dt><a href="/">Gadfly:</a></dt>
