@@ -12,9 +12,12 @@
 		</div>
 
 		<div style="float:right; margin-right:15px;">
-			{{#if Meteor}}
+			{{#if user}}
+				<a id="logout"> logout </a>
+				<a href="/user/{{user.username}}" style="text-decoration:underline;"> {{user.username}} </a>
+			{{else}}
+				{{> loginButtons align="right"}}
 			{{/if}}
-			{{> loginButtons align="right"}}
 		</div>
 	</div>
 
