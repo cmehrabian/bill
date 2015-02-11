@@ -69,10 +69,10 @@
 	background: -moz-linear-gradient(top,  #f5f5f5 0%, #efefef 100%); /* FF3.6+ */
 	background:     -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#efefef)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
-	background:      -ms-linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* IE10+ */
-	background:       -o-linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* Opera 11.10+ */
-	background:          linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* W3C */
-	-pie-background:     linear-gradient(top,  #f5f5f5 0%,#efefef 100%);
+	background:     -ms-linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* IE10+ */
+	background:      -o-linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* Opera 11.10+ */
+	background:         linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* W3C */
+	-pie-background:    linear-gradient(top,  #f5f5f5 0%,#efefef 100%);
 	border-radius: 7px;
 	border:1px solid #d8d8d8;
 }
@@ -85,7 +85,7 @@
 }
 .node {
   	stroke: #000;
-  	stroke-width: 1.5px;
+  	stroke-width: 0;
   	fill: #ccc;
 }
 
@@ -94,7 +94,7 @@
 }
 
 #edges {
-  	stroke-width: 3px;
+  stroke-width: 1px;
 }
 
 .comment-edge {
@@ -130,6 +130,7 @@
 
 .highlighted {
 	stroke: #FFFF00;
+	stroke-width:1px;
 }
 
 select:hover {
@@ -143,7 +144,7 @@ select:hover {
 */
 #potential-edge {
 	stroke: #0000FF;
-  	stroke-width: 1.5px;
+  stroke-width: 1.5px;
 }
 
 .selected {

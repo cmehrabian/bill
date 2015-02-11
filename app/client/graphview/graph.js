@@ -21,7 +21,7 @@ Template.graph.rendered = function(){
   var targetType;
   var target;
 
-  force = d3.layout.force()
+  var force = d3.layout.force()
     .linkDistance(80)
     .charge(-160)
     .gravity(.05)
@@ -66,8 +66,8 @@ Template.graph.rendered = function(){
       DOMnodes.enter()
         .append("circle")
         .attr("class",function(d) { return "node " + d.type; })
-        .attr("r", function(d){ return d.value * 5; })
-        .attr("_id", function(d){ return "node" + d._id; })
+        .attr("r", function(d) { return (Math.sqrt(d.value*d.value) + 5) * 1.5; }) // handles negative values
+        .attr("_id", function(d) { return "node" + d._id; })
         .on("mouseover", mouseover)
         .on("dblclick", doubleclick)
         .call(force.drag());
@@ -76,8 +76,8 @@ Template.graph.rendered = function(){
       DOMnodes.enter()
         .append("circle")
         .attr("class", "node unread") // here's the difference
-        .attr("r", function(d){ return d.value * 5 })
-        .attr("_id", function(d){ return "node" + d._id; })
+        .attr("r", function(d) { return (Math.sqrt(d.value*d.value) + 5) * 1.5; }) // handles negative values
+        .attr("_id", function(d) { return "node" + d._id; })
         .on("mouseover", mouseover)
         .on("dblclick", doubleclick)
         .call(force.drag());
