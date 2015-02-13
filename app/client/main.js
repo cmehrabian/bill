@@ -76,6 +76,10 @@ Router.route("how", function () {
 	this.render("how");
 });
 
+Router.route("prefs", function () {
+  this.render("preferences");
+})
+
 // Trello
 
 // If target is node:
