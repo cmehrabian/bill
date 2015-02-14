@@ -16,7 +16,7 @@
 				<div>
 					<a href="/prefs"> preferences</a>
 					<a id="logout"> logout</a>
-					<a href="/user/{{user.username}}" style="text-decoration:underline;"> {{user.username}} </a>
+					<a href="/user/{{user.username}}" style="text-decoration:underline;"> {{user.username}} ({{user.notifications.length}}) </a>
 				</div>
 			{{else}}
 				{{> loginButtons align="right"}}

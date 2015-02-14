@@ -3,7 +3,11 @@ Meteor.startup(function () {
 });
 
 Meteor.publish("allUserData", function () {
-    return Meteor.users.find({}, {fields: {'posts': 1, 'value': 1, 'emails': 1}});
+    return Meteor.users.find({}, {fields: {
+      'posts': 1,
+      'value': 1,
+      'emails': 1,
+      'notifications': 1}});
 });
 
 Meteor.methods({
