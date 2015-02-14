@@ -1,10 +1,12 @@
 
 <template name="user">
-	<div>User: <em class="text-username">{{user.username}} </em> </div>
-	{{#if isViewingOwnPage}}
-		<div>Email: {{email}}</div>
-	{{/if}}
-	<div>Total value: {{user.value}} </div>
+	<div id="user-info-box" class="knowledge">
+		<div>User: <em class="text-username">{{user.username}} </em> </div>
+		{{#if isViewingOwnPage}}
+			<div>Email: {{email}}</div>
+		{{/if}}
+		<div>Total value: {{user.value}} </div>
+	</div>
 	<div>
 		<h3> Posts </h3>
 		{{#each posts}}
