@@ -16,7 +16,10 @@ Template.user.email = function () {
 }
 
 Template.user.posts = function () {
-	return Nodes.find({username: Router.current().params._username},
-	 {sort:{timestamp:-1}}
-	 );
+	var posts = Nodes.find({username: Router.current().params._username}, {sort:{timestamp:-1}}).fetch();
+	return _.map(posts, function(p){
+		p.ftime = (new Date(p.timestamp)).toLocaleString();
+		p.froot = Nodes.findOne({_id:p.root_id});
+		return p;
+	});
 }

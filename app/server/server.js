@@ -7,7 +7,8 @@ Meteor.publish("allUserData", function () {
       'posts': 1,
       'value': 1,
       'emails': 1,
-      'notifications': 1}});
+      'notifications': 1
+    }});
 });
 
 Meteor.methods({
