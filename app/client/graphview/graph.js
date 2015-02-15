@@ -5,7 +5,7 @@ Template.graph.rendered = function(){
   Session.set('target_id', Router.current().params._id)
 
   Session.set("state", new State("view"));
-  Session.set("selected", undefined);
+  Session.set("selected", Router.current().params._id);
   var self = this;
 
   self.graphElem = d3.select('#graph');
@@ -67,11 +67,13 @@ Template.graph.rendered = function(){
         .on("mouseover", mouseover)
         .on("dblclick", doubleclick)
         .call(force.drag());
+
+        selectHighlighted();
     }
     else{
       DOMnodes.enter()
         .append("circle")
-        .attr("class", "node unread") // here's the difference
+        .attr("class", "node unread statement") // here's the difference, also the statement part is a bit ratchet.
         .attr("r", function(d) { return (Math.sqrt(d.value*d.value) + 5) * 1.5; }) // handles negative values
         .attr("_id", function(d) { return "node" + d._id; })
         .on("mouseover", mouseover)
@@ -274,6 +276,9 @@ Template.graph.rendered = function(){
       p.classed('selected', false);
 
     var mousedOver = Session.get('mousedOver');
+
+    if(!mousedOver)
+      return;
 
     var c = self.graphElem.select("circle[_id=node" + mousedOver._id + "]")
     var p = self.graphElem.select("path[_id=edge"+ mousedOver._id + "]")

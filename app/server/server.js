@@ -3,7 +3,12 @@ Meteor.startup(function () {
 });
 
 Meteor.publish("allUserData", function () {
-    return Meteor.users.find({}, {fields: {'posts': 1, 'value': 1}});
+    return Meteor.users.find({}, {fields: {
+      'posts': 1,
+      'value': 1,
+      'emails': 1,
+      'notifications': 1
+    }});
 });
 
 Meteor.methods({
@@ -85,6 +90,8 @@ var propagate = function(node_id, delta){
   Nodes.update(node_id, {$inc: {value:delta}});
   if(node.user){
     Meteor.users.update({username:node.user.username}, {$inc: {value:delta}});
+    //FIXME: is there a way to not do a repeat query?
+    Meteor.users.update({username:node.user.username}, {$addToSet: {notifications:node._id}});
   }
 
   // n.modified = true;

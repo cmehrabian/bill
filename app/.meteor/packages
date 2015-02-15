@@ -13,3 +13,5 @@ accounts-ui
 accounts-password
 ewall:foundation
 autopublish
+reactive-var
+stevezhu:lodash

@@ -7,6 +7,15 @@ Meteor.startup(function(){
   height = 500;
 })
 
+Template.layout.user = function () {
+  return Meteor.user()
+}
+
+Template.layout.events({
+  'click #logout': function(){
+    Meteor.logout();
+  }
+})
 
 Template.dropper.events({
   'click #drop': function(){
@@ -66,6 +75,10 @@ Router.route("what", function () {
 Router.route("how", function () { 
 	this.render("how");
 });
+
+Router.route("prefs", function () {
+  this.render("preferences");
+})
 
 // Trello
 

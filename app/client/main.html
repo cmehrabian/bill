@@ -11,8 +11,16 @@
 			{{> topBar}}
 		</div>
 
-		<div style="float:right; margin-right:15px;"> 
-		{{> loginButtons align="right"}}
+		<div style="float:right; margin-right:15px;">
+			{{#if user}}
+				<div>
+					<a href="/prefs"> preferences</a>
+					<a id="logout"> logout</a>
+					<a href="/user/{{user.username}}" style="text-decoration:underline;"> {{user.username}} ({{user.notifications.length}}) </a>
+				</div>
+			{{else}}
+				{{> loginButtons align="right"}}
+			{{/if}}
 		</div>
 	</div>
 
@@ -20,8 +28,6 @@
 		{{> yield}}
 	</div>
 </template>
-
-<body></body>
 
 <template name ="topBar">
 	<dl class="sub-nav nav-links"> <dt><a href="/">Gadfly:</a></dt>

@@ -1,11 +1,26 @@
 
 <template name="user">
-	<div>User: <em class="text-username">{{user.username}} </em> </div>
-	<div>Total value: {{user.value}} </div>
-	<div>
+	<div id="user-info-box" class="knowledge">
+		<div>User: <em class="text-username">{{user.username}} </em> </div>
+		{{#if isViewingOwnPage}}
+			<div>Email: {{email}}</div>
+		{{/if}}
+		<div>Total value: {{user.value}} </div>
+	</div>
+	<div style="float:left; width:60%">
 		<h3> Posts </h3>
+
 		{{#each posts}}
-			<p> <a href="/view/{{_id}}"> {{body}} </a>: value {{value}}</p>
+			<div class="knowledge">
+				<div>
+					<div>
+						<a href="/view/{{froot._id}}">{{froot.body}}</a> <label> by {{froot.username}} </label>
+					</div>
+					<div style="margin:5px;">
+						<a href="/view/{{_id}}"> {{body}} </a> Value: {{value}} <div> {{ftime}} </div>
+					</div>
+				</div>
+			</div>
 		{{/each}}
 	</div>
 </template>
