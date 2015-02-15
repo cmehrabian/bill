@@ -96,7 +96,14 @@
 .node {
   	stroke: #000;
   	stroke-width: 0;
-  	fill: #ccc;
+}
+
+.statement{
+	fill: #ccc;
+}
+
+.original {
+	fill: #575757;
 }
 
 .unread {
