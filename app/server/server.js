@@ -45,7 +45,10 @@ Meteor.methods({
 
 		if(edge.type != "quote")
 			newNode(node._id);
-	}
+	},
+  checkNotification: function(user_id, selected_id){
+    Meteor.users.update({_id: Meteor.user()._id}, {$pull:{notifications:selected_id}});
+  }
 });
 
 var newNode = function(node_id){

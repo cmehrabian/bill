@@ -292,7 +292,19 @@ Template.graph.rendered = function(){
       p.classed('selected', true);
 
     Session.set('selected', mousedOver._id);
+
+    checkNotification();
   }
+}
+
+var checkNotification = function(){
+
+  if (!Meteor.user()){
+    return;
+  }
+
+  var selected_id = Session.get("selected");
+  Meteor.call("checkNotification", Meteor.user()._id, selected_id);
 }
 
 function State(name, data){
