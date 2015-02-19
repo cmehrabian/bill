@@ -23,3 +23,21 @@ Template.user.posts = function () {
 		return p;
 	});
 }
+
+Template.user.notifications = function () {
+	if(!Template.user.isViewingOwnPage())
+		return;
+
+	var notifications = Meteor.user().notifications;
+	var temp = _.map(notifications, function(n){
+		var node = Nodes.findOne(n.modifier_id);
+		node.modified = _.map(n.modified, function(nm){
+			return {
+				node: Nodes.findOne({_id: nm._id}),
+				value: nm.value
+			}
+		});
+		return node;
+	});
+	return temp;
+}

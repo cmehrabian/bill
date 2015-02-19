@@ -47,7 +47,7 @@ Meteor.methods({
 			newNode(node._id);
 	},
   checkNotification: function(user_id, selected_id){
-    Meteor.users.update({_id: Meteor.user()._id}, {$pull:{notifications:selected_id}});
+    Meteor.users.update({_id: Meteor.user()._id}, {$pull:{notifications:{modifier_id:selected_id}}});
   }
 });
 
@@ -55,8 +55,18 @@ var newNode = function(node_id){
 
   var delta = 1;
 
-  propagate(node_id, delta);
-    
+  var notifications = []
+
+  propagate(node_id, delta, node_id, notifications);
+
+  _.forEach(notifications, function(n){
+    n.modifier_id = node_id;
+    Meteor.users.update({_id:n.user_id},
+      {
+        $addToSet:{notifications:n}
+      }
+    );
+  });
   // var modifiedparent = _.find(a, {point_id:data.parent});
 
   // if(modifiedparent === undefined && parent !== undefined)
@@ -68,7 +78,7 @@ var newNode = function(node_id){
 // and a list of nodes that shouldn't be visited (blacklist).  
 // All points that have already been visited are added to a.  a is returned at the 
 // end of the function and sent to all users (currently)
-var propagate = function(node_id, delta){
+var propagate = function(node_id, delta, original_id, notifications){
   if (node_id === undefined)
     return;
   if (delta == 0)
@@ -91,10 +101,25 @@ var propagate = function(node_id, delta){
   var newdelta = pos(node.value + delta) - pos(node.value);
 
   Nodes.update(node_id, {$inc: {value:delta}});
-  if(node.user){
-    Meteor.users.update({username:node.user.username}, {$inc: {value:delta}});
-    //FIXME: is there a way to not do a repeat query?
-    Meteor.users.update({username:node.user.username}, {$addToSet: {notifications:node._id}});
+  if(node.user && node_id != original_id){
+
+    var u = _.find(notifications, function(n){
+      return n.user_id == node.user._id;
+    })
+
+    if(!u){
+      u = {
+        user_id:node.user._id,
+        modified:[]
+      };
+      notifications.push(u);
+    }
+
+    u.modified.push(
+      {
+        _id:node._id,
+        value:delta
+      });
   }
 
   // n.modified = true;
@@ -109,7 +134,7 @@ var propagate = function(node_id, delta){
     if(edge.type == 'quote')
       newdelta = delta;
 
-    propagate(edge.target, newdelta);
+    propagate(edge.target, newdelta, original_id, notifications);
   });
 }
 

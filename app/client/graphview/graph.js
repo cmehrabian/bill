@@ -166,6 +166,8 @@ Template.graph.rendered = function(){
       self.graphElem.on('mousemove', null);
       self.graphElem.on('click', selectHighlighted);
     }
+
+    checkNotification();
   })
 
   function getOffsetCoordinates(source, target){

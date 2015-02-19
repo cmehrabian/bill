@@ -8,7 +8,21 @@
 		<div>Total value: {{user.value}} </div>
 	</div>
 	<div style="float:left; width:60%">
-		<h3> Posts </h3>
+
+		{{#if isViewingOwnPage}}
+			<h3> New </h3>
+			{{#each notifications}}
+				<div class="knowledge">
+					<a href="/view/{{_id}}"> {{body}} </a> Value: {{value}}
+					{{#each modified}}
+						<div class="knowledge">
+							<a href="/view/{{node._id}}"> {{node.body}} </a> Value: {{value}}
+						</div>
+					{{/each}}
+				</div>
+			{{/each}}
+			<h3> Posts </h3>
+		{{/if}}
 
 		{{#each posts}}
 			<div class="knowledge">
