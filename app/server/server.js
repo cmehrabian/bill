@@ -105,7 +105,7 @@ var propagate = function(node_id, delta, original_id, notifications){
 
     var u = _.find(notifications, function(n){
       return n.user_id == node.user._id;
-    })
+    });
 
     if(!u){
       u = {
