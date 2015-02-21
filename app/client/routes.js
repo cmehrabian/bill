@@ -37,3 +37,7 @@ Router.route("how", function () {
 Router.route("prefs", function () {
   this.render("preferences");
 });
+
+Router.route("shame", function () {
+  this.render("shame");
+});

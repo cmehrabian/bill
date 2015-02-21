@@ -1,5 +1,9 @@
 /* CSS declarations go here */
 
+.arc path {
+  stroke: #fff;
+}
+
 #user-info-box {
 	float:right;
 	font-size:125%;
