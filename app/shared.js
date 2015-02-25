@@ -2,6 +2,8 @@
 Nodes = new Meteor.Collection("nodes");
 Links = new Meteor.Collection("links");
 
+Meteor.users.initEasySearch('username');
+
 if (Meteor.is_server){
 	Nodes.allow({
 	    'update': function (userId,doc) {

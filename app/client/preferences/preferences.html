@@ -4,10 +4,7 @@
 		<div> email address: {{email}} [<a id="edit-email"> edit </a>] </div>
 		{{#if isEditingEmail}}
 		<div style="width:400px; margin:10px">
-			<div>
-				Feature not available yet, sorry!
-			</div>
-			<!--form id="change-email" data-abide="ajax">
+			<!--form id="change-email" action="edit_pref"-->
 				<div class="email-field">
 			    	<label>Email <small>required</small>
 			      		<input id="new-email" type="email" required>
@@ -15,7 +12,7 @@
 			    	<small class="error">An email address is required.</small>
 			  	</div>
   				<button id="submit-email">Submit</button>
-			</form-->
+			<!--/form-->
 		</div>
 		{{/if}}
 	</div>

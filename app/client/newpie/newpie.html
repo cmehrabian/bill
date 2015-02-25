@@ -1,0 +1,20 @@
+<template name="newpie">
+	{{#if isLoggedIn}}
+		<fieldset>
+			<div> Subject: </div>
+			<input type="text" id="username-submit" value="{{username}}"/>
+			<div> Who is invited? </div>
+      <!-- <div>
+        Hello?
+        {{#each userlist}}
+          <div>
+            haha
+            {{username}}
+          </div>
+        {{/each}}
+      </div> -->
+		</fieldset>
+	{{else}}
+		Log in first!
+	{{/if}}
+</template>

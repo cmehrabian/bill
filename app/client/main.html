@@ -35,6 +35,16 @@
 	</dl>
 </template>
 
+<template name="searchBox">
+    {{> esInput index="USER" placeholder="Search..." }}
+
+    <ul>
+        {{#esEach index="USER"}}
+            <li>Name of the player: {{name}}</li>
+        {{/esEach}}
+    </ul>
+</template>
+
 <template name="dropper">
 	{{#if isUserAdmin}}
  		<input id="drop" type="button" value="DESTROY EVERYTHING" />
