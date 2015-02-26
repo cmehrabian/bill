@@ -24,6 +24,10 @@ Template.preferences.events({
 	'click #edit-email': function () {
 		Template.instance().editing_email.set(!Template.instance().editing_email.get());
 	},
+	'submit #change-email': function () {
+		var email = document.getElementById("new-email").value;
+		Meteor.call("editEmail", email);
+	},
 	'valid.fndtn.abide': function () {
 		var email = document.getElementById("new-email").value;
 		var user = Meteor.user();

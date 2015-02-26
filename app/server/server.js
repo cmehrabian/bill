@@ -48,7 +48,14 @@ Meteor.methods({
 	},
   checkNotification: function(user_id, selected_id){
     Meteor.users.update({_id: Meteor.user()._id}, {$pull:{notifications:{modifier_id:selected_id}}});
+  },
+  editEmail: function(email){
+    if(!Meteor.user())
+      return;
+    Meteor.users.update({_id: Meteor.user()._id}, {$unset:{emails:""}}),
+    Meteor.users.update({_id: Meteor.user()._id}, {$addToSet:{emails:{address:email, verified:false}}})
   }
+
 });
 
 var newNode = function(node_id){
