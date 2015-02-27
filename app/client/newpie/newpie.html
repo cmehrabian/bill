@@ -2,17 +2,19 @@
 	{{#if isLoggedIn}}
 		<fieldset>
 			<div> Subject: </div>
-			<input type="text" id="username-submit" value="{{username}}"/>
+			<input type="text" id="newpie-subject"/>
 			<div> Who is invited? </div>
-      <!-- <div>
-        Hello?
-        {{#each userlist}}
+      <div>
+        {{#each userList}}
           <div>
-            haha
-            {{username}}
+            <input type="checkbox" class="checkbox-include" name="include-{{username}}" value="Bike"> 
+              <a href="/user/{{username}}">{{username}}</a>
           </div>
         {{/each}}
-      </div> -->
+      </div>
+      <div> Amount (input a number, can be left blank) </div>
+      <input type="text" id="newpie-amount"/>
+      <button id="newpie-submit">Submit</button>
 		</fieldset>
 	{{else}}
 		Log in first!
