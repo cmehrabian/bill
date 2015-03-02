@@ -9,7 +9,7 @@ Router.route('/', function () {
 Router.route('/view/:_id', function () {
   var target = Nodes.findOne({_id: this.params._id}) || Links.findOne({_id: this.params._id});
   if(target)
-    this.render('graphview', {target_id: target});
+    this.render('view', {target_id: target});
   else
   	this.render('notfound');
 });
