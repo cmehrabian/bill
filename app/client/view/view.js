@@ -8,7 +8,7 @@ Template.view.events({
 });
 
 Template.view.rendered = function(){
-  Session.set("viewMode", "graph");
+  Session.set("viewMode", "standard");
 }
 
 Template.view.helpers({

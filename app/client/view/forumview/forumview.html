@@ -1,5 +1,21 @@
 <template name="forumview">
   <div>
-    {{> posts}}
+    {{#each posts}}
+      <div class="knowledge">
+        <div class="forumview-post-padding">
+          <div class="post-infobox">
+            {{#if user}}
+              <a href="/user/{{username}}"> {{username}} </a>
+            {{else}}
+              {{username}}
+            {{/if}}
+            <span style="color:{{color value}}">({{value}})</span> {{time timestamp}}
+          </div>
+          <div class="post-body">
+            {{body}}
+          </div>
+        </div>
+      </div>
+    {{/each}}
   </div>
 </template>

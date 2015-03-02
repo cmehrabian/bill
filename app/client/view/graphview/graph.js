@@ -29,6 +29,7 @@ Template.graph.rendered = function(){
     .on("tick", tick)
 
   // Will change when target changes, loads all connected nodes.
+  // needed for separate link code, might need phasing out
   Deps.autorun(function(){
     var target_id = Session.get('target_id')
 
