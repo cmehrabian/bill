@@ -93,6 +93,8 @@ Template.graph.rendered = function(){
 
   // Calculates link changes.
   Deps.autorun(function(){
+
+    //FIXME: This fetches all links?
     var meteorLinks = Links.find().fetch();
     var newLinks = _.difference(meteorLinks, links);
     newLinks.forEach(function(e){
@@ -249,7 +251,6 @@ Template.graph.rendered = function(){
   function chooseTarget(){
     var source = Session.get("state").data.source
     var clickedElem_id = d3.select(d3.event.target).attr('_id');
-    // HAHAH THIS COULD BREAK /me PHILOSOPHICAL CRISIS
     if(clickedElem_id && clickedElem_id.indexOf("node") != -1){
       var target_id = clickedElem_id.replace("node", "");
       var source_id = source._id.replace("node", "");
@@ -295,7 +296,6 @@ Template.graph.rendered = function(){
       p.classed('selected', true);
 
     Session.set('selected', mousedOver._id);
-
     checkNotification();
   }
 }

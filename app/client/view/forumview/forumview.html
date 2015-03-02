@@ -1,21 +1,29 @@
 <template name="forumview">
+  {{#with root}}
+    {{> forumviewPost}}
+  {{/with}}
+</template>
+
+<template name="forumviewPost">
   <div>
-    {{#each posts}}
-      <div class="knowledge">
-        <div class="forumview-post-padding">
-          <div class="post-infobox">
-            {{#if user}}
-              <a href="/user/{{username}}"> {{username}} </a>
-            {{else}}
-              {{username}}
-            {{/if}}
-            <span style="color:{{color value}}">({{value}})</span> {{time timestamp}}
-          </div>
-          <div class="post-body">
-            {{body}}
-          </div>
+    <div class="knowledge">
+      <div class="forumview-post-padding">
+        <div class="post-infobox">
+          {{#if user}}
+            <a href="/user/{{username}}"> {{username}} </a>
+          {{else}}
+            {{username}}
+          {{/if}}
+          <span style="color:{{color value}}">({{value}})</span> {{time timestamp}}
+        </div>
+        <div class="post-body">
+          {{body}}
         </div>
       </div>
-    {{/each}}
+      {{#each children}}
+        {{> forumviewPost}}
+      {{/each}}
+    </div>
   </div>
+
 </template>
