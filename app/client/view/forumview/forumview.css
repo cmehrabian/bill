@@ -35,3 +35,11 @@
 .post-type-selector-wrapper{
   width:150px;
 }
+
+.post-green{
+  background-color:#EAFFEA;
+}
+
+.post-red{
+  background-color:#FFD5D5;
+}

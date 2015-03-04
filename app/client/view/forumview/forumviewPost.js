@@ -38,6 +38,16 @@ Template.forumviewPost.helpers({
     return !! _.find(Session.get("isCommenting"), function(c){
       return c == _id;
     });
+  },
+  backgroundColor: function(_id){
+    var link = Links.findOne({source:_id});
+    if(!link)
+      return;
+    console.log(link);
+    if(link.type == "agreement")
+      return "post-green";
+    if(link.type == "disagreement")
+      return "post-red";
   }
 });
 
