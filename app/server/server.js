@@ -43,6 +43,7 @@ Meteor.methods({
 
     if(node.user){
       Meteor.users.update({_id: node.user._id}, {$addToSet: {posts: node._id}});
+      var user_id = node.user._id
     }
 
 		if(!node.root_id){
@@ -55,8 +56,10 @@ Meteor.methods({
 				type: edge.type
 			})
 
+
+    // Quotes are temporarily disabled
 		if(edge.type != "quote")
-			newNode(node._id, edge.target_id);
+			newNode(node._id, edge.target_id, user_id);
 	},
   checkNotification: function(user_id, selected_id){
     Meteor.users.update({_id: Meteor.user()._id}, {$pull:{notifications:{modifier_id:selected_id}}});
@@ -80,7 +83,7 @@ Meteor.methods({
 
 });
 
-var newNode = function(node_id, target_id){
+var newNode = function(node_id, target_id, user_id){
 
   var delta = 1;
 
@@ -88,10 +91,11 @@ var newNode = function(node_id, target_id){
 
   propagate(node_id, delta, node_id, notifications);
 
+  // If there's no value modifications, it's a comment, so just inform the
+  // guy who was just commented on, unless they're the same person.
   if(notifications.length == 0){
-
     var parent = Nodes.findOne({_id:target_id});
-    if(!parent.user)
+    if(!parent.user || parent.user._id == user_id)
       return;
 
     notifications[0] = {
@@ -104,6 +108,9 @@ var newNode = function(node_id, target_id){
   }
 
   _.forEach(notifications, function(n){
+    // don't send notifications if the user is modifying his own stuff.
+    if(n.user_id == user_id)
+      return;
     n.modifier_id = node_id;
     Meteor.users.update({_id:n.user_id},
       {
@@ -118,10 +125,6 @@ var newNode = function(node_id, target_id){
 
 }
 
-// Recursive. Takes a point (n), an array (a), the value to be propagated (delta),
-// and a list of nodes that shouldn't be visited (blacklist).  
-// All points that have already been visited are added to a.  a is returned at the 
-// end of the function and sent to all users (currently)
 var propagate = function(node_id, delta, original_id, notifications){
   if (node_id === undefined)
     return;
@@ -140,8 +143,7 @@ var propagate = function(node_id, delta, original_id, notifications){
   // -the value is positive and delta is negative, but the absolute value of the value is smaller
   // and the three opposite cases
 
-  // In all cases the amount of value to propagate can be defined as the amount of change above 0, 
-  // and I'M PRETTY SURE this function will return that value.  
+  // In all cases the amount of value to propagate can be defined as the amount of change above 0
   var newdelta = pos(node.value + delta) - pos(node.value);
 
   Nodes.update(node_id, {$inc: {value:delta}});
