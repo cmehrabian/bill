@@ -4,14 +4,24 @@ Template.preferences.created = function() {
 	this.editing_email.set(false);
 }
 
+Template.preferences.rendered = function(){
+	var user = Meteor.user();
+	if(!user)
+		return;
+
+	// Unfortunately, this doesn't work, which seems like a problem with Meteor.
+	document.getElementById("email-notifications").checked = user.preferences.emailNotifications;
+	document.getElementById("mailing-list").checked = user.preferences.mailingList;
+}
+
 Template.preferences.helpers({
 	email: function() {
-		var emails;
+		var email;
 		if(Meteor.user())
-			emails = Meteor.user().emails;
+			email = Meteor.user().email;
 
-		if (emails)
-			return emails[0].address;
+		if (email)
+			return email.address;
 		else
 			return "email address not registered!";
 	},
@@ -28,18 +38,10 @@ Template.preferences.events({
 		var email = document.getElementById("new-email").value;
 		Meteor.call("editEmail", email);
 	},
-	'valid.fndtn.abide': function () {
-		var email = document.getElementById("new-email").value;
-		var user = Meteor.user();
-		if (user.emails)
-			emails[0].address = email;
-		else{
-			Meteor.users.update({username:user.username}, {$addToSet:{'emails':{
-				address:email,
-				verified:false
-			}}});
-			console.log("done!");
-		}
+	'change #email-notifications': function (event){
+		Meteor.call("editPreferences", {emailNotifications:event.target.checked});
+	},
+	'change #mailing-list': function (event){
+		Meteor.call("editPreferences", {mailingList:event.target.checked});
 	}
-
 })

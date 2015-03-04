@@ -6,9 +6,21 @@ Meteor.publish("allUserData", function () {
     return Meteor.users.find({}, {fields: {
       'posts': 1,
       'value': 1,
-      'emails': 1,
-      'notifications': 1
+      'email': 1,
+      'notifications': 1,
+      'preferences': 1
     }});
+});
+
+Accounts.onCreateUser(function(options, user) {
+  if(Meteor.users.find().fetch().length == 0){
+    user.roles = ['admin'];
+  }
+  user.preferences = {
+    emailNotifications:false,
+    mailingList:false
+  }
+  return user;
 });
 
 Meteor.methods({
@@ -52,8 +64,18 @@ Meteor.methods({
   editEmail: function(email){
     if(!Meteor.user())
       return;
-    Meteor.users.update({_id: Meteor.user()._id}, {$unset:{emails:""}}),
-    Meteor.users.update({_id: Meteor.user()._id}, {$addToSet:{emails:{address:email, verified:false}}})
+    Meteor.users.update({_id: Meteor.user()._id}, {$set:{email:{address:email, verified: false}}});
+  },
+  editPreferences: function(prefs){
+    var user = Meteor.user();
+    if(!user)
+      return;
+
+    _.forEach(prefs, function(value, key){
+      user.preferences[key] = value;
+    });
+
+    Meteor.users.update({_id: user._id}, {$set:{preferences:user.preferences}});
   }
 
 });

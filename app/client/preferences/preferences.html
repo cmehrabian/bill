@@ -10,10 +10,15 @@
 			      		<input id="new-email" type="email" required>
 			    	</label>
 			    	<small class="error">An email address is required.</small>
-			  	</div>
-  				<button id="submit-email">Submit</button>
+			  </div>
+        <button id="submit-email">Submit</button>
 			</form>
 		</div>
 		{{/if}}
+		<div id="preference-boxes">
+			<input id="email-notifications" type="checkbox" name="vehicle" value="Bike" />
+				Receiving emails for notifications <br>
+			<input id="mailing-list" type="checkbox" name="vehicle" value="Car" /> Subscribed to the mailing list
+		</div>
 	</div>
 </template>
