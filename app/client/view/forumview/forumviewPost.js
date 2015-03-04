@@ -43,7 +43,6 @@ Template.forumviewPost.helpers({
     var link = Links.findOne({source:_id});
     if(!link)
       return;
-    console.log(link);
     if(link.type == "agreement")
       return "post-green";
     if(link.type == "disagreement")
