@@ -6,9 +6,7 @@
 standard-app-packages
 insecure
 d3
-alethes:lodash
 iron:router
-
 accounts-ui
 accounts-password
 ewall:foundation

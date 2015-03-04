@@ -20,6 +20,16 @@
           {{body}}
         </div>
       </div>
+      <div class="post-utilities">
+        {{#if isCommenting _id}}
+          <span class="post-closebutton" id="closebutton-{{_id}}">Close</span>
+        {{else}}
+          <span class="post-replybutton" id="replybutton-{{_id}}">Reply</span>
+        {{/if}}
+      </div>
+      {{#if isCommenting _id}}
+        CommentBox!
+      {{/if}}
       {{#each children}}
         {{> forumviewPost}}
       {{/each}}

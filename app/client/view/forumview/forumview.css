@@ -16,3 +16,18 @@
 .post-body{
   font-size:16px;
 }
+
+.post-utilities{
+  color:gray;
+  font-size:13px;
+}
+
+.post-replybutton{
+  cursor: pointer;
+  cursor: hand;
+}
+
+.post-closebutton{
+  cursor: pointer;
+  cursor: hand;
+}
