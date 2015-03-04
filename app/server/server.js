@@ -44,7 +44,7 @@ Meteor.methods({
 			})
 
 		if(edge.type != "quote")
-			newNode(node._id);
+			newNode(node._id, edge.target_id);
 	},
   checkNotification: function(user_id, selected_id){
     Meteor.users.update({_id: Meteor.user()._id}, {$pull:{notifications:{modifier_id:selected_id}}});
@@ -58,13 +58,28 @@ Meteor.methods({
 
 });
 
-var newNode = function(node_id){
+var newNode = function(node_id, target_id){
 
   var delta = 1;
 
-  var notifications = []
+  var notifications = [];
 
   propagate(node_id, delta, node_id, notifications);
+
+  if(notifications.length == 0){
+
+    var parent = Nodes.findOne({_id:target_id});
+    if(!parent.user)
+      return;
+
+    notifications[0] = {
+      user_id:parent.user._id,
+      modified:[{
+        _id: parent._id,
+        value: 0
+      }]
+    }
+  }
 
   _.forEach(notifications, function(n){
     n.modifier_id = node_id;

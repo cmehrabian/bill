@@ -31,3 +31,7 @@
   cursor: pointer;
   cursor: hand;
 }
+
+.post-type-selector-wrapper{
+  width:150px;
+}

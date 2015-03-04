@@ -65,6 +65,48 @@ Template.forumviewPost.events({
     }
 
     Session.set("isCommenting", commenting);
+  },
+  'click .forumview-submit':function(event){
+    var clicked_id = event.target.id.replace("forumview-submit-", "");
+    var commenting = Session.get("isCommenting");
+
+    var username = "anonymous";
+    if(Meteor.user()){
+      username = Meteor.user().username;
+    }
+
+    var nodeBody = document.getElementById("forumview-textbox-" + clicked_id).value;
+
+    var node = {
+      username: username,
+      body: nodeBody,
+      type: "statement",
+      root_id: this.root_id,
+      user: Meteor.user()
+    }
+
+    var edgeTypeBox = document.getElementById("forumview-edge-type");
+    var edgeType = edgeTypeBox.options[edgeTypeBox.selectedIndex].value;
+
+    var edge = {};
+    edge.type = edgeType;
+    edge.root_id = this.root_id
+    edge.target_id = this._id;
+
+    Meteor.call('newNode', node, edge)
+
+    // lodash pull doesn't work for some reason.
+    //_.pull(commenting,clicked_id);
+
+    var index = commenting.indexOf(clicked_id)
+    if (index > -1) {
+      commenting.splice(index, 1)
+    }
+
+    Session.set("isCommenting", commenting);
+
+    // This shouldn't be necessary, but I don't want to debug it right now.
+    location.reload();
   }
 });
 
