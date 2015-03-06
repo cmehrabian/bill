@@ -54,12 +54,9 @@ Meteor.methods({
 				source: node._id,
 				target: edge.target_id,
 				type: edge.type
-			})
+			});
 
-
-    // Quotes are temporarily disabled
-		if(edge.type != "quote")
-			newNode(node._id, edge.target_id, user_id);
+		newNode(node._id, edge.target_id, user_id);
 	},
   checkNotification: function(user_id, selected_id){
     Meteor.users.update({_id: Meteor.user()._id}, {$pull:{notifications:{modifier_id:selected_id}}});
@@ -178,7 +175,7 @@ var propagate = function(node_id, delta, original_id, notifications){
     if(edge.type == 'comment')
       newdelta = 0;
     if(edge.type == 'quote')
-      newdelta = delta;
+      newdelta = 0;
 
     propagate(edge.target, newdelta, original_id, notifications);
   });
