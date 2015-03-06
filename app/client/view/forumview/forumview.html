@@ -7,7 +7,7 @@
 <template name="forumviewPost">
   <div>
     <div class="knowledge">
-      <div class="forumview-post-padding {{backgroundColor _id}}">
+      <div class="forumview-post-padding {{maybeSelected _id}} {{backgroundColor _id}}">
         <div class="post-infobox">
           {{#if user}}
             <a href="/user/{{username}}"> {{username}} </a>

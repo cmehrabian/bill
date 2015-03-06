@@ -47,6 +47,11 @@ Template.forumviewPost.helpers({
       return "post-green";
     if(link.type == "disagreement")
       return "post-red";
+  },
+  maybeSelected: function(_id){
+    if(Router.current().params._id == _id)
+      return "forumview-selected"
+    return ""
   }
 });
 

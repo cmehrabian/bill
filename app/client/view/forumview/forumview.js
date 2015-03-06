@@ -37,4 +37,17 @@ Template.forumview.rendered = function(){
   }); 
 
   Session.set("nodes", nodes);
+
+}
+
+var checkNotification = function(){
+
+  if (!Meteor.user()){
+    return;
+  }
+
+  // For the forum view, the only way to check the notification is to
+  // visit the URL.  We'll have to fix this eventually.
+  var selected_id = Router.current().params._id;
+  Meteor.call("checkNotification", Meteor.user()._id, selected_id);
 }

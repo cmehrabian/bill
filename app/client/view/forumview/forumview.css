@@ -43,3 +43,9 @@
 .post-red{
   background-color:#FFD5D5;
 }
+
+.forumview-selected{
+  border:3px;
+  border-color:yellow;
+  border-style: solid;
+}
