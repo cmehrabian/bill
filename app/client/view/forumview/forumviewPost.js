@@ -73,7 +73,7 @@ Template.forumviewPost.events({
     // lodash pull doesn't work for some reason.
     //_.pull(commenting,clicked_id);
 
-    var index = commenting.indexOf(clicked_id)
+    var index = commenting.indexOf(clicked_id);
     if (index > -1) {
       commenting.splice(index, 1)
     }
@@ -81,6 +81,11 @@ Template.forumviewPost.events({
     Session.set("isCommenting", commenting);
   },
   'click .forumview-submit':function(event){
+
+    // a hack to avoid the multiple event firing thing.
+    if(Session.get("hasPosted"))
+      return;
+
     var clicked_id = event.target.id.replace("forumview-submit-", "");
     var commenting = Session.get("isCommenting");
 
@@ -108,6 +113,7 @@ Template.forumviewPost.events({
     edge.target_id = this._id;
 
     Meteor.call('newNode', node, edge)
+    Session.set("hasPosted", true);
 
     // lodash pull doesn't work for some reason.
     //_.pull(commenting,clicked_id);
