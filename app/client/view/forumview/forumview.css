@@ -15,6 +15,7 @@
 
 .post-body{
   font-size:16px;
+  white-space: pre-wrap;
 }
 
 .post-utilities{

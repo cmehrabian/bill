@@ -92,7 +92,7 @@ var newNode = function(node_id, target_id, user_id){
   // guy who was just commented on, unless they're the same person.
   if(notifications.length == 0){
     var parent = Nodes.findOne({_id:target_id});
-    if(!parent.user || parent.user._id == user_id)
+    if(! parent || !parent.user || parent.user._id == user_id)
       return;
 
     notifications[0] = {
