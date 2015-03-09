@@ -1,21 +1,23 @@
 <template name="topics">
-	<h2 class="center"> Topics: </h2>
-	<div class="center">
- 		<a href="new"> Create New Topic </a>
- 	</div>
+	<nav class="create-topic-navigation center">
+		<h2 class=""> Topics: </h2>
+		<div class="">
+	 		<a href="new"> Create New Topic </a>
+	 	</div>
 
-	<div class="center">
-		<a href="newpie"> Create New Pie Chart </a>
-	</div>
+		<div class="">
+			<a href="newpie"> Create New Pie Chart </a>
+		</div>
 
-	<div class="center">
-		<a href="chat"> Chat </a>
-	</div>
+		<div class="">
+			<a href="chat"> Chat </a>
+		</div>
+	</nav>
 
- 	<div class="knowledge center">
+ 	<div class="knowledge">
     {{#each topicList}}
-			<div>
-        <a href="view/{{_id}}" class="graphlink"> {{formatBody body}} : {{getTime timestamp}}</a>
+			<div class="individual-topic">
+        <a href="view/{{_id}}" class="graphlink"> {{formatBody body}} [by {{username}} : {{getTime timestamp}}]</a>
 			</div>
 		{{/each}}
 	</div>
