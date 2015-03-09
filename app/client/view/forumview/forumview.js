@@ -11,7 +11,8 @@ Template.forumview.helpers({
   }
 });
 
-/* The purpose of this function is mainly to translate the Links/Nodes
+/* 
+ * The purpose of this function is mainly to translate the Links/Nodes
  * mashup into something a little more sane.  If we end up phasing out 
  * links as a separate entity then we might be able to get rid of some
  * of this.
@@ -37,42 +38,17 @@ Template.forumview.rendered = function(){
   }); 
 
   Session.set("nodes", nodes);
+
 }
 
-Template.forumviewPost.helpers({
-  color: function(value){
-    if(value > 0)
-      return "green";
-    if(value < 0)
-      return "red";
-    return "black";
-  },
-  time: function(timestamp){
-    var now = Date.now();
-    var seconds = Math.floor((now - timestamp) / 1000);
+var checkNotification = function(){
 
-    var interval = Math.floor(seconds / 31536000);
-
-    if (interval > 1) {
-        return interval + " years ago.";
-    }
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) {
-        return interval + " months ago.";
-    }
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) {
-        return interval + " days ago.";
-    }
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
-        return interval + " hours ago.";
-    }
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) {
-        return interval + " minutes ago.";
-    }
-    return Math.floor(seconds) + " seconds ago.";
+  if (!Meteor.user()){
+    return;
   }
 
-});
+  // For the forum view, the only way to check the notification is to
+  // visit the URL.  We'll have to fix this eventually.
+  var selected_id = Router.current().params._id;
+  Meteor.call("checkNotification", Meteor.user()._id, selected_id);
+}

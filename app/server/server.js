@@ -6,9 +6,21 @@ Meteor.publish("allUserData", function () {
     return Meteor.users.find({}, {fields: {
       'posts': 1,
       'value': 1,
-      'emails': 1,
-      'notifications': 1
+      'email': 1,
+      'notifications': 1,
+      'preferences': 1
     }});
+});
+
+Accounts.onCreateUser(function(options, user) {
+  if(Meteor.users.find().fetch().length == 0){
+    user.roles = ['admin'];
+  }
+  user.preferences = {
+    emailNotifications:false,
+    mailingList:false
+  }
+  return user;
 });
 
 Meteor.methods({
@@ -31,6 +43,7 @@ Meteor.methods({
 
     if(node.user){
       Meteor.users.update({_id: node.user._id}, {$addToSet: {posts: node._id}});
+      var user_id = node.user._id
     }
 
 		if(!node.root_id){
@@ -41,10 +54,9 @@ Meteor.methods({
 				source: node._id,
 				target: edge.target_id,
 				type: edge.type
-			})
+			});
 
-		if(edge.type != "quote")
-			newNode(node._id);
+		newNode(node._id, edge.target_id, user_id);
 	},
   checkNotification: function(user_id, selected_id){
     Meteor.users.update({_id: Meteor.user()._id}, {$pull:{notifications:{modifier_id:selected_id}}});
@@ -52,21 +64,50 @@ Meteor.methods({
   editEmail: function(email){
     if(!Meteor.user())
       return;
-    Meteor.users.update({_id: Meteor.user()._id}, {$unset:{emails:""}}),
-    Meteor.users.update({_id: Meteor.user()._id}, {$addToSet:{emails:{address:email, verified:false}}})
+    Meteor.users.update({_id: Meteor.user()._id}, {$set:{email:{address:email, verified: false}}});
+  },
+  editPreferences: function(prefs){
+    var user = Meteor.user();
+    if(!user)
+      return;
+
+    _.forEach(prefs, function(value, key){
+      user.preferences[key] = value;
+    });
+
+    Meteor.users.update({_id: user._id}, {$set:{preferences:user.preferences}});
   }
 
 });
 
-var newNode = function(node_id){
+var newNode = function(node_id, target_id, user_id){
 
   var delta = 1;
 
-  var notifications = []
+  var notifications = [];
 
   propagate(node_id, delta, node_id, notifications);
 
+  // If there's no value modifications, it's a comment, so just inform the
+  // guy who was just commented on, unless they're the same person.
+  if(notifications.length == 0){
+    var parent = Nodes.findOne({_id:target_id});
+    if(! parent || !parent.user || parent.user._id == user_id)
+      return;
+
+    notifications[0] = {
+      user_id:parent.user._id,
+      modified:[{
+        _id: parent._id,
+        value: 0
+      }]
+    }
+  }
+
   _.forEach(notifications, function(n){
+    // don't send notifications if the user is modifying his own stuff.
+    if(n.user_id == user_id)
+      return;
     n.modifier_id = node_id;
     Meteor.users.update({_id:n.user_id},
       {
@@ -81,10 +122,6 @@ var newNode = function(node_id){
 
 }
 
-// Recursive. Takes a point (n), an array (a), the value to be propagated (delta),
-// and a list of nodes that shouldn't be visited (blacklist).  
-// All points that have already been visited are added to a.  a is returned at the 
-// end of the function and sent to all users (currently)
 var propagate = function(node_id, delta, original_id, notifications){
   if (node_id === undefined)
     return;
@@ -103,8 +140,7 @@ var propagate = function(node_id, delta, original_id, notifications){
   // -the value is positive and delta is negative, but the absolute value of the value is smaller
   // and the three opposite cases
 
-  // In all cases the amount of value to propagate can be defined as the amount of change above 0, 
-  // and I'M PRETTY SURE this function will return that value.  
+  // In all cases the amount of value to propagate can be defined as the amount of change above 0
   var newdelta = pos(node.value + delta) - pos(node.value);
 
   Nodes.update(node_id, {$inc: {value:delta}});
@@ -139,7 +175,7 @@ var propagate = function(node_id, delta, original_id, notifications){
     if(edge.type == 'comment')
       newdelta = 0;
     if(edge.type == 'quote')
-      newdelta = delta;
+      newdelta = 0;
 
     propagate(edge.target, newdelta, original_id, notifications);
   });
