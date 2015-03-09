@@ -8,17 +8,14 @@
 		<a href="newpie"> Create New Pie Chart </a>
 	</div>
 
- 	<div class="knowledge center">
-	 	{{#each correct}}
-			<div>
-	 			<a href="view/{{_id}}" class="graphlink"> {{body}} : Value: {{value}}</a>
-			</div>
-		{{/each}}
+	<div class="center">
+		<a href="chat"> Chat </a>
 	</div>
-	<div class="knowledge center">
-	 	{{#each incorrect}}
+
+ 	<div class="knowledge center">
+    {{#each topicList}}
 			<div>
-	 			<a href="view/{{_id}}" class="graphlink"> {{body}} : Value {{value}}</a>
+        <a href="view/{{_id}}" class="graphlink"> {{formatBody body}} : {{getTime timestamp}}</a>
 			</div>
 		{{/each}}
 	</div>

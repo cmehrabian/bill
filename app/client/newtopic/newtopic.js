@@ -1,11 +1,13 @@
 Template.newtopic.events({
   'click #submit-node': function () {
-    var username = document.getElementById("username-submit").value;
+    if(! Meteor.user())
+      return;
+
     var nodeBody = document.getElementById("body-submit").value;
-    Session.set('username', username);
 
     var node = {
-      username: username,
+      user: Meteor.user(),
+      username: Meteor.user().username,
       body: nodeBody,
       type: "original"
     }

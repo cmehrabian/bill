@@ -54,12 +54,9 @@ Meteor.methods({
 				source: node._id,
 				target: edge.target_id,
 				type: edge.type
-			})
+			});
 
-
-    // Quotes are temporarily disabled
-		if(edge.type != "quote")
-			newNode(node._id, edge.target_id, user_id);
+		newNode(node._id, edge.target_id, user_id);
 	},
   checkNotification: function(user_id, selected_id){
     Meteor.users.update({_id: Meteor.user()._id}, {$pull:{notifications:{modifier_id:selected_id}}});
@@ -95,7 +92,7 @@ var newNode = function(node_id, target_id, user_id){
   // guy who was just commented on, unless they're the same person.
   if(notifications.length == 0){
     var parent = Nodes.findOne({_id:target_id});
-    if(!parent.user || parent.user._id == user_id)
+    if(! parent || !parent.user || parent.user._id == user_id)
       return;
 
     notifications[0] = {
@@ -178,7 +175,7 @@ var propagate = function(node_id, delta, original_id, notifications){
     if(edge.type == 'comment')
       newdelta = 0;
     if(edge.type == 'quote')
-      newdelta = delta;
+      newdelta = 0;
 
     propagate(edge.target, newdelta, original_id, notifications);
   });

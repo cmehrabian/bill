@@ -11,7 +11,8 @@ Template.forumview.helpers({
   }
 });
 
-/* The purpose of this function is mainly to translate the Links/Nodes
+/* 
+ * The purpose of this function is mainly to translate the Links/Nodes
  * mashup into something a little more sane.  If we end up phasing out 
  * links as a separate entity then we might be able to get rid of some
  * of this.
@@ -37,4 +38,17 @@ Template.forumview.rendered = function(){
   }); 
 
   Session.set("nodes", nodes);
+
+}
+
+var checkNotification = function(){
+
+  if (!Meteor.user()){
+    return;
+  }
+
+  // For the forum view, the only way to check the notification is to
+  // visit the URL.  We'll have to fix this eventually.
+  var selected_id = Router.current().params._id;
+  Meteor.call("checkNotification", Meteor.user()._id, selected_id);
 }
