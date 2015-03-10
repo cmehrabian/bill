@@ -45,3 +45,7 @@ Router.route("newpie", function () {
 Router.route("shame", function () {
   this.render("shame");
 });
+
+Router.route("chat", function () {
+  this.render("chat");
+});

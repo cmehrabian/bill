@@ -76,6 +76,18 @@ Meteor.methods({
     });
 
     Meteor.users.update({_id: user._id}, {$set:{preferences:user.preferences}});
+  },
+  newMessage: function(body){
+    if(!Meteor.user())
+      return;
+
+    var messageObject = {
+      body:body,
+      user:Meteor.user(),
+      timestamp:(new Date()).getTime()
+    }
+
+    Chatter.insert(messageObject);
   }
 
 });

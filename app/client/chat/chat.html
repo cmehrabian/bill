@@ -1,0 +1,18 @@
+<template name="chat">
+  {{#if currentUser}}
+    <div id="chat-log">
+        {{#each chatLog}}
+          <div>
+            <span class="chat-username-column">{{user.username}}:</span>
+            <span class="chat-body-column">{{body}}</span>
+          </div>
+        {{/each}}
+    </div>
+    <div>
+      <input id="chat-box" type="text" placeholder="Hypothetically..." />
+      <button id="chat-send-button"> Send </button>
+    </div>
+  {{else}}
+    Log in!
+  {{/if}}
+</template>

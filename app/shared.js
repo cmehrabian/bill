@@ -1,6 +1,7 @@
 
 Nodes = new Meteor.Collection("nodes");
 Links = new Meteor.Collection("links");
+Chatter = new Meteor.Collection("Chatter");
 
 Meteor.users.initEasySearch('username');
 
