@@ -1,6 +1,6 @@
 Template.chat.helpers({
   chatLog:function(){
-    return Chatter.find({}, {$sort:{timestamp:1}});
+    return Chatter.find({}, {sort:{timestamp: -1}});
   }
 });
 
