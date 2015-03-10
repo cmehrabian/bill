@@ -1,18 +1,18 @@
 
 #chat-box {
   position:fixed;
-  bottom:0;
+  padding-top: 10px;
+  top:50px;
   width:80%;
 }
 
 #chat-log {
   overflow-y:scroll;
-  padding-bottom: 60px;
-}
+  padding-top: 40px;}
 
 #chat-send-button {
   position:fixed;
-  bottom:0;
+  top:44px;
   right:10px;
 }
 
