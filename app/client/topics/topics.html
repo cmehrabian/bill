@@ -17,7 +17,7 @@
  	<div class="knowledge">
     {{#each topicList}}
 			<div class="individual-topic">
-        <a href="view/{{_id}}" class="graphlink"> {{formatBody body}} [by {{username}} : {{getTime timestamp}}]</a>
+        <a href="view/{{_id}}" class="graphlink"> {{formatBody body}} [by {{username}} : {{getTimeString timestamp}}, Last Updated {{lastPost root_id}}]</a>
 			</div>
 		{{/each}}
 	</div>

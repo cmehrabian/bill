@@ -36,9 +36,44 @@ Template.dropper.isUserAdmin = function(){
   }
 }
 
+// The helper and function are separate so that the function can be called within
+// other helpers, but we don't need to redefine the helper every time we want to use
+// it.
+UI.registerHelper("getTimeString", function (time_in_ms) {
+  return getTimeString(time_in_ms);
+});
+
+getTimeString = function(time_in_ms){
+  var now = Date.now();
+  var seconds = Math.floor((now - time_in_ms) / 1000);
+
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+      return interval + " years ago";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+      return interval + " months ago";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+      return interval + " days ago";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+      return interval + " hours ago";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+      return interval + " minutes ago";
+  }
+  return Math.floor(seconds) + " seconds ago";
+}
+
 Accounts.ui.config({
   passwordSignupFields: "USERNAME_AND_OPTIONAL_EMAIL"
-})
+});
 
 // Trello
 
