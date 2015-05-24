@@ -1,3 +1,4 @@
+# The worst commit of our generation
 
 This is a web application for nested commenting that allows users to semantically tag their posts as agreements or disagreements.  The goal of this was to provide a means of mathematically quantifying consensus for democratic and managerial purposes.  Fundamentally, I think that the movement of (ugh hang on I have to think)
 
