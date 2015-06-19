@@ -63,7 +63,7 @@ Template.graph.rendered = function(){
       DOMnodes.enter()
         .append("circle")
         .attr("class",function(d) { return "node " + d.type; })
-        .attr("r", function(d) { return (Math.sqrt(d.value*d.value) + 5) * 1.5; }) // handles negative values
+        .attr("r", function(d) { return (Math.abs(d.value) + 5) * 1.5; }) // handles negative values
         .attr("_id", function(d) { return "node" + d._id; })
         .on("mouseover", mouseover)
         .on("dblclick", doubleclick)
