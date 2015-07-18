@@ -320,133 +320,360 @@ contributors = {
       "indivs": "$44,850",
       "pacs": "$10,000"
     }
+  ],
+  "roy_blunt": [
+   {
+     "contributor": "Crawford Group",
+     "total": "$120,550",
+     "indivs": "$105,550",
+     "pacs": "$15,000"
+   },
+   {
+     "contributor": "Elliott Management",
+     "total": "$95,442",
+     "indivs": "$95,442",
+     "pacs": "$0"
+   },
+   {
+     "contributor": "Goldman Sachs",
+     "total": "$92,192",
+     "indivs": "$72,692",
+     "pacs": "$19,500"
+   },
+   {
+     "contributor": "Northwestern Mutual",
+     "total": "$88,200",
+     "indivs": "$70,700",
+     "pacs": "$17,500"
+   },
+   {
+     "contributor": "Jones Financial Companies",
+     "total": "$85,900",
+     "indivs": "$65,900",
+     "pacs": "$20,000"
+   }
+ ],
+ "john_boozman": [
+    {
+      "contributors": "Wal-Mart Stores",
+      "total": "$63,650",
+      "indivs": "$49,150",
+      "pacs": "$14,500"
+    },
+    {
+      "contributors": "Elliott Management",
+      "total": "$43,346",
+      "indivs": "$43,346",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Stephens Group",
+      "total": "$38,400",
+      "indivs": "$33,400",
+      "pacs": "$5,000"
+    },
+    {
+      "contributors": "Arvest Bank Group",
+      "total": "$29,600",
+      "indivs": "$13,600",
+      "pacs": "$16,000"
+    },
+    {
+      "contributors": "AT&T Inc",
+      "total": "$25,750",
+      "indivs": "$250",
+      "pacs": "$25,500"
+    }
+  ],
+  "richard_burr": [
+    {
+      "contributors": "New Breed Inc",
+      "total": "$82,300",
+      "indivs": "$82,300",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Reynolds American",
+      "total": "$74,551",
+      "indivs": "$64,601",
+      "pacs": "$9,950"
+    },
+    {
+      "contributors": "Scana Corp",
+      "total": "$58,074",
+      "indivs": "$51,075",
+      "pacs": "$6,999"
+    },
+    {
+      "contributors": "Duke Energy",
+      "total": "$51,771",
+      "indivs": "$47,771",
+      "pacs": "$4,000"
+    },
+    {
+      "contributors": "Womble, Carlyle et al",
+      "total": "$49,927",
+      "indivs": "$41,427",
+      "pacs": "$8,500"
+    }
+  ],
+  "john_isakson": [
+    {
+      "contributors": "Coca-Cola Co",
+      "total": "$53,500",
+      "indivs": "$31,500",
+      "pacs": "$22,000"
+    },
+    {
+      "contributors": "Realogy Corp",
+      "total": "$49,950",
+      "indivs": "$37,950",
+      "pacs": "$12,000"
+    },
+    {
+      "contributors": "Synovus Financial Corp",
+      "total": "$36,900",
+      "indivs": "$14,900",
+      "pacs": "$22,000"
+    },
+    {
+      "contributors": "Home Depot",
+      "total": "$36,800",
+      "indivs": "$31,800",
+      "pacs": "$5,000"
+    },
+    {
+      "contributors": "AFLAC Inc",
+      "total": "$33,500",
+      "indivs": "$31,500",
+      "pacs": "$2,000"
+    }
+  ],
+  "mark_kirk": [
+    {
+      "contributors": "Kirkland & Ellis",
+      "total": "$145,368",
+      "indivs": "$141,034",
+      "pacs": "$4,334"
+    },
+    {
+      "contributors": "Citadel LLC",
+      "total": "$126,700",
+      "indivs": "$126,700",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "NorPAC",
+      "total": "$111,585",
+      "indivs": "$107,781",
+      "pacs": "$3,804"
+    },
+    {
+      "contributors": "Elliott Management",
+      "total": "$105,950",
+      "indivs": "$105,950",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Madison Dearborn Partners",
+      "total": "$103,400",
+      "indivs": "$103,400",
+      "pacs": "$0"
+    }
+  ],
+  "jerry_moran": [
+    {
+      "contributors": "Koch Industries",
+      "total": "$42,050",
+      "indivs": "$32,050",
+      "pacs": "$10,000"
+    },
+    {
+      "contributors": "Watco Companies",
+      "total": "$41,500",
+      "indivs": "$41,500",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "CME Group",
+      "total": "$40,600",
+      "indivs": "$20,600",
+      "pacs": "$20,000"
+    },
+    {
+      "contributors": "Polsinelli PC",
+      "total": "$30,950",
+      "indivs": "$22,450",
+      "pacs": "$8,500"
+    },
+    {
+      "contributors": "Hallmark Cards",
+      "total": "$30,400",
+      "indivs": "$19,400",
+      "pacs": "$11,000"
+    }
+  ],
+  "patrick_toomey": [
+   {
+     "contributors": "Club for Growth",
+     "total": "$860,441",
+     "indivs": "$851,218",
+     "pacs": "$9,223"
+   },
+   {
+     "contributors": "Elliott Management",
+     "total": "$115,438",
+     "indivs": "$115,438",
+     "pacs": "$0"
+   },
+   {
+     "contributors": "Federated Investors Inc",
+     "total": "$82,100",
+     "indivs": "$74,100",
+     "pacs": "$8,000"
+   },
+   {
+     "contributors": "Rothman Institute",
+     "total": "$72,840",
+     "indivs": "$72,840",
+     "pacs": "$0"
+   },
+   {
+     "contributors": "Martins Famous Pastry Shoppe",
+     "total": "$68,600",
+     "indivs": "$68,600",
+     "pacs": "$0"
+   }
+ ],
+ "david_vitter": [
+    {
+      "contributors": "Murray Energy",
+      "total": "$39,823",
+      "indivs": "$24,823",
+      "pacs": "$15,000"
+    },
+    {
+      "contributors": "Jones Walker LLP",
+      "total": "$32,550",
+      "indivs": "$26,050",
+      "pacs": "$6,500"
+    },
+    {
+      "contributors": "Mockler Beverage",
+      "total": "$29,900",
+      "indivs": "$29,900",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Chevron Corp",
+      "total": "$29,800",
+      "indivs": "$19,800",
+      "pacs": "$10,000"
+    },
+    {
+      "contributors": "Edison Chouest Offshore",
+      "total": "$25,200",
+      "indivs": "$25,200",
+      "pacs": "$0"
+    }
+  ],
+  "charles_grassley": [
+    {
+      "contributors": "Leon Medical Centers",
+      "total": "$34,600",
+      "indivs": "$34,600",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Berkshire Hathaway",
+      "total": "$30,700",
+      "indivs": "$9,700",
+      "pacs": "$21,000"
+    },
+    {
+      "contributors": "Chevron Corp",
+      "total": "$29,600",
+      "indivs": "$19,600",
+      "pacs": "$10,000"
+    },
+    {
+      "contributors": "Blue Cross/Blue Shield",
+      "total": "$29,500",
+      "indivs": "$19,500",
+      "pacs": "$10,000"
+    },
+    {
+      "contributors": "Intellectual Ventures LLC",
+      "total": "$22,000",
+      "indivs": "$22,000",
+      "pacs": "$0"
+    }
+  ],
+  "patrick_leahy": [
+    {
+      "contributor": "Girardi & Keese",
+      "total": "$95,864",
+      "indivs": "$95,864",
+      "pacs": "$0"
+    },
+    {
+      "contributor": "Time Warner",
+      "total": "$73,850",
+      "indivs": "$59,850",
+      "pacs": "$14,000"
+    },
+    {
+      "contributor": "Walt Disney Co",
+      "total": "$54,900",
+      "indivs": "$39,900",
+      "pacs": "$15,000"
+    },
+    {
+      "contributor": "National Amusements Inc",
+      "total": "$44,350",
+      "indivs": "$31,350",
+      "pacs": "$13,000"
+    },
+    {
+      "contributor": "Vivendi",
+      "total": "$37,206",
+      "indivs": "$34,206",
+      "pacs": "$3,000"
+    }
+  ],
+  "john_mccain": [
+    {
+      "contributor": "Girardi & Keese",
+      "total": "$95,864",
+      "indivs": "$95,864",
+      "pacs": "$0"
+    },
+    {
+      "contributor": "Time Warner",
+      "total": "$73,850",
+      "indivs": "$59,850",
+      "pacs": "$14,000"
+    },
+    {
+      "contributor": "Walt Disney Co",
+      "total": "$54,900",
+      "indivs": "$39,900",
+      "pacs": "$15,000"
+    },
+    {
+      "contributor": "National Amusements Inc",
+      "total": "$44,350",
+      "indivs": "$31,350",
+      "pacs": "$13,000"
+    },
+    {
+      "contributor": "Vivendi",
+      "total": "$37,206",
+      "indivs": "$34,206",
+      "pacs": "$3,000"
+    }
   ]
 }
-
-$.getJSON('https://www.govtrack.us/api/v2/role?current=true&format=json&fields=title_long,person__firstname,person__lastname&limit=6000', function(data) {
-  // congress.push(data);
-  //
-  // delete data['meta'];
-  // senators = data;
-
-  // console.log(senators)
-  // var senators = congress.filter(function(obj){
-  //   return obj.objects.forEach(function(person){
-  //     if(person.title_long === "Senator"){
-  //       // console.log(person);
-  //       senArray.push(person);
-  //     }
-  //   });
-  // });
-  // console.log(senArray);
-});
-
-senators = []
-nodes = [];
-links =[];
-
-
-
-$.getJSON('https://www.govtrack.us/api/v2/vote_voter?vote=113155', function(data) {
-  senators = data;
-  // delete senators['meta'];
-
-  console.log("getJSON")
-  console.log(data);
-
-  typeof(senators);
-
-  senators.objects.forEach(function(senator){
-    // console.log(senator);
-    senator.thump = {
-      // name: senator.person.name,
-      name: senator.person.firstname.toLowerCase() +"_"+ senator.person.lastname.toLowerCase(),
-      description: senator.person_role.description,
-      party: senator.person_role.party,
-      vote: senator.option.value,
-      phone: senator.person_role.phone,
-      gender: senator.person.gender_label,
-      birthday: senator.person.birthday
-    }
-  });
-
-  json_string = ""
-  for(i=0; i<senators.objects.length; i++){
-    var thumpr = senators.objects[i].thump;
-    if(i == 0){
-      json_string = json_string + JSON.stringify(thumpr, null, 2);
-    } else {
-      json_string = json_string + "," + JSON.stringify(thumpr, null, 2);
-    }
-
-  }
-
-  var yays = [], nays = [];
-
-  senators.objects.forEach(function(senator){
-    if(senator.thump.vote === "Yea"){
-      yays.push(senator)
-    } else if (senator.thump.vote === "Nay") {
-      nays.push(senator)
-    }
-  });
-  console.log("Yays : " + yays.length, "Nays : " + nays.length);
-
-  console.log("senators:")
-  console.log(senators);
-
-  var contributorNodes = [];
-  var senatorNodes = [];
-  var preLinks = [];
-  var i = 0;
-  for(senator in contributors) {
-    // var vote = _.find(senators, function(s){ return s.})
-    var sen = {name:senator};
-    senatorNodes.push(sen);
-
-    contributors[senator].forEach(function(e){
-      var node_index = _.find(contributorNodes, function(node){ return node.name == e.contributors});
-      if(! node_index){
-        var obj = e;
-        if(obj.contributors)
-          obj.name = obj.contributors;
-        else
-          obj.name = obj.contributor;
-
-        contributorNodes.push(obj);
-      }
-      else{
-        var obj = node_index;
-      }
-
-      var value = parseInt(e.total.replace(',','').replace('$', ''));
-      value = value / 1000.0;
-      preLinks.push({source:obj, target:sen, value:value});
-
-    });
-
-  }
-
-  console.log("preLinks");
-  console.log(preLinks)
-
-  nodes = contributorNodes.concat(senatorNodes);
-
-  for (prelink in preLinks){
-
-    //FUCK
-
-    var sourceIndex = -1;
-    var targetIndex = -1;
-    for(var i = 0; i < nodes.length; ++i){
-      if( preLinks[prelink].source.name == nodes[i].name) sourceIndex = i;
-      if( preLinks[prelink].target.name == nodes[i].name) targetIndex = i;
-    }
-    // var sourceIndex = _.findIndex(nodes, function(node){ return node.name == prelink.source.name});
-    // var targetIndex = _.findIndex(nodes, function(node){ return node.name == prelink.target.name});
-    links.push({source:sourceIndex, target:targetIndex, value:preLinks[prelink].value});
-  }
-});
 
 
 console.log("bloop")
