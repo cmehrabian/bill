@@ -674,9 +674,3 @@ contributors = {
     }
   ]
 }
-
-
-console.log("bloop")
-console.log(nodes);
-console.log(links);
-console.log(senators);
