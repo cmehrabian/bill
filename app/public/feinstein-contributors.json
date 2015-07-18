@@ -1,4 +1,5 @@
-{
+
+contributors = {
   "dianne_feinstein": [
     {
       "contributor": "PG&E Corp",
@@ -672,5 +673,4 @@
       "pacs": "$3,000"
     }
   ]
-
 }

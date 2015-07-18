@@ -8,7 +8,7 @@ Template.bill.rendered = function(){
   var bill152 = [];
   var senArray = [];
 
-  var senators = {};
+  senators = {};
 
   $.getJSON('https://www.govtrack.us/api/v2/role?current=true&format=json&fields=title_long,person__firstname,person__lastname&limit=6000', function(data) {
     // congress.push(data);
@@ -28,17 +28,23 @@ Template.bill.rendered = function(){
     // console.log(senArray);
   });
 
+  senators = []
+  nodes = [];
+  links =[];
+
+
+
   $.getJSON('https://www.govtrack.us/api/v2/vote_voter?vote=113155', function(data) {
     senators = data;
-    delete senators['meta'];
+    // delete senators['meta'];
 
     typeof(senators);
 
     senators.objects.forEach(function(senator){
-      console.log(senator);
+      // console.log(senator);
       senator.thump = {
         // name: senator.person.name,
-        name: senator.person.firstname +" "+ senator.person.lastname,
+        name: senator.person.firstname.toLowerCase() +"_"+ senator.person.lastname.toLowerCase(),
         description: senator.person_role.description,
         party: senator.person_role.party,
         vote: senator.option.value,
@@ -57,19 +63,7 @@ Template.bill.rendered = function(){
         json_string = json_string + "," + JSON.stringify(thumpr, null, 2);
       }
 
-
-
-      // if(i === 0) str = str +  JSON.stringify(senators.object.thump, null, 2); // spacing level = 2
-      // str = str + "," +  JSON.stringify(senator.object.thump, null, 2); // spacing level = 2
     }
-    // senators.objects.forEach(function(senator){
-    //   str = str + "," +  JSON.stringify(senator.thump, null, 2); // spacing level = 2
-    // });
-    // console.log('{"nodes":[\n' + str + '\n]}');
-    // window.json_string = ('{"nodes":[\n' + json_string + '\n]}');
-    // console.log(json_string);
-    // console.log('{"nodes":[\n' + json_string + '\n]}')
-
 
     var yays = [], nays = [];
 
@@ -80,92 +74,144 @@ Template.bill.rendered = function(){
         nays.push(senator)
       }
     });
-    console.log("Yays : " + yays.length, "Nays : " + nays.length);
 
-  });
+    var contributorNodes = [];
+    var senatorNodes = [];
+    var preLinks = [];
+    var i = 0;
+    for(senator in contributors) {
+      var vote = _.find(senators.objects, function(s){ return s.thump.name == senator});
+      console.log("vote")
+      console.log(vote);
+      var sen = {name:senator, vote:vote.option.value};
+      senatorNodes.push(sen);
 
+      contributors[senator].forEach(function(e){
+        var node_index = _.find(contributorNodes, function(node){ return node.name == e.contributors});
+        if(! node_index){
+          var obj = e;
+          if(obj.contributors)
+            obj.name = obj.contributors;
+          else
+            obj.name = obj.contributor;
 
+          contributorNodes.push(obj);
+        }
+        else{
+          var obj = node_index;
+        }
 
-  var margin = {top: 1, right: 1, bottom: 6, left: 1},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+        var value = parseInt(e.total.replace(',','').replace('$', ''));
+        value = value / 1000.0;
+        preLinks.push({source:obj, target:sen, value:value});
 
-  var formatNumber = d3.format(",.0f"),
-      format = function(d) { return formatNumber(d) + " TWh"; },
-      color = d3.scale.category20();
+      });
 
-  var svg = d3.select("#chart").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  var sankey = d3.sankey()
-      .nodeWidth(15)
-      .nodePadding(10)
-      .size([width, height]);
-
-  var path = sankey.link();
-
-  // d3.json("http://people.ucsc.edu/~cmehrabi/", function(energy) {
-  d3.json('https://gist.githubusercontent.com/cmehrabian/01e1a26a240c562100a8/raw/bf579ca034551ed317e7b8ec17dbf36cb967828f/gistfile1.txt', function(energy) {
-
-
-    sankey
-        .nodes(energy.nodes)
-        .links(energy.links)
-        .layout(32);
-
-    var link = svg.append("g").selectAll(".link")
-        .data(energy.links)
-      .enter().append("path")
-        .attr("class", "link")
-        .attr("d", path)
-        .style("stroke-width", function(d) {
-          console.log(d);
-          console.log(d.dy);
-          return Math.max(1, d.dy);
-        })
-        .sort(function(a, b) { return b.dy - a.dy; });
-
-    link.append("title")
-        .text(function(d) { return d.source.name + " → " + d.target.name + "\n" + format(d.value); });
-
-    var node = svg.append("g").selectAll(".node")
-        .data(energy.nodes)
-      .enter().append("g")
-        .attr("class", "node")
-        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-      .call(d3.behavior.drag()
-        .origin(function(d) { return d; })
-        .on("dragstart", function() { this.parentNode.appendChild(this); })
-        .on("drag", dragmove));
-
-    node.append("rect")
-        .attr("height", function(d) { return d.dy; })
-        .attr("width", sankey.nodeWidth())
-        .style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
-        .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
-      .append("title")
-        .text(function(d) { return d.name + "\n" + format(d.value); });
-
-    node.append("text")
-        .attr("x", -6)
-        .attr("y", function(d) { return d.dy / 2; })
-        .attr("dy", ".35em")
-        .attr("text-anchor", "end")
-        .attr("transform", null)
-        .text(function(d) { return d.name; })
-      .filter(function(d) { return d.x < width / 2; })
-        .attr("x", 6 + sankey.nodeWidth())
-        .attr("text-anchor", "start");
-
-    function dragmove(d) {
-      d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
-      sankey.relayout();
-      link.attr("d", path);
     }
+
+    nodes = contributorNodes.concat(senatorNodes);
+
+    for (prelink in preLinks){
+
+      //FUCK
+
+      var sourceIndex = -1;
+      var targetIndex = -1;
+      for(var i = 0; i < nodes.length; ++i){
+        if( preLinks[prelink].source.name == nodes[i].name) sourceIndex = i;
+        if( preLinks[prelink].target.name == nodes[i].name) targetIndex = i;
+      }
+      // var sourceIndex = _.findIndex(nodes, function(node){ return node.name == prelink.source.name});
+      // var targetIndex = _.findIndex(nodes, function(node){ return node.name == prelink.target.name});
+      links.push({source:sourceIndex, target:targetIndex, value:preLinks[prelink].value});
+    }
+
+    var margin = {top: 1, right: 1, bottom: 6, left: 1},
+      width = 960 - margin.left - margin.right,
+      height = 2000 - margin.top - margin.bottom;
+
+    var formatNumber = d3.format(",.0f"),
+        format = function(d) { return formatNumber(d) + " TWh"; },
+        color = d3.scale.category20();
+
+    var svg = d3.select("#chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var sankey = d3.sankey()
+        .nodeWidth(15)
+        .nodePadding(10)
+        .size([width, height]);
+
+    var path = sankey.link();
+
+    // d3.json("http://people.ucsc.edu/~cmehrabi/", function(energy) {
+    // d3.json('https://gist.githubusercontent.com/cmehrabian/01e1a26a240c562100a8/raw/bf579ca034551ed317e7b8ec17dbf36cb967828f/gistfile1.txt', function(energy) {
+    //
+
+      sankey
+          .nodes(nodes)
+          .links(links)
+          .layout(32);
+
+      var link = svg.append("g").selectAll(".link")
+          .data(links)
+        .enter().append("path")
+          .attr("class", "link")
+          .attr("d", path)
+          .style("stroke-width", function(d) {  return Math.max(1, d.dy);
+          })
+          .sort(function(a, b) { return b.dy - a.dy; });
+
+      link.append("title")
+          .text(function(d) { return d.source.name + " → " + d.target.name + "\n" + format(d.value); });
+
+      var node = svg.append("g").selectAll(".node")
+          .data(nodes)
+        .enter().append("g")
+          .attr("class", "node")
+          .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+        .call(d3.behavior.drag()
+          .origin(function(d) { return d; })
+          .on("dragstart", function() { this.parentNode.appendChild(this); })
+          .on("drag", dragmove));
+
+      node.append("rect")
+          .attr("height", function(d) { return d.dy; })
+          .attr("width", sankey.nodeWidth())
+          .style("fill", function(d) {
+            if (!d.vote) return d.color = color(d.name.replace(/ .*/, ""))
+            else if (d.vote == "Yea") return d.color = "blue";
+            else if (d.vote == "Nay") return d.color = "red";
+            else return d.color = "gray";
+          })
+          .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
+        .append("title")
+          .text(function(d) { return d.name + "\n" + format(d.value); });
+
+      node.append("text")
+          .attr("x", -6)
+          .attr("y", function(d) { return d.dy / 2; })
+          .attr("dy", ".35em")
+          .attr("text-anchor", "end")
+          .attr("transform", null)
+          .text(function(d) { return d.name; })
+        .filter(function(d) { return d.x < width / 2; })
+          .attr("x", 6 + sankey.nodeWidth())
+          .attr("text-anchor", "start");
+
+      function dragmove(d) {
+        d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
+        sankey.relayout();
+        link.attr("d", path);
+      }
+    //});
+
   });
+
+
 
 
 }
