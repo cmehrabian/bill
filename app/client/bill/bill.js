@@ -35,8 +35,10 @@ Template.bill.rendered = function(){
     typeof(senators);
 
     senators.objects.forEach(function(senator){
+      console.log(senator);
       senator.thump = {
-        name: senator.person.name,
+        // name: senator.person.name,
+        name: senator.person.firstname +" "+ senator.person.lastname,
         description: senator.person_role.description,
         party: senator.person_role.party,
         vote: senator.option.value,
@@ -50,9 +52,9 @@ Template.bill.rendered = function(){
     for(i=0; i<senators.objects.length; i++){
       var thumpr = senators.objects[i].thump;
       if(i == 0){
-        json_string = json_string + JSON.stringify(senators.objects[i].person, null, 2);
+        json_string = json_string + JSON.stringify(thumpr, null, 2);
       } else {
-        json_string = json_string + "," + JSON.stringify(senators.objects[i].person, null, 2);
+        json_string = json_string + "," + JSON.stringify(thumpr, null, 2);
       }
 
 
@@ -67,6 +69,8 @@ Template.bill.rendered = function(){
     // window.json_string = ('{"nodes":[\n' + json_string + '\n]}');
     // console.log(json_string);
     // console.log('{"nodes":[\n' + json_string + '\n]}')
+
+
     var yays = [], nays = [];
 
     senators.objects.forEach(function(senator){
@@ -104,7 +108,7 @@ Template.bill.rendered = function(){
   var path = sankey.link();
 
   // d3.json("http://people.ucsc.edu/~cmehrabi/", function(energy) {
-  d3.json('http://bost.ocks.org/mike/sankey/energy.json', function(energy) {
+  d3.json('https://gist.githubusercontent.com/cmehrabian/01e1a26a240c562100a8/raw/b21fd2b97a75e0bf72f66cf0738682d8ce1ee6e0/gistfile1.txt', function(energy) {
 
 
     sankey
