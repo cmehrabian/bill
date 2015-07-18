@@ -10,24 +10,6 @@ Template.bill.rendered = function(){
 
   senators = {};
 
-  $.getJSON('https://www.govtrack.us/api/v2/role?current=true&format=json&fields=title_long,person__firstname,person__lastname&limit=6000', function(data) {
-    // congress.push(data);
-    //
-    // delete data['meta'];
-    // senators = data;
-
-    // console.log(senators)
-    // var senators = congress.filter(function(obj){
-    //   return obj.objects.forEach(function(person){
-    //     if(person.title_long === "Senator"){
-    //       // console.log(person);
-    //       senArray.push(person);
-    //     }
-    //   });
-    // });
-    // console.log(senArray);
-  });
-
   senators = []
   nodes = [];
   links =[];
@@ -81,8 +63,6 @@ Template.bill.rendered = function(){
     var i = 0;
     for(senator in contributors) {
       var vote = _.find(senators.objects, function(s){ return s.thump.name == senator});
-      console.log("vote")
-      console.log(vote);
       var sen = {name:senator, vote:vote.option.value};
       senatorNodes.push(sen);
 
