@@ -6,32 +6,70 @@
 Template.bill.rendered = function(){
   var congress = [];
   var bill152 = [];
+  var senArray = [];
+
+  var senators = {};
 
   $.getJSON('https://www.govtrack.us/api/v2/role?current=true&format=json&fields=title_long,person__firstname,person__lastname&limit=6000', function(data) {
-    congress.push(data);
-    var senArray = []
-    var senators = congress.filter(function(obj){
-      return obj.objects.forEach(function(person){
-        if(person.title_long === "Senator"){
-          senArray.push(person);
-        }
-      });
-    });
+    // congress.push(data);
+    //
+    // delete data['meta'];
+    // senators = data;
+
+    // console.log(senators)
+    // var senators = congress.filter(function(obj){
+    //   return obj.objects.forEach(function(person){
+    //     if(person.title_long === "Senator"){
+    //       // console.log(person);
+    //       senArray.push(person);
+    //     }
+    //   });
+    // });
     // console.log(senArray);
   });
 
   $.getJSON('https://www.govtrack.us/api/v2/vote_voter?vote=113155', function(data) {
-    bill152.push(data);
-    var opinions = [];
-    bill152.filter(function(obj){
-      return obj.objects.map(function(person){
-        console.log(person);
-      });
-    })
+    senators = data;
+    delete senators['meta'];
+
+    typeof(senators);
+
+    senators.objects.forEach(function(senator){
+      senator.thump = {
+        name: senator.person.name,
+        description: senator.person_role.description,
+        party: senator.person_role.party,
+        vote: senator.option.value,
+        phone: senator.person_role.phone,
+        gender: senator.person.gender_label,
+        birthday: senator.person.birthday
+      }
+    });
+
+    json_string = ""
+    for(i=0; i<senators.objects.length; i++){
+      var thumpr = senators.objects[i].thump;
+      if(i == 0){
+        json_string = json_string + JSON.stringify(senators.objects[i].person, null, 2);
+      } else {
+        json_string = json_string + "," + JSON.stringify(senators.objects[i].person, null, 2);
+      }
+
+
+
+      // if(i === 0) str = str +  JSON.stringify(senators.object.thump, null, 2); // spacing level = 2
+      // str = str + "," +  JSON.stringify(senator.object.thump, null, 2); // spacing level = 2
+    }
+    // senators.objects.forEach(function(senator){
+    //   str = str + "," +  JSON.stringify(senator.thump, null, 2); // spacing level = 2
+    // });
+    // console.log('{"nodes":[\n' + str + '\n]}');
+    // window.json_string = ('{"nodes":[\n' + json_string + '\n]}');
+    // console.log(json_string);
+    // console.log('{"nodes":[\n' + json_string + '\n]}');
+
   });
 
-
-  //
   var margin = {top: 1, right: 1, bottom: 6, left: 1},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -53,7 +91,9 @@ Template.bill.rendered = function(){
 
   var path = sankey.link();
 
-    d3.json("energy.json", function(energy) {
+  // d3.json("http://people.ucsc.edu/~cmehrabi/", function(energy) {
+  d3.json('https://gist.githubusercontent.com/cmehrabian/01e1a26a240c562100a8/raw/924f6d98298d030ac874665e739489778bbd52e5/gistfile1.txt', function(energy) {
+
 
     sankey
         .nodes(energy.nodes)
@@ -105,7 +145,8 @@ Template.bill.rendered = function(){
       sankey.relayout();
       link.attr("d", path);
     }
-});
+  });
+
 
 }
 
