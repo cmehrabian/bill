@@ -1,0 +1,34 @@
+{
+  "collection1": [
+    {
+      "industry": "Lawyers/Law Firms",
+      "total": "$579,079",
+      "indivs": "$436,579",
+      "pacs": "$142,500"
+    },
+    {
+      "industry": "Retired",
+      "total": "$453,758",
+      "indivs": "$453,758",
+      "pacs": "$0"
+    },
+    {
+      "industry": "Crop Production & Basic Processing",
+      "total": "$380,632",
+      "indivs": "$271,133",
+      "pacs": "$109,499"
+    },
+    {
+      "industry": "Securities & Investment",
+      "total": "$365,943",
+      "indivs": "$339,093",
+      "pacs": "$26,850"
+    },
+    {
+      "industry": "Real Estate",
+      "total": "$352,471",
+      "indivs": "$317,471",
+      "pacs": "$35,000"
+    }
+  ]
+}
