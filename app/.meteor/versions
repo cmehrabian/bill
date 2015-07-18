@@ -21,6 +21,7 @@ erasaur:meteor-lodash@3.10.0
 ewall:foundation@5.5.0
 fastclick@1.0.2
 follower-livedata@1.0.3
+fortawesome:fontawesome@4.3.0
 fourseven:scss@3.2.0
 geojson-utils@1.0.2
 html-tools@1.0.3
@@ -51,6 +52,7 @@ minimongo@1.0.6
 mobile-status-bar@1.0.2
 mongo@1.0.11
 mongo-livedata@1.0.7
+natestrauser:animate-css@3.2.6
 npm-bcrypt@0.7.7
 npm-container@1.0.0
 observe-sequence@1.0.4

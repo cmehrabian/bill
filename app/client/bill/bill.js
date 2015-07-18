@@ -102,11 +102,15 @@ Template.bill.rendered = function(){
       // var sourceIndex = _.findIndex(nodes, function(node){ return node.name == prelink.source.name});
       // var targetIndex = _.findIndex(nodes, function(node){ return node.name == prelink.target.name});
       links.push({source:sourceIndex, target:targetIndex, value:preLinks[prelink].value});
+      console.log(links);
+
     }
+console.log(nodes);
+console.log(links);
 
     var margin = {top: 1, right: 1, bottom: 6, left: 1},
       width = 960 - margin.left - margin.right,
-      height = 2000 - margin.top - margin.bottom;
+      height = 4000 - margin.top - margin.bottom;
 
     var formatNumber = d3.format(",.0f"),
         format = function(d) { return formatNumber(d) + " TWh"; },
