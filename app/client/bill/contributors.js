@@ -327,227 +327,585 @@ contributors = {
   "saxby_chambliss": [
     {
       "contributor": "Aetna Inc",
-      "total": "$28,000",
-      "indivs": "$23,000",
-      "pacs": "$5,000"
+      "total": "$28,000"
     },
     {
       "contributor": "Primerica Inc",
-      "total": "$20,000",
-      "indivs": "$20,000",
-      "pacs": "$0"
+      "total": "$20,000"
     },
     {
       "contributor": "CME Group",
-      "total": "$17,300",
-      "indivs": "$2,300",
-      "pacs": "$15,000"
+      "total": "$17,300"
     },
     {
       "contributor": "King & Spalding",
-      "total": "$16,950",
-      "indivs": "$14,950",
-      "pacs": "$2,000"
+      "total": "$16,950"
     },
     {
       "contributor": "Lasseter Tractor",
-      "total": "$16,000",
-      "indivs": "$16,000",
-      "pacs": "$0"
+      "total": "$16,000"
+    },
+    {
+      "contributor": "Northrop Grumman",
+      "total": "$16,000"
+    },
+    {
+      "contributor": "Monsanto Co",
+      "total": "$15,000"
+    },
+    {
+      "contributor": "Murray Energy",
+      "total": "$13,353"
+    },
+    {
+      "contributor": "Altria Group",
+      "total": "$12,500"
+    },
+    {
+      "contributor": "Intelsat Holdings",
+      "total": "$12,500"
+    },
+    {
+      "contributor": "Blackrock Inc",
+      "total": "$10,800"
+    },
+    {
+      "contributor": "Coca-Cola Co",
+      "total": "$10,300"
+    },
+    {
+      "contributor": "Automotive Free International Trade PAC",
+      "total": "$10,000"
+    },
+    {
+      "contributor": "Blue Cross/Blue Shield",
+      "total": "$10,000"
+    },
+    {
+      "contributor": "National Assn of Broadcasters",
+      "total": "$10,000"
+    },
+    {
+      "contributor": "Norfolk Southern",
+      "total": "$10,000"
+    },
+    {
+      "contributor": "Publix Super Markets",
+      "total": "$10,000"
+    },
+    {
+      "contributor": "Tyson Foods",
+      "total": "$10,000"
+    },
+    {
+      "contributor": "Balch & Bingham",
+      "total": "$9,000"
+    },
+    {
+      "contributor": "Indep Insurance Agents & Brokers/America",
+      "total": "$9,000"
+    },
+    {
+      "contributor": "Nease, Lagana et al",
+      "total": "$9,000"
+    },
+    {
+      "contributor": "Pinnacle West Capital",
+      "total": "$9,000"
     }
   ],
   "thad_cochran": [
-   {
-     "contributor": "General Atomics",
-     "total": "$60,700",
-     "indivs": "$45,700",
-     "pacs": "$15,000"
-   },
-   {
-     "contributor": "Telapex Inc",
-     "total": "$59,100",
-     "indivs": "$46,300",
-     "pacs": "$12,800"
-   },
-   {
-     "contributor": "Boeing Co",
-     "total": "$44,300",
-     "indivs": "$29,300",
-     "pacs": "$15,000"
-   },
-   {
-     "contributor": "Votesane PAC",
-     "total": "$42,000",
-     "indivs": "$42,000",
-     "pacs": "$0"
-   },
-   {
-     "contributor": "Tenax Aerospace",
-     "total": "$41,500",
-     "indivs": "$41,500",
-     "pacs": "$0"
-   }
- ],
- "susan_collins": [
     {
-      "contributors": "General Dynamics",
-      "total": "$60,850",
-      "indivs": "$50,850",
-      "pacs": "$10,000"
+      "contributors": "General Atomics",
+      "total": "$60,700"
     },
     {
-      "contributors": "DLA Piper",
-      "total": "$54,133",
-      "indivs": "$47,133",
-      "pacs": "$7,000"
+      "contributors": "Telapex Inc",
+      "total": "$59,100"
     },
     {
-      "contributors": "Elliott Management",
-      "total": "$48,050",
-      "indivs": "$48,050",
-      "pacs": "$0"
+      "contributors": "Boeing Co",
+      "total": "$44,300"
     },
-    {
-      "contributors": "Cohen Group",
-      "total": "$33,726",
-      "indivs": "$33,726",
-      "pacs": "$0"
-    },
-    {
-      "contributors": "Lions Gate Entertainment",
-      "total": "$24,850",
-      "indivs": "$24,850",
-      "pacs": "$0"
-    }
-  ],
-  "john_cornyn": [
     {
       "contributors": "Votesane PAC",
-      "total": "$63,250",
-      "indivs": "$63,250",
-      "pacs": "$0"
+      "total": "$42,000"
     },
     {
-      "contributors": "Exxon Mobil",
-      "total": "$56,900",
-      "indivs": "$46,900",
-      "pacs": "$10,000"
+      "contributors": "Tenax Aerospace",
+      "total": "$41,500"
     },
     {
-      "contributors": "AT&T Inc",
-      "total": "$56,800",
-      "indivs": "$46,800",
-      "pacs": "$10,000"
+      "contributors": "Baker, Donelson et al",
+      "total": "$35,050"
     },
     {
-      "contributors": "Valero Energy",
-      "total": "$54,750",
-      "indivs": "$44,750",
-      "pacs": "$10,000"
+      "contributors": "Sanderson Farms",
+      "total": "$31,000"
     },
     {
-      "contributors": "Blackstone Group",
-      "total": "$49,500",
-      "indivs": "$41,000",
-      "pacs": "$8,500"
-    }
-  ],
-  "richard_durbin": [
-    {
-      "contributors": "Simmons Law Firm",
-      "total": "$133,800",
-      "indivs": "$133,800",
-      "pacs": "$0"
+      "contributors": "Biloxi Freezing & Processing",
+      "total": "$26,000"
     },
     {
-      "contributors": "Jenner & Block",
-      "total": "$68,255",
-      "indivs": "$68,255",
-      "pacs": "$0"
+      "contributors": "Raytheon Co",
+      "total": "$25,750"
     },
     {
-      "contributors": "Cooney & Conway",
-      "total": "$64,000",
-      "indivs": "$64,000",
-      "pacs": "$0"
+      "contributors": "Balch & Bingham",
+      "total": "$25,450"
+    },
+    {
+      "contributors": "Cornerstone Government Affairs",
+      "total": "$23,700"
+    },
+    {
+      "contributors": "Southern Co",
+      "total": "$23,500"
+    },
+    {
+      "contributors": "Entergy Corp",
+      "total": "$22,850"
+    },
+    {
+      "contributors": "Huntington Ingalls Industries",
+      "total": "$22,700"
+    },
+    {
+      "contributors": "Airbus Group",
+      "total": "$22,350"
+    },
+    {
+      "contributors": "Butler Snow LLP",
+      "total": "$21,900"
+    },
+    {
+      "contributors": "American Assn of Crop Insurers",
+      "total": "$20,000"
+    },
+    {
+      "contributors": "American Crystal Sugar",
+      "total": "$20,000"
     },
     {
       "contributors": "Northrop Grumman",
-      "total": "$64,000",
-      "indivs": "$54,000",
-      "pacs": "$10,000"
+      "total": "$19,000"
     },
     {
-      "contributors": "MacAndrews & Forbes",
-      "total": "$54,850",
-      "indivs": "$44,850",
-      "pacs": "$10,000"
+      "contributors": "Deloitte LLP",
+      "total": "$18,250"
     }
   ],
-  "roy_blunt": [
-   {
-     "contributor": "Crawford Group",
-     "total": "$120,550",
-     "indivs": "$105,550",
-     "pacs": "$15,000"
-   },
-   {
-     "contributor": "Elliott Management",
-     "total": "$95,442",
-     "indivs": "$95,442",
-     "pacs": "$0"
-   },
-   {
-     "contributor": "Goldman Sachs",
-     "total": "$92,192",
-     "indivs": "$72,692",
-     "pacs": "$19,500"
-   },
-   {
-     "contributor": "Northwestern Mutual",
-     "total": "$88,200",
-     "indivs": "$70,700",
-     "pacs": "$17,500"
-   },
-   {
-     "contributor": "Jones Financial Companies",
-     "total": "$85,900",
-     "indivs": "$65,900",
-     "pacs": "$20,000"
-   }
- ],
- "john_boozman": [
-    {
-      "contributors": "Wal-Mart Stores",
-      "total": "$63,650",
-      "indivs": "$49,150",
-      "pacs": "$14,500"
-    },
-    {
-      "contributors": "Elliott Management",
-      "total": "$43,346",
-      "indivs": "$43,346",
-      "pacs": "$0"
-    },
-    {
-      "contributors": "Stephens Group",
-      "total": "$38,400",
-      "indivs": "$33,400",
-      "pacs": "$5,000"
-    },
-    {
-      "contributors": "Arvest Bank Group",
-      "total": "$29,600",
-      "indivs": "$13,600",
-      "pacs": "$16,000"
-    },
-    {
-      "contributors": "AT&T Inc",
-      "total": "$25,750",
-      "indivs": "$250",
-      "pacs": "$25,500"
-    }
-  ],
+  "susan_collins": [
+     {
+       "contributor": "General Dynamics",
+       "total": "$60,850"
+     },
+     {
+       "contributor": "DLA Piper",
+       "total": "$54,133"
+     },
+     {
+       "contributor": "Elliott Management",
+       "total": "$48,050"
+     },
+     {
+       "contributor": "Cohen Group",
+       "total": "$33,726"
+     },
+     {
+       "contributor": "Lions Gate Entertainment",
+       "total": "$24,850"
+     },
+     {
+       "contributor": "NorPAC",
+       "total": "$24,500"
+     },
+     {
+       "contributor": "Gibson, Dunn & Crutcher",
+       "total": "$21,550"
+     },
+     {
+       "contributor": "FedEx Corp",
+       "total": "$21,400"
+     },
+     {
+       "contributor": "Deloitte LLP",
+       "total": "$20,250"
+     },
+     {
+       "contributor": "KKR & Co",
+       "total": "$19,750"
+     },
+     {
+       "contributor": "Kleinberg, Kaplan et al",
+       "total": "$19,473"
+     },
+     {
+       "contributor": "WPP Group",
+       "total": "$18,550"
+     },
+     {
+       "contributor": "Blackstone Group",
+       "total": "$18,200"
+     },
+     {
+       "contributor": "Kirby Corp",
+       "total": "$18,000"
+     },
+     {
+       "contributor": "Blue Cross/Blue Shield",
+       "total": "$17,750"
+     },
+     {
+       "contributor": "New Balance",
+       "total": "$17,550"
+     },
+     {
+       "contributor": "Marriott International",
+       "total": "$17,500"
+     },
+     {
+       "contributor": "Liberty Mutual",
+       "total": "$16,750"
+     },
+     {
+       "contributor": "Boeing Co",
+       "total": "$15,000"
+     },
+     {
+       "contributor": "Raytheon Co",
+       "total": "$14,950"
+     }
+   ],
+   "john_cornyn": [
+     {
+       "contributor": "Votesane PAC",
+       "total": "$63,250"
+     },
+     {
+       "contributor": "Exxon Mobil",
+       "total": "$56,900"
+     },
+     {
+       "contributor": "AT&T Inc",
+       "total": "$56,800"
+     },
+     {
+       "contributor": "Valero Energy",
+       "total": "$54,750"
+     },
+     {
+       "contributor": "Blackstone Group",
+       "total": "$49,500"
+     },
+     {
+       "contributor": "USAA",
+       "total": "$49,100"
+     },
+     {
+       "contributor": "Energy Transfer Equity",
+       "total": "$45,600"
+     },
+     {
+       "contributor": "Goldman Sachs",
+       "total": "$45,000"
+     },
+     {
+       "contributor": "JPMorgan Chase & Co",
+       "total": "$43,250"
+     },
+     {
+       "contributor": "Elliott Management",
+       "total": "$42,850"
+     },
+     {
+       "contributor": "Quantum Energy Partners",
+       "total": "$40,100"
+     },
+     {
+       "contributor": "Berkshire Hathaway",
+       "total": "$38,300"
+     },
+     {
+       "contributor": "Altria Group",
+       "total": "$36,934"
+     },
+     {
+       "contributor": "Chevron Corp",
+       "total": "$35,300"
+     },
+     {
+       "contributor": "HBK Capital Management",
+       "total": "$35,200"
+     },
+     {
+       "contributor": "FMR Corp",
+       "total": "$34,300"
+     },
+     {
+       "contributor": "Kirby Corp",
+       "total": "$34,300"
+     },
+     {
+       "contributor": "Crow Holdings",
+       "total": "$32,200"
+     },
+     {
+       "contributor": "L&F Distributors",
+       "total": "$31,800"
+     },
+     {
+       "contributor": "iHeartMedia Inc",
+       "total": "$28,600"
+     }
+   ],
+   "richard_durbin": [
+     {
+       "contributor": "Simmons Law Firm",
+       "total": "$133,800"
+     },
+     {
+       "contributor": "Jenner & Block",
+       "total": "$68,255"
+     },
+     {
+       "contributor": "Cooney & Conway",
+       "total": "$64,000"
+     },
+     {
+       "contributor": "Northrop Grumman",
+       "total": "$64,000"
+     },
+     {
+       "contributor": "MacAndrews & Forbes",
+       "total": "$54,850"
+     },
+     {
+       "contributor": "United Technologies",
+       "total": "$54,000"
+     },
+     {
+       "contributor": "Comcast Corp",
+       "total": "$47,900"
+     },
+     {
+       "contributor": "Boeing Co",
+       "total": "$46,500"
+     },
+     {
+       "contributor": "Thornton & Naumes",
+       "total": "$40,400"
+     },
+     {
+       "contributor": "Paul, Weiss et al",
+       "total": "$39,800"
+     },
+     {
+       "contributor": "Blue Cross/Blue Shield",
+       "total": "$39,450"
+     },
+     {
+       "contributor": "State of Illinois",
+       "total": "$37,835"
+     },
+     {
+       "contributor": "American Airlines Group",
+       "total": "$34,800"
+     },
+     {
+       "contributor": "Power, Rogers & Smith",
+       "total": "$31,100"
+     },
+     {
+       "contributor": "Lockheed Martin",
+       "total": "$30,600"
+     },
+     {
+       "contributor": "JStreetPAC",
+       "total": "$29,300"
+     },
+     {
+       "contributor": "BAE Systems",
+       "total": "$29,299"
+     },
+     {
+       "contributor": "Keefe & Keefe",
+       "total": "$28,600"
+     },
+     {
+       "contributor": "United Continental Holdings",
+       "total": "$27,000"
+     },
+     {
+       "contributor": "CME Group",
+       "total": "$25,800"
+     }
+   ],
+   "roy_blunt": [
+     {
+       "contributor": "Crawford Group",
+       "total": "$120,550"
+     },
+     {
+       "contributor": "Elliott Management",
+       "total": "$95,442"
+     },
+     {
+       "contributor": "Goldman Sachs",
+       "total": "$92,192"
+     },
+     {
+       "contributor": "Northwestern Mutual",
+       "total": "$88,200"
+     },
+     {
+       "contributor": "Jones Financial Companies",
+       "total": "$85,900"
+     },
+     {
+       "contributor": "Emerson Electric",
+       "total": "$81,650"
+     },
+     {
+       "contributor": "Monsanto Co",
+       "total": "$79,250"
+     },
+     {
+       "contributor": "Peabody Energy",
+       "total": "$62,900"
+     },
+     {
+       "contributor": "Blackstone Group",
+       "total": "$55,350"
+     },
+     {
+       "contributor": "Murray Energy",
+       "total": "$53,073"
+     },
+     {
+       "contributor": "Anheuser-Busch InBev",
+       "total": "$49,400"
+     },
+     {
+       "contributor": "Herzog Contracting",
+       "total": "$49,400"
+     },
+     {
+       "contributor": "Hallmark Cards",
+       "total": "$48,500"
+     },
+     {
+       "contributor": "WPP Group",
+       "total": "$46,150"
+     },
+     {
+       "contributor": "Bryan Cave LLP",
+       "total": "$45,258"
+     },
+     {
+       "contributor": "Express Scripts",
+       "total": "$45,200"
+     },
+     {
+       "contributor": "Husch Blackwell LLP",
+       "total": "$41,900"
+     },
+     {
+       "contributor": "Wells Fargo",
+       "total": "$41,600"
+     },
+     {
+       "contributor": "Leggett & Platt",
+       "total": "$38,550"
+     },
+     {
+       "contributor": "Cape Radiology Group",
+       "total": "$37,300"
+     }
+   ],
+   "john_boozman": [
+      {
+        "contributor": "Wal-Mart Stores",
+        "total": "$63,650"
+      },
+      {
+        "contributor": "Elliott Management",
+        "total": "$43,346"
+      },
+      {
+        "contributor": "Stephens Group",
+        "total": "$38,400"
+      },
+      {
+        "contributor": "Arvest Bank Group",
+        "total": "$29,600"
+      },
+      {
+        "contributor": "AT&T Inc",
+        "total": "$25,750"
+      },
+      {
+        "contributor": "Tyson Foods",
+        "total": "$25,700"
+      },
+      {
+        "contributor": "Murray Energy",
+        "total": "$18,225"
+      },
+      {
+        "contributor": "Berkshire Hathaway",
+        "total": "$17,400"
+      },
+      {
+        "contributor": "American Council of Engineering Cos",
+        "total": "$16,900"
+      },
+      {
+        "contributor": "American Interventional Pain Physicians",
+        "total": "$15,000"
+      },
+      {
+        "contributor": "Defend America PAC",
+        "total": "$15,000"
+      },
+      {
+        "contributor": "Heartland Values PAC",
+        "total": "$15,000"
+      },
+      {
+        "contributor": "Norfolk Southern",
+        "total": "$15,000"
+      },
+      {
+        "contributor": "OrrinPAC",
+        "total": "$15,000"
+      },
+      {
+        "contributor": "Union Pacific Corp",
+        "total": "$15,000"
+      },
+      {
+        "contributor": "Lindsey & Assoc",
+        "total": "$14,800"
+      },
+      {
+        "contributor": "Dallas Cowboys",
+        "total": "$14,400"
+      },
+      {
+        "contributor": "Duty Free Americas",
+        "total": "$14,400"
+      },
+      {
+        "contributor": "American Optometric Assn",
+        "total": "$14,250"
+      },
+      {
+        "contributor": "Fowler Foods",
+        "total": "$13,319"
+      }
+    ],
   "richard_burr": [
     {
       "contributors": "New Breed Inc",
