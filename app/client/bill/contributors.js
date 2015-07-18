@@ -323,71 +323,133 @@ contributors = {
   ]
 }
 
-var contributorNodes = [];
-var senatorNodes = [];
+$.getJSON('https://www.govtrack.us/api/v2/role?current=true&format=json&fields=title_long,person__firstname,person__lastname&limit=6000', function(data) {
+  // congress.push(data);
+  //
+  // delete data['meta'];
+  // senators = data;
+
+  // console.log(senators)
+  // var senators = congress.filter(function(obj){
+  //   return obj.objects.forEach(function(person){
+  //     if(person.title_long === "Senator"){
+  //       // console.log(person);
+  //       senArray.push(person);
+  //     }
+  //   });
+  // });
+  // console.log(senArray);
+});
+
+senators = []
 nodes = [];
 links =[];
-var preLinks = [];
-var i = 0;
-for(senator in contributors) {
-  var sen = {name:senator};
-  senatorNodes.push(sen);
 
-  contributors[senator].forEach(function(e){
-    var node_index = _.find(contributorNodes, function(node){ return node.name == e.contributors});
-    if(! node_index){
-      var obj = e;
-      if(obj.contributors)
-        obj.name = obj.contributors;
-      else
-        obj.name = obj.contributor;
 
-      contributorNodes.push(obj);
+
+$.getJSON('https://www.govtrack.us/api/v2/vote_voter?vote=113155', function(data) {
+  senators = data;
+  // delete senators['meta'];
+
+  console.log("getJSON")
+  console.log(data);
+
+  typeof(senators);
+
+  senators.objects.forEach(function(senator){
+    // console.log(senator);
+    senator.thump = {
+      // name: senator.person.name,
+      name: senator.person.firstname.toLowerCase() +"_"+ senator.person.lastname.toLowerCase(),
+      description: senator.person_role.description,
+      party: senator.person_role.party,
+      vote: senator.option.value,
+      phone: senator.person_role.phone,
+      gender: senator.person.gender_label,
+      birthday: senator.person.birthday
     }
-    else{
-      var obj = node_index;
-    }
-
-    var value = parseInt(e.total.replace(',','').replace('$', ''));
-    value = value / 1000.0;
-    preLinks.push({source:obj, target:sen, value:value});
-
   });
 
-  // contributors[senator].forEach(function(x){
-  //   var currentSenator = Object.keys(contributors);
-  //   var nodeObj = {
-  //     name: x.contributor,
-  //     value: x.total,
-  //     source: i,
-  //     senator: currentSenator[i]
-  //   }
-  //   nodes.push(nodeObj);
-  //   i++;
-  // });
-}
-console.log("preLinks");
-console.log(preLinks)
+  json_string = ""
+  for(i=0; i<senators.objects.length; i++){
+    var thumpr = senators.objects[i].thump;
+    if(i == 0){
+      json_string = json_string + JSON.stringify(thumpr, null, 2);
+    } else {
+      json_string = json_string + "," + JSON.stringify(thumpr, null, 2);
+    }
 
-nodes = contributorNodes.concat(senatorNodes);
-
-for (prelink in preLinks){
-
-  //FUCK
-
-  console.log(prelink)
-
-  var sourceIndex = -1;
-  var targetIndex = -1;
-  for(var i = 0; i < nodes.length; ++i){
-    if( preLinks[prelink].source.name == nodes[i].name) sourceIndex = i;
-    if( preLinks[prelink].target.name == nodes[i].name) targetIndex = i;
   }
-  // var sourceIndex = _.findIndex(nodes, function(node){ return node.name == prelink.source.name});
-  // var targetIndex = _.findIndex(nodes, function(node){ return node.name == prelink.target.name});
-  links.push({source:sourceIndex, target:targetIndex, value:preLinks[prelink].value});
-}
+
+  var yays = [], nays = [];
+
+  senators.objects.forEach(function(senator){
+    if(senator.thump.vote === "Yea"){
+      yays.push(senator)
+    } else if (senator.thump.vote === "Nay") {
+      nays.push(senator)
+    }
+  });
+  console.log("Yays : " + yays.length, "Nays : " + nays.length);
+
+  console.log("senators:")
+  console.log(senators);
+
+  var contributorNodes = [];
+  var senatorNodes = [];
+  var preLinks = [];
+  var i = 0;
+  for(senator in contributors) {
+    // var vote = _.find(senators, function(s){ return s.})
+    var sen = {name:senator};
+    senatorNodes.push(sen);
+
+    contributors[senator].forEach(function(e){
+      var node_index = _.find(contributorNodes, function(node){ return node.name == e.contributors});
+      if(! node_index){
+        var obj = e;
+        if(obj.contributors)
+          obj.name = obj.contributors;
+        else
+          obj.name = obj.contributor;
+
+        contributorNodes.push(obj);
+      }
+      else{
+        var obj = node_index;
+      }
+
+      var value = parseInt(e.total.replace(',','').replace('$', ''));
+      value = value / 1000.0;
+      preLinks.push({source:obj, target:sen, value:value});
+
+    });
+
+  }
+
+  console.log("preLinks");
+  console.log(preLinks)
+
+  nodes = contributorNodes.concat(senatorNodes);
+
+  for (prelink in preLinks){
+
+    //FUCK
+
+    var sourceIndex = -1;
+    var targetIndex = -1;
+    for(var i = 0; i < nodes.length; ++i){
+      if( preLinks[prelink].source.name == nodes[i].name) sourceIndex = i;
+      if( preLinks[prelink].target.name == nodes[i].name) targetIndex = i;
+    }
+    // var sourceIndex = _.findIndex(nodes, function(node){ return node.name == prelink.source.name});
+    // var targetIndex = _.findIndex(nodes, function(node){ return node.name == prelink.target.name});
+    links.push({source:sourceIndex, target:targetIndex, value:preLinks[prelink].value});
+  }
+});
+
 
 console.log("bloop")
 console.log(nodes);
 console.log(links);
+console.log(senators);
