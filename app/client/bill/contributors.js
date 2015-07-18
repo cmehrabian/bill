@@ -677,163 +677,421 @@ contributors = {
     }
   ],
   "patrick_toomey": [
-   {
-     "contributors": "Club for Growth",
-     "total": "$860,441",
-     "indivs": "$851,218",
-     "pacs": "$9,223"
-   },
-   {
-     "contributors": "Elliott Management",
-     "total": "$115,438",
-     "indivs": "$115,438",
-     "pacs": "$0"
-   },
-   {
-     "contributors": "Federated Investors Inc",
-     "total": "$82,100",
-     "indivs": "$74,100",
-     "pacs": "$8,000"
-   },
-   {
-     "contributors": "Rothman Institute",
-     "total": "$72,840",
-     "indivs": "$72,840",
-     "pacs": "$0"
-   },
-   {
-     "contributors": "Martins Famous Pastry Shoppe",
-     "total": "$68,600",
-     "indivs": "$68,600",
-     "pacs": "$0"
-   }
+    {
+      "contributor": "Club for Growth",
+      "total": "$860,441"
+    },
+    {
+      "contributor": "Elliott Management",
+      "total": "$115,438"
+    },
+    {
+      "contributor": "Federated Investors Inc",
+      "total": "$82,100"
+    },
+    {
+      "contributor": "Rothman Institute",
+      "total": "$72,840"
+    },
+    {
+      "contributor": "Martins Famous Pastry Shoppe",
+      "total": "$68,600"
+    },
+    {
+      "contributor": "Senate Conservatives Fund",
+      "total": "$61,473"
+    },
+    {
+      "contributor": "Exelon Corp",
+      "total": "$59,900"
+    },
+    {
+      "contributor": "FMR Corp",
+      "total": "$58,250"
+    },
+    {
+      "contributor": "PPL Corp",
+      "total": "$53,674"
+    },
+    {
+      "contributor": "Air Products & Chemicals Inc",
+      "total": "$50,600"
+    },
+    {
+      "contributor": "Select Medical Holdings",
+      "total": "$49,700"
+    },
+    {
+      "contributor": "Comcast Corp",
+      "total": "$49,600"
+    },
+    {
+      "contributor": "Goldman Sachs",
+      "total": "$49,442"
+    },
+    {
+      "contributor": "Crow Holdings",
+      "total": "$47,100"
+    },
+    {
+      "contributor": "Point72 Asset Management",
+      "total": "$46,100"
+    },
+    {
+      "contributor": "Duane Morris LLP",
+      "total": "$44,000"
+    },
+    {
+      "contributor": "Day & Zimmermann",
+      "total": "$42,950"
+    },
+    {
+      "contributor": "Bentley Systems",
+      "total": "$42,638"
+    },
+    {
+      "contributor": "Blue Cross/Blue Shield",
+      "total": "$40,900"
+    },
+    {
+      "contributor": "Madison Dearborn Partners",
+      "total": "$40,700"
+    }
  ],
  "david_vitter": [
-    {
-      "contributors": "Murray Energy",
-      "total": "$39,823",
-      "indivs": "$24,823",
-      "pacs": "$15,000"
-    },
-    {
-      "contributors": "Jones Walker LLP",
-      "total": "$32,550",
-      "indivs": "$26,050",
-      "pacs": "$6,500"
-    },
-    {
-      "contributors": "Mockler Beverage",
-      "total": "$29,900",
-      "indivs": "$29,900",
-      "pacs": "$0"
-    },
-    {
-      "contributors": "Chevron Corp",
-      "total": "$29,800",
-      "indivs": "$19,800",
-      "pacs": "$10,000"
-    },
-    {
-      "contributors": "Edison Chouest Offshore",
-      "total": "$25,200",
-      "indivs": "$25,200",
-      "pacs": "$0"
-    }
+   {
+     "contributor": "Murray Energy",
+     "total": "$39,823"
+   },
+   {
+     "contributor": "Jones Walker LLP",
+     "total": "$32,550"
+   },
+   {
+     "contributor": "Mockler Beverage",
+     "total": "$29,900"
+   },
+   {
+     "contributor": "Chevron Corp",
+     "total": "$29,800"
+   },
+   {
+     "contributor": "Edison Chouest Offshore",
+     "total": "$25,200"
+   },
+   {
+     "contributor": "D&J Construction",
+     "total": "$22,950"
+   },
+   {
+     "contributor": "Offshore Warriors Inc",
+     "total": "$22,400"
+   },
+   {
+     "contributor": "Adams & Reese",
+     "total": "$20,200"
+   },
+   {
+     "contributor": "Common Values PAC",
+     "total": "$20,000"
+   },
+   {
+     "contributor": "Defend America PAC",
+     "total": "$20,000"
+   },
+   {
+     "contributor": "Entergy Corp",
+     "total": "$20,000"
+   },
+   {
+     "contributor": "OrrinPAC",
+     "total": "$20,000"
+   },
+   {
+     "contributor": "Freeport-McMoRan Copper & Gold",
+     "total": "$18,800"
+   },
+   {
+     "contributor": "Atco Investment",
+     "total": "$18,700"
+   },
+   {
+     "contributor": "CEMEX SA de CV",
+     "total": "$18,500"
+   },
+   {
+     "contributor": "Koch Industries",
+     "total": "$18,000"
+   },
+   {
+     "contributor": "Kirby Corp",
+     "total": "$17,200"
+   },
+   {
+     "contributor": "Major Equipment & Remediation Services",
+     "total": "$16,900"
+   },
+   {
+     "contributor": "CenturyLink",
+     "total": "$16,500"
+   },
+   {
+     "contributor": "Rouses Markets",
+     "total": "$16,200"
+   }
   ],
   "charles_grassley": [
     {
-      "contributors": "Leon Medical Centers",
-      "total": "$34,600",
-      "indivs": "$34,600",
-      "pacs": "$0"
+      "contributor": "Leon Medical Centers",
+      "total": "$34,600"
     },
     {
-      "contributors": "Berkshire Hathaway",
-      "total": "$30,700",
-      "indivs": "$9,700",
-      "pacs": "$21,000"
+      "contributor": "Berkshire Hathaway",
+      "total": "$30,700"
     },
     {
-      "contributors": "Chevron Corp",
-      "total": "$29,600",
-      "indivs": "$19,600",
-      "pacs": "$10,000"
+      "contributor": "Chevron Corp",
+      "total": "$29,600"
     },
     {
-      "contributors": "Blue Cross/Blue Shield",
-      "total": "$29,500",
-      "indivs": "$19,500",
-      "pacs": "$10,000"
+      "contributor": "Blue Cross/Blue Shield",
+      "total": "$29,500"
     },
     {
-      "contributors": "Intellectual Ventures LLC",
-      "total": "$22,000",
-      "indivs": "$22,000",
-      "pacs": "$0"
+      "contributor": "Intellectual Ventures LLC",
+      "total": "$22,000"
+    },
+    {
+      "contributor": "Monsanto Co",
+      "total": "$20,500"
+    },
+    {
+      "contributor": "AG Processing",
+      "total": "$20,000"
+    },
+    {
+      "contributor": "WPP Group",
+      "total": "$19,800"
+    },
+    {
+      "contributor": "Archer Daniels Midland",
+      "total": "$18,750"
+    },
+    {
+      "contributor": "Occidental Petroleum",
+      "total": "$18,000"
+    },
+    {
+      "contributor": "Select Medical Holdings",
+      "total": "$18,000"
+    },
+    {
+      "contributor": "Williams & Jensen",
+      "total": "$17,900"
+    },
+    {
+      "contributor": "Principal Financial Group",
+      "total": "$17,250"
+    },
+    {
+      "contributor": "Alliantgroup",
+      "total": "$16,000"
+    },
+    {
+      "contributor": "American Wind Energy Assn",
+      "total": "$16,000"
+    },
+    {
+      "contributor": "Jones Financial Companies",
+      "total": "$15,750"
+    },
+    {
+      "contributor": "Welsh, Carson et al",
+      "total": "$15,400"
+    },
+    {
+      "contributor": "Alston & Bird",
+      "total": "$15,050"
+    },
+    {
+      "contributor": "AFLAC Inc",
+      "total": "$15,000"
+    },
+    {
+      "contributor": "Alamo PAC",
+      "total": "$15,000"
+    },
+    {
+      "contributor": "Credit Union National Assn",
+      "total": "$15,000"
+    },
+    {
+      "contributor": "National Amusements Inc",
+      "total": "$15,000"
     }
   ],
   "patrick_leahy": [
     {
       "contributor": "Girardi & Keese",
-      "total": "$95,864",
-      "indivs": "$95,864",
-      "pacs": "$0"
+      "total": "$95,864"
     },
     {
       "contributor": "Time Warner",
-      "total": "$73,850",
-      "indivs": "$59,850",
-      "pacs": "$14,000"
+      "total": "$73,850"
     },
     {
       "contributor": "Walt Disney Co",
-      "total": "$54,900",
-      "indivs": "$39,900",
-      "pacs": "$15,000"
+      "total": "$54,900"
     },
     {
       "contributor": "National Amusements Inc",
-      "total": "$44,350",
-      "indivs": "$31,350",
-      "pacs": "$13,000"
+      "total": "$44,350"
     },
     {
       "contributor": "Vivendi",
-      "total": "$37,206",
-      "indivs": "$34,206",
-      "pacs": "$3,000"
+      "total": "$37,206"
+    },
+    {
+      "contributor": "Comcast Corp",
+      "total": "$31,250"
+    },
+    {
+      "contributor": "Sony Corp",
+      "total": "$31,000"
+    },
+    {
+      "contributor": "Law Offices of Peter G Angelos",
+      "total": "$29,050"
+    },
+    {
+      "contributor": "Nix, Patterson & Roach",
+      "total": "$20,181"
+    },
+    {
+      "contributor": "Microsoft Corp",
+      "total": "$19,500"
+    },
+    {
+      "contributor": "Oracle Corp",
+      "total": "$19,500"
+    },
+    {
+      "contributor": "21st Century Fox",
+      "total": "$19,100"
+    },
+    {
+      "contributor": "NorPAC",
+      "total": "$18,962"
+    },
+    {
+      "contributor": "Warner Music Group",
+      "total": "$18,900"
+    },
+    {
+      "contributor": "Intellectual Ventures LLC",
+      "total": "$18,200"
+    },
+    {
+      "contributor": "Bergman, Draper et al",
+      "total": "$16,400"
+    },
+    {
+      "contributor": "National Fraternal Order of Police",
+      "total": "$16,250"
+    },
+    {
+      "contributor": "United Technologies",
+      "total": "$16,250"
+    },
+    {
+      "contributor": "General Electric",
+      "total": "$15,500"
+    },
+    {
+      "contributor": "Ben Barnes Group",
+      "total": "$14,400"
     }
   ],
   "john_mccain": [
     {
-      "contributor": "Girardi & Keese",
-      "total": "$95,864",
-      "indivs": "$95,864",
-      "pacs": "$0"
+      "contributor": "Pinnacle West Capital",
+      "total": "$78,000"
     },
     {
-      "contributor": "Time Warner",
-      "total": "$73,850",
-      "indivs": "$59,850",
-      "pacs": "$14,000"
+      "contributor": "Freeport-McMoRan Copper & Gold",
+      "total": "$49,950"
     },
     {
-      "contributor": "Walt Disney Co",
-      "total": "$54,900",
-      "indivs": "$39,900",
-      "pacs": "$15,000"
+      "contributor": "MacAndrews & Forbes",
+      "total": "$39,300"
     },
     {
-      "contributor": "National Amusements Inc",
-      "total": "$44,350",
-      "indivs": "$31,350",
-      "pacs": "$13,000"
+      "contributor": "MJKL Enterprises",
+      "total": "$38,400"
     },
     {
-      "contributor": "Vivendi",
-      "total": "$37,206",
-      "indivs": "$34,206",
-      "pacs": "$3,000"
+      "contributor": "Cisco Systems",
+      "total": "$36,600"
+    },
+    {
+      "contributor": "KKR & Co",
+      "total": "$35,800"
+    },
+    {
+      "contributor": "PVS Chemicals",
+      "total": "$35,600"
+    },
+    {
+      "contributor": "Blackstone Group",
+      "total": "$32,300"
+    },
+    {
+      "contributor": "Go Daddy Group",
+      "total": "$30,250"
+    },
+    {
+      "contributor": "American Airlines Group",
+      "total": "$30,200"
+    },
+    {
+      "contributor": "NewsMax Media",
+      "total": "$29,800"
+    },
+    {
+      "contributor": "Emerson Electric",
+      "total": "$29,500"
+    },
+    {
+      "contributor": "DaVita HealthCare Partners",
+      "total": "$26,550"
+    },
+    {
+      "contributor": "WPP Group",
+      "total": "$25,900"
+    },
+    {
+      "contributor": "Capital Group Companies",
+      "total": "$24,900"
+    },
+    {
+      "contributor": "Tuttle-Click Automotive Group",
+      "total": "$24,800"
+    },
+    {
+      "contributor": "Blue Cross/Blue Shield",
+      "total": "$24,700"
+    },
+    {
+      "contributor": "Arizona Diamondbacks",
+      "total": "$24,200"
+    },
+    {
+      "contributor": "General Electric",
+      "total": "$21,900"
+    },
+    {
+      "contributor": "Snell & Wilmer",
+      "total": "$21,800"
     }
   ]
 }
