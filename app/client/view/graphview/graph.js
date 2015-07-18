@@ -211,6 +211,30 @@ Template.graph.rendered = function(){
       .attr("cy", function(d) { return d.y; });
   }
 
+  function mouseoverBody(d){
+    var nodeBody = d.body;
+    // var wordCount = d.body.length;
+    var x_pos = d.x;
+    var y_pos = d.y;
+    var node = document.getElementById('hover');
+    var node_pos = document.getElementById('hover');
+
+    if(d.body.length > 50){
+      node_pos.style.width = "300px";
+      console.log(d.body.length);
+    }
+    else{
+      node_pos.style.width = "inherit";
+    }
+
+    node_pos.style.position = "absolute";
+    node_pos.style.left = (x_pos-200)+"px";
+    node_pos.style.top = (y_pos)+"px";
+    node.innerHTML = '"'+nodeBody+'"';
+
+    console.log(node);
+ }
+
   function mouseover(d) {
     if (d3.event.defaultPrevented)
       return;
@@ -219,7 +243,10 @@ Template.graph.rendered = function(){
     if(mousedOver){
       var c = self.graphElem.select("circle[_id=node" + mousedOver._id + "]")
       var p = self.graphElem.select("path[_id=edge"+ mousedOver._id + "]")
-
+      if (d.type == "statement"){
+        mouseoverBody(d);
+        console.log(d);
+      }
 
       if(c[0][0])
         c.classed('highlighted', false);
