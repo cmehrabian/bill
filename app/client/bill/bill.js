@@ -35,7 +35,7 @@ Template.bill.rendered = function(){
     typeof(senators);
 
     senators.objects.forEach(function(senator){
-      console.log(senator);
+      // console.log(senator);
       senator.thump = {
         // name: senator.person.name,
         name: senator.person.firstname +" "+ senator.person.lastname,
@@ -88,7 +88,7 @@ Template.bill.rendered = function(){
 
   var margin = {top: 1, right: 1, bottom: 6, left: 1},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 2000 - margin.top - margin.bottom;
 
   var formatNumber = d3.format(",.0f"),
       format = function(d) { return formatNumber(d) + " TWh"; },
@@ -108,23 +108,20 @@ Template.bill.rendered = function(){
   var path = sankey.link();
 
   // d3.json("http://people.ucsc.edu/~cmehrabi/", function(energy) {
-  d3.json('https://gist.githubusercontent.com/cmehrabian/01e1a26a240c562100a8/raw/bf579ca034551ed317e7b8ec17dbf36cb967828f/gistfile1.txt', function(energy) {
-
+  // d3.json('https://gist.githubusercontent.com/cmehrabian/01e1a26a240c562100a8/raw/bf579ca034551ed317e7b8ec17dbf36cb967828f/gistfile1.txt', function(energy) {
+  //
 
     sankey
-        .nodes(energy.nodes)
-        .links(energy.links)
+        .nodes(nodes)
+        .links(links)
         .layout(32);
 
     var link = svg.append("g").selectAll(".link")
-        .data(energy.links)
+        .data(links)
       .enter().append("path")
         .attr("class", "link")
         .attr("d", path)
-        .style("stroke-width", function(d) {
-          console.log(d);
-          console.log(d.dy);
-          return Math.max(1, d.dy);
+        .style("stroke-width", function(d) {  return Math.max(1, d.dy);
         })
         .sort(function(a, b) { return b.dy - a.dy; });
 
@@ -132,7 +129,7 @@ Template.bill.rendered = function(){
         .text(function(d) { return d.source.name + " → " + d.target.name + "\n" + format(d.value); });
 
     var node = svg.append("g").selectAll(".node")
-        .data(energy.nodes)
+        .data(nodes)
       .enter().append("g")
         .attr("class", "node")
         .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
@@ -165,7 +162,7 @@ Template.bill.rendered = function(){
       sankey.relayout();
       link.attr("d", path);
     }
-  });
+  //});
 
 
 }

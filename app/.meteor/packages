@@ -12,9 +12,7 @@ accounts-password
 ewall:foundation
 autopublish
 reactive-var
-stevezhu:lodash
 matteodem:easy-search
-
-
 npm-container
 fourseven:scss
+erasaur:meteor-lodash

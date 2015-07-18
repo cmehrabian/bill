@@ -322,3 +322,72 @@ contributors = {
     }
   ]
 }
+
+var contributorNodes = [];
+var senatorNodes = [];
+nodes = [];
+links =[];
+var preLinks = [];
+var i = 0;
+for(senator in contributors) {
+  var sen = {name:senator};
+  senatorNodes.push(sen);
+
+  contributors[senator].forEach(function(e){
+    var node_index = _.find(contributorNodes, function(node){ return node.name == e.contributors});
+    if(! node_index){
+      var obj = e;
+      if(obj.contributors)
+        obj.name = obj.contributors;
+      else
+        obj.name = obj.contributor;
+
+      contributorNodes.push(obj);
+    }
+    else{
+      var obj = node_index;
+    }
+
+    var value = parseInt(e.total.replace(',','').replace('$', ''));
+    value = value / 1000.0;
+    preLinks.push({source:obj, target:sen, value:value});
+
+  });
+
+  // contributors[senator].forEach(function(x){
+  //   var currentSenator = Object.keys(contributors);
+  //   var nodeObj = {
+  //     name: x.contributor,
+  //     value: x.total,
+  //     source: i,
+  //     senator: currentSenator[i]
+  //   }
+  //   nodes.push(nodeObj);
+  //   i++;
+  // });
+}
+console.log("preLinks");
+console.log(preLinks)
+
+nodes = contributorNodes.concat(senatorNodes);
+
+for (prelink in preLinks){
+
+  //FUCK
+
+  console.log(prelink)
+
+  var sourceIndex = -1;
+  var targetIndex = -1;
+  for(var i = 0; i < nodes.length; ++i){
+    if( preLinks[prelink].source.name == nodes[i].name) sourceIndex = i;
+    if( preLinks[prelink].target.name == nodes[i].name) targetIndex = i;
+  }
+  // var sourceIndex = _.findIndex(nodes, function(node){ return node.name == prelink.source.name});
+  // var targetIndex = _.findIndex(nodes, function(node){ return node.name == prelink.target.name});
+  links.push({source:sourceIndex, target:targetIndex, value:preLinks[prelink].value});
+}
+
+console.log("bloop")
+console.log(nodes);
+console.log(links);
