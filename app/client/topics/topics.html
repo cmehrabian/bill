@@ -1,38 +1,49 @@
 <template name="topics">
 	<nav class="create-topic-navigation center">
-		<h2 class=""> Topics: </h2>
-		<div class="">
-	 		<a href="new"> Create New Topic </a>
-	 	</div>
+		<h2 class=""> Bills: </h2>
+	<div class="">
+		 		<a href="new"> Create New Topic </a>
+		 	</div>
+<!--
+	<div class="">
+		<a href="newpie"> Create New Pie Chart </a>
+	</div>
 
-		<div class="">
-			<a href="newpie"> Create New Pie Chart </a>
-		</div>
-
-		<div class="">
-			<a href="chat"> Chat </a>
-		</div>
+	<div class="">
+		<a href="chat"> Chat </a>
+	</div> -->
 	</nav>
 
  	<div class="knowledge">
-    {{#each topicList}}
+
+		<a href="/view/Hue6tSrrk6kXboBWC">
 			<div class="individual-topic">
-        <a href="view/{{_id}}" class="graphlink"> {{formatBody body}} [by {{username}} : {{getTimeString timestamp}}, Last Updated {{lastPost root_id}}]</a>
+        <h3> HR152<small> Last comment 12:34 04/19/2005 by <a href="/view/Hue6tSrrk6kXboBWC">cmehrabian</a></small> </h3>
+				<small href="/view/Hue6tSrrk6kXboBWC" class="graphlink">
+				Making supplemental appropriations for the fiscal year ending September 30, 2013, to improve and streamline disaster assistance for Hurricane Sandy, and for other purposes.</small>
+				<a href="/view/Hue6tSrrk6kXboBWC">
+				<button class="btn btn-success success" >Discussion</button>
+				</a>
+				<a href="bill">
+				<button class="btn btn-success" float="right" >Sanky Graph</button>
+				</a>
 			</div>
-		{{/each}}
+		</a>
+		<!-- {{#each topicList}}
+		<div class="individual-topic">
+			<a href="view/{{_id}}" class="graphlink"> {{formatBody body}} [by {{username}} : {{getTimeString timestamp}}, Last Updated {{lastPost root_id}}]</a>
+		</div>
+		{{/each}} -->
 	</div>
 	<div id="informative-wrapper">
 		<div>
 			<a href="what"> What am I looking at?</a>
 		</div>
-		<div>
+		<!-- <div>
 			<a href="how"> How do I use it? </a>
-		</div>
+		</div> -->
 	</div>
-
-	{{>bulletinBoard}}
-	<div class="centerImg">
-		<img class="logo-img" src="gadfly_web_black.png" alt="">
-	</div>
+	<hr>
+	
 
 </template>
