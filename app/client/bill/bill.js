@@ -108,7 +108,7 @@ Template.bill.rendered = function(){
   var path = sankey.link();
 
   // d3.json("http://people.ucsc.edu/~cmehrabi/", function(energy) {
-  d3.json('https://gist.githubusercontent.com/cmehrabian/01e1a26a240c562100a8/raw/b21fd2b97a75e0bf72f66cf0738682d8ce1ee6e0/gistfile1.txt', function(energy) {
+  d3.json('https://gist.githubusercontent.com/cmehrabian/01e1a26a240c562100a8/raw/bf579ca034551ed317e7b8ec17dbf36cb967828f/gistfile1.txt', function(energy) {
 
 
     sankey
