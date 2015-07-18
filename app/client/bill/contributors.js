@@ -1,134 +1,297 @@
 
 contributors = {
   "dianne_feinstein": [
-    {
-      "contributor": "PG&E Corp",
-      "total": "$111,200",
-      "indivs": "$108,050",
-      "pacs": "$3,150"
-    },
-    {
-      "contributor": "JStreetPAC",
-      "total": "$82,171",
-      "indivs": "$75,525",
-      "pacs": "$6,646"
-    },
-    {
-      "contributor": "General Atomics",
-      "total": "$56,750",
-      "indivs": "$46,750",
-      "pacs": "$10,000"
-    },
-    {
-      "contributor": "Edison International",
-      "total": "$51,850",
-      "indivs": "$44,250",
-      "pacs": "$7,600"
-    },
-    {
-      "contributor": "General Dynamics",
-      "total": "$45,500",
-      "indivs": "$33,500",
-      "pacs": "$12,000"
-    }
-  ],
-
-  "lamar_alexander": [
-    {
-      "contributor": "International Paper",
-      "total": "$48,950",
-      "indivs": "$38,950",
-      "pacs": "$10,000"
-    },
-    {
-      "contributor": "Blue Cross/Blue Shield",
-      "total": "$41,500",
-      "indivs": "$21,500",
-      "pacs": "$20,000"
-    },
-    {
-      "contributor": "Hercules Holding",
-      "total": "$38,600",
-      "indivs": "$28,600",
-      "pacs": "$10,000"
-    },
-    {
-      "contributor": "Community Health Systems",
-      "total": "$28,850",
-      "indivs": "$23,850",
-      "pacs": "$5,000"
-    },
-    {
-      "contributor": "Comcast Corp",
-      "total": "$27,300",
-      "indivs": "$17,300",
-      "pacs": "$10,000"
-    }
-  ],
-  "max_baucus": [
-    {
-      "contributor": "Express Scripts",
-      "total": "$45,918",
-      "indivs": "$34,418",
-      "pacs": "$11,500"
-    },
-    {
-      "contributor": "Wells Fargo",
-      "total": "$31,700",
-      "indivs": "$26,700",
-      "pacs": "$5,000"
-    },
-    {
-      "contributor": "New York Life Insurance",
-      "total": "$30,050",
-      "indivs": "$25,050",
-      "pacs": "$5,000"
-    },
-    {
-      "contributor": "Fresenius Medical Care",
-      "total": "$28,750",
-      "indivs": "$17,750",
-      "pacs": "$11,000"
-    },
-    {
-      "contributor": "Welsh, Carson et al",
-      "total": "$27,500",
-      "indivs": "$25,000",
-      "pacs": "$2,500"
-    }
-  ],
-  "barbara_boxer": [
-   {
-     "contributor": "EMILY's List",
-     "total": "$369,377",
-     "indivs": "$363,348",
-     "pacs": "$6,029"
-   },
-   {
-     "contributor": "University of California",
-     "total": "$145,690",
-     "indivs": "$145,690",
-     "pacs": "$0"
-   },
-   {
-     "contributor": "21st Century Fox",
-     "total": "$70,200",
-     "indivs": "$67,700",
-     "pacs": "$2,500"
-   },
-   {
-     "contributor": "League of Conservation Voters",
-     "total": "$68,768",
-     "indivs": "$61,660",
-     "pacs": "$7,108"
-   },
-   {
-     "contributor": "Cotchett, Pitre & McCarthy",
-     "total": "$48,650",
-     "indivs": "$48,650",
-     "pacs": "$0"
-   }
- ],
+      {
+        "contributor": "PG&E Corp",
+        "total": "$111,200",
+        "indivs": "$108,050",
+        "pacs": "$3,150"
+      },
+      {
+        "contributor": "JStreetPAC",
+        "total": "$82,171",
+        "indivs": "$75,525",
+        "pacs": "$6,646"
+      },
+      {
+        "contributor": "General Atomics",
+        "total": "$56,750",
+        "indivs": "$46,750",
+        "pacs": "$10,000"
+      },
+      {
+        "contributor": "Edison International",
+        "total": "$51,850",
+        "indivs": "$44,250",
+        "pacs": "$7,600"
+      },
+      {
+        "contributor": "General Dynamics",
+        "total": "$45,500",
+        "indivs": "$33,500",
+        "pacs": "$12,000"
+      },
+      {
+        "contributor": "BAE Systems",
+        "total": "$40,000",
+        "indivs": "$30,000",
+        "pacs": "$10,000"
+      },
+      {
+        "contributor": "Diamond Foods",
+        "total": "$31,599",
+        "indivs": "$21,600",
+        "pacs": "$9,999"
+      },
+      {
+        "contributor": "Intl Alliance Theatrical Stage Employees",
+        "total": "$30,000",
+        "indivs": "$0",
+        "pacs": "$30,000"
+      },
+      {
+        "contributor": "Time Warner",
+        "total": "$28,224",
+        "indivs": "$23,724",
+        "pacs": "$4,500"
+      },
+      {
+        "contributor": "Walt Disney Co",
+        "total": "$28,150",
+        "indivs": "$18,650",
+        "pacs": "$9,500"
+      },
+      {
+        "contributor": "Holland & Knight",
+        "total": "$27,850",
+        "indivs": "$14,850",
+        "pacs": "$13,000"
+      },
+      {
+        "contributor": "Wells Fargo",
+        "total": "$27,250",
+        "indivs": "$17,250",
+        "pacs": "$10,000"
+      },
+      {
+        "contributor": "Akin, Gump et al",
+        "total": "$26,750",
+        "indivs": "$21,750",
+        "pacs": "$5,000"
+      },
+      {
+        "contributor": "University of California",
+        "total": "$26,272",
+        "indivs": "$26,272",
+        "pacs": "$0"
+      },
+      {
+        "contributor": "Northrop Grumman",
+        "total": "$25,800",
+        "indivs": "$20,800",
+        "pacs": "$5,000"
+      },
+      {
+        "contributor": "Manatt, Phelps & Phillips",
+        "total": "$22,750",
+        "indivs": "$18,750",
+        "pacs": "$4,000"
+      },
+      {
+        "contributor": "DISH Network",
+        "total": "$22,500",
+        "indivs": "$12,500",
+        "pacs": "$10,000"
+      },
+      {
+        "contributor": "THL Partners",
+        "total": "$22,359",
+        "indivs": "$17,359",
+        "pacs": "$5,000"
+      },
+      {
+        "contributor": "Sony Corp",
+        "total": "$21,950",
+        "indivs": "$12,950",
+        "pacs": "$9,000"
+      },
+      {
+        "contributor": "Girardi & Keese",
+        "total": "$21,600",
+        "indivs": "$21,600",
+        "pacs": "$0"
+      },
+      {
+        "contributor": "Munger, Tolles & Olson",
+        "total": "$21,600",
+        "indivs": "$21,600",
+        "pacs": "$0"
+      }
+    ],
+    "max_baucus": [
+      {
+        "contributors": "New York Life Insurance",
+        "total": "$113,925"
+      },
+      {
+        "contributors": "Goldman Sachs",
+        "total": "$93,750"
+      },
+      {
+        "contributors": "Wells Fargo",
+        "total": "$93,150"
+      },
+      {
+        "contributors": "American International Group",
+        "total": "$86,000"
+      },
+      {
+        "contributors": "Ernst & Young",
+        "total": "$83,811"
+      },
+      {
+        "contributors": "Blue Cross/Blue Shield",
+        "total": "$81,049"
+      },
+      {
+        "contributors": "Akin, Gump et al",
+        "total": "$80,486"
+      },
+      {
+        "contributors": "Aetna Inc",
+        "total": "$74,750"
+      },
+      {
+        "contributors": "DaVita HealthCare Partners",
+        "total": "$73,600"
+      },
+      {
+        "contributors": "Schering-Plough Corp",
+        "total": "$73,200"
+      },
+      {
+        "contributors": "JPMorgan Chase & Co",
+        "total": "$72,452"
+      },
+      {
+        "contributors": "Morgan Stanley",
+        "total": "$68,000"
+      },
+      {
+        "contributors": "Citigroup Inc",
+        "total": "$65,500"
+      },
+      {
+        "contributors": "General Electric",
+        "total": "$64,650"
+      },
+      {
+        "contributors": "K&L Gates",
+        "total": "$63,900"
+      },
+      {
+        "contributors": "Express Scripts",
+        "total": "$61,418"
+      },
+      {
+        "contributors": "Time Warner",
+        "total": "$60,016"
+      },
+      {
+        "contributors": "Verizon Communications",
+        "total": "$56,701"
+      },
+      {
+        "contributors": "Amgen Inc",
+        "total": "$56,250"
+      },
+      {
+        "contributors": "Walt Disney Co",
+        "total": "$55,200"
+      }
+    ],
+    "barbara_boxer": [
+      {
+        "contributor": "EMILY's List",
+        "total": "$369,377"
+      },
+      {
+        "contributor": "University of California",
+        "total": "$145,690"
+      },
+      {
+        "contributor": "21st Century Fox",
+        "total": "$70,200"
+      },
+      {
+        "contributor": "League of Conservation Voters",
+        "total": "$68,768"
+      },
+      {
+        "contributor": "Cotchett, Pitre & McCarthy",
+        "total": "$48,650"
+      },
+      {
+        "contributor": "Time Warner",
+        "total": "$46,350"
+      },
+      {
+        "contributor": "Stanford University",
+        "total": "$40,200"
+      },
+      {
+        "contributor": "Susman Godfrey LLP",
+        "total": "$39,950"
+      },
+      {
+        "contributor": "Cisco Systems",
+        "total": "$39,001"
+      },
+      {
+        "contributor": "Kaiser Permanente",
+        "total": "$34,805"
+      },
+      {
+        "contributor": "University of Southern California",
+        "total": "$34,645"
+      },
+      {
+        "contributor": "State of California",
+        "total": "$32,840"
+      },
+      {
+        "contributor": "Oracle Corp",
+        "total": "$29,870"
+      },
+      {
+        "contributor": "Avery Dennison Corp",
+        "total": "$27,550"
+      },
+      {
+        "contributor": "AG Spanos Companies",
+        "total": "$26,000"
+      },
+      {
+        "contributor": "Latham & Watkins",
+        "total": "$25,950"
+      },
+      {
+        "contributor": "Waters & Kraus",
+        "total": "$25,950"
+      },
+      {
+        "contributor": "Google Inc",
+        "total": "$25,390"
+      },
+      {
+        "contributor": "Baron & Budd",
+        "total": "$24,900"
+      },
+      {
+        "contributor": "O'Melveny & Myers",
+        "total": "$24,200"
+      }
+    ],
  "maria_cantwell": [
     {
       "contributor": "Microsoft Corp",
@@ -674,9 +837,3 @@ contributors = {
     }
   ]
 }
-
-
-console.log("bloop")
-console.log(nodes);
-console.log(links);
-console.log(senators);
