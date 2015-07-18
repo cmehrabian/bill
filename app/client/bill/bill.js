@@ -66,9 +66,21 @@ Template.bill.rendered = function(){
     // console.log('{"nodes":[\n' + str + '\n]}');
     // window.json_string = ('{"nodes":[\n' + json_string + '\n]}');
     // console.log(json_string);
-    // console.log('{"nodes":[\n' + json_string + '\n]}');
+    // console.log('{"nodes":[\n' + json_string + '\n]}')
+    var yays = [], nays = [];
+
+    senators.objects.forEach(function(senator){
+      if(senator.thump.vote === "Yea"){
+        yays.push(senator)
+      } else if (senator.thump.vote === "Nay") {
+        nays.push(senator)
+      }
+    });
+    console.log("Yays : " + yays.length, "Nays : " + nays.length);
 
   });
+
+
 
   var margin = {top: 1, right: 1, bottom: 6, left: 1},
     width = 960 - margin.left - margin.right,
@@ -92,7 +104,7 @@ Template.bill.rendered = function(){
   var path = sankey.link();
 
   // d3.json("http://people.ucsc.edu/~cmehrabi/", function(energy) {
-  d3.json('https://gist.githubusercontent.com/cmehrabian/01e1a26a240c562100a8/raw/924f6d98298d030ac874665e739489778bbd52e5/gistfile1.txt', function(energy) {
+  d3.json('http://bost.ocks.org/mike/sankey/energy.json', function(energy) {
 
 
     sankey
@@ -105,7 +117,11 @@ Template.bill.rendered = function(){
       .enter().append("path")
         .attr("class", "link")
         .attr("d", path)
-        .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+        .style("stroke-width", function(d) {
+          console.log(d);
+          console.log(d.dy);
+          return Math.max(1, d.dy);
+        })
         .sort(function(a, b) { return b.dy - a.dy; });
 
     link.append("title")
