@@ -2,6 +2,12 @@ Router.configure({
    layoutTemplate: 'layout'
  });
 
+//thumpr for republicans hackathon code:
+Router.route('/bill', function () {
+  this.render('bill');
+});
+
+
 Router.route('/', function () {
   this.render('topics');
 });
@@ -30,7 +36,7 @@ Router.route("what", function () {
 	this.render("what");
 });
 
-Router.route("how", function () { 
+Router.route("how", function () {
 	this.render("how");
 });
 
