@@ -320,5 +320,357 @@ contributors = {
       "indivs": "$44,850",
       "pacs": "$10,000"
     }
+  ],
+  "roy_blunt": [
+   {
+     "contributor": "Crawford Group",
+     "total": "$120,550",
+     "indivs": "$105,550",
+     "pacs": "$15,000"
+   },
+   {
+     "contributor": "Elliott Management",
+     "total": "$95,442",
+     "indivs": "$95,442",
+     "pacs": "$0"
+   },
+   {
+     "contributor": "Goldman Sachs",
+     "total": "$92,192",
+     "indivs": "$72,692",
+     "pacs": "$19,500"
+   },
+   {
+     "contributor": "Northwestern Mutual",
+     "total": "$88,200",
+     "indivs": "$70,700",
+     "pacs": "$17,500"
+   },
+   {
+     "contributor": "Jones Financial Companies",
+     "total": "$85,900",
+     "indivs": "$65,900",
+     "pacs": "$20,000"
+   }
+ ],
+ "john_boozman": [
+    {
+      "contributors": "Wal-Mart Stores",
+      "total": "$63,650",
+      "indivs": "$49,150",
+      "pacs": "$14,500"
+    },
+    {
+      "contributors": "Elliott Management",
+      "total": "$43,346",
+      "indivs": "$43,346",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Stephens Group",
+      "total": "$38,400",
+      "indivs": "$33,400",
+      "pacs": "$5,000"
+    },
+    {
+      "contributors": "Arvest Bank Group",
+      "total": "$29,600",
+      "indivs": "$13,600",
+      "pacs": "$16,000"
+    },
+    {
+      "contributors": "AT&T Inc",
+      "total": "$25,750",
+      "indivs": "$250",
+      "pacs": "$25,500"
+    }
+  ],
+  "richard_burr": [
+    {
+      "contributors": "New Breed Inc",
+      "total": "$82,300",
+      "indivs": "$82,300",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Reynolds American",
+      "total": "$74,551",
+      "indivs": "$64,601",
+      "pacs": "$9,950"
+    },
+    {
+      "contributors": "Scana Corp",
+      "total": "$58,074",
+      "indivs": "$51,075",
+      "pacs": "$6,999"
+    },
+    {
+      "contributors": "Duke Energy",
+      "total": "$51,771",
+      "indivs": "$47,771",
+      "pacs": "$4,000"
+    },
+    {
+      "contributors": "Womble, Carlyle et al",
+      "total": "$49,927",
+      "indivs": "$41,427",
+      "pacs": "$8,500"
+    }
+  ],
+  "john_isakson": [
+    {
+      "contributors": "Coca-Cola Co",
+      "total": "$53,500",
+      "indivs": "$31,500",
+      "pacs": "$22,000"
+    },
+    {
+      "contributors": "Realogy Corp",
+      "total": "$49,950",
+      "indivs": "$37,950",
+      "pacs": "$12,000"
+    },
+    {
+      "contributors": "Synovus Financial Corp",
+      "total": "$36,900",
+      "indivs": "$14,900",
+      "pacs": "$22,000"
+    },
+    {
+      "contributors": "Home Depot",
+      "total": "$36,800",
+      "indivs": "$31,800",
+      "pacs": "$5,000"
+    },
+    {
+      "contributors": "AFLAC Inc",
+      "total": "$33,500",
+      "indivs": "$31,500",
+      "pacs": "$2,000"
+    }
+  ],
+  "mark_kirk": [
+    {
+      "contributors": "Kirkland & Ellis",
+      "total": "$145,368",
+      "indivs": "$141,034",
+      "pacs": "$4,334"
+    },
+    {
+      "contributors": "Citadel LLC",
+      "total": "$126,700",
+      "indivs": "$126,700",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "NorPAC",
+      "total": "$111,585",
+      "indivs": "$107,781",
+      "pacs": "$3,804"
+    },
+    {
+      "contributors": "Elliott Management",
+      "total": "$105,950",
+      "indivs": "$105,950",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Madison Dearborn Partners",
+      "total": "$103,400",
+      "indivs": "$103,400",
+      "pacs": "$0"
+    }
+  ],
+  "jerry_moran": [
+    {
+      "contributors": "Koch Industries",
+      "total": "$42,050",
+      "indivs": "$32,050",
+      "pacs": "$10,000"
+    },
+    {
+      "contributors": "Watco Companies",
+      "total": "$41,500",
+      "indivs": "$41,500",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "CME Group",
+      "total": "$40,600",
+      "indivs": "$20,600",
+      "pacs": "$20,000"
+    },
+    {
+      "contributors": "Polsinelli PC",
+      "total": "$30,950",
+      "indivs": "$22,450",
+      "pacs": "$8,500"
+    },
+    {
+      "contributors": "Hallmark Cards",
+      "total": "$30,400",
+      "indivs": "$19,400",
+      "pacs": "$11,000"
+    }
+  ],
+  "patrick_toomey": [
+   {
+     "contributors": "Club for Growth",
+     "total": "$860,441",
+     "indivs": "$851,218",
+     "pacs": "$9,223"
+   },
+   {
+     "contributors": "Elliott Management",
+     "total": "$115,438",
+     "indivs": "$115,438",
+     "pacs": "$0"
+   },
+   {
+     "contributors": "Federated Investors Inc",
+     "total": "$82,100",
+     "indivs": "$74,100",
+     "pacs": "$8,000"
+   },
+   {
+     "contributors": "Rothman Institute",
+     "total": "$72,840",
+     "indivs": "$72,840",
+     "pacs": "$0"
+   },
+   {
+     "contributors": "Martins Famous Pastry Shoppe",
+     "total": "$68,600",
+     "indivs": "$68,600",
+     "pacs": "$0"
+   }
+ ],
+ "david_vitter": [
+    {
+      "contributors": "Murray Energy",
+      "total": "$39,823",
+      "indivs": "$24,823",
+      "pacs": "$15,000"
+    },
+    {
+      "contributors": "Jones Walker LLP",
+      "total": "$32,550",
+      "indivs": "$26,050",
+      "pacs": "$6,500"
+    },
+    {
+      "contributors": "Mockler Beverage",
+      "total": "$29,900",
+      "indivs": "$29,900",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Chevron Corp",
+      "total": "$29,800",
+      "indivs": "$19,800",
+      "pacs": "$10,000"
+    },
+    {
+      "contributors": "Edison Chouest Offshore",
+      "total": "$25,200",
+      "indivs": "$25,200",
+      "pacs": "$0"
+    }
+  ],
+  "charles_grassley": [
+    {
+      "contributors": "Leon Medical Centers",
+      "total": "$34,600",
+      "indivs": "$34,600",
+      "pacs": "$0"
+    },
+    {
+      "contributors": "Berkshire Hathaway",
+      "total": "$30,700",
+      "indivs": "$9,700",
+      "pacs": "$21,000"
+    },
+    {
+      "contributors": "Chevron Corp",
+      "total": "$29,600",
+      "indivs": "$19,600",
+      "pacs": "$10,000"
+    },
+    {
+      "contributors": "Blue Cross/Blue Shield",
+      "total": "$29,500",
+      "indivs": "$19,500",
+      "pacs": "$10,000"
+    },
+    {
+      "contributors": "Intellectual Ventures LLC",
+      "total": "$22,000",
+      "indivs": "$22,000",
+      "pacs": "$0"
+    }
+  ],
+  "patrick_leahy": [
+    {
+      "contributor": "Girardi & Keese",
+      "total": "$95,864",
+      "indivs": "$95,864",
+      "pacs": "$0"
+    },
+    {
+      "contributor": "Time Warner",
+      "total": "$73,850",
+      "indivs": "$59,850",
+      "pacs": "$14,000"
+    },
+    {
+      "contributor": "Walt Disney Co",
+      "total": "$54,900",
+      "indivs": "$39,900",
+      "pacs": "$15,000"
+    },
+    {
+      "contributor": "National Amusements Inc",
+      "total": "$44,350",
+      "indivs": "$31,350",
+      "pacs": "$13,000"
+    },
+    {
+      "contributor": "Vivendi",
+      "total": "$37,206",
+      "indivs": "$34,206",
+      "pacs": "$3,000"
+    }
+  ],
+  "john_mccain": [
+    {
+      "contributor": "Girardi & Keese",
+      "total": "$95,864",
+      "indivs": "$95,864",
+      "pacs": "$0"
+    },
+    {
+      "contributor": "Time Warner",
+      "total": "$73,850",
+      "indivs": "$59,850",
+      "pacs": "$14,000"
+    },
+    {
+      "contributor": "Walt Disney Co",
+      "total": "$54,900",
+      "indivs": "$39,900",
+      "pacs": "$15,000"
+    },
+    {
+      "contributor": "National Amusements Inc",
+      "total": "$44,350",
+      "indivs": "$31,350",
+      "pacs": "$13,000"
+    },
+    {
+      "contributor": "Vivendi",
+      "total": "$37,206",
+      "indivs": "$34,206",
+      "pacs": "$3,000"
+    }
   ]
 }
