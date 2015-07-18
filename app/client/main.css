@@ -196,6 +196,28 @@ select:hover {
 	z-index:1;
 }
 
+#infobox
+{
+	text-align: center;
+	z-index: -1;
+	overflow-y: auto;
+}
+
+
+#hover {
+	font-family: Palatino, 'Palatino Linotype', 'Palatino LT STD', 'Book Antiqua', Georgia, serif;
+  box-shadow: 5px 5px 3px #888888;
+  border-radius: 20px;
+
+	background-color: rgba(0, 1, 0, 0.08);
+	padding: 5px;
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+	z-index: -1;
+}
+
 .viewer-padding {
 	position:relative;
 	margin-left:20px;
