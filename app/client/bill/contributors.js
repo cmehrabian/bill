@@ -292,38 +292,88 @@ contributors = {
         "total": "$24,200"
       }
     ],
- "maria_cantwell": [
-    {
-      "contributor": "Microsoft Corp",
-      "total": "$108,474",
-      "indivs": "$108,474",
-      "pacs": "$0"
-    },
-    {
-      "contributor": "EMILY's List",
-      "total": "$81,450",
-      "indivs": "$81,450",
-      "pacs": "$0"
-    },
-    {
-      "contributor": "League of Conservation Voters",
-      "total": "$43,950",
-      "indivs": "$43,950",
-      "pacs": "$0"
-    },
-    {
-      "contributor": "University of Washington",
-      "total": "$43,237",
-      "indivs": "$43,237",
-      "pacs": "$0"
-    },
-    {
-      "contributor": "Morgan & Morgan",
-      "total": "$40,200",
-      "indivs": "$40,200",
-      "pacs": "$0"
-    }
-  ],
+    "maria_cantwell": [
+       {
+         "contributor": "Microsoft Corp",
+         "total": "$108,474"
+       },
+       {
+         "contributor": "EMILY's List",
+         "total": "$81,450"
+       },
+       {
+         "contributor": "League of Conservation Voters",
+         "total": "$43,950"
+       },
+       {
+         "contributor": "University of Washington",
+         "total": "$43,237"
+       },
+       {
+         "contributor": "Morgan & Morgan",
+         "total": "$40,200"
+       },
+       {
+         "contributor": "Boeing Co",
+         "total": "$35,325"
+       },
+       {
+         "contributor": "K&L Gates",
+         "total": "$33,398"
+       },
+       {
+         "contributor": "Intellectual Ventures LLC",
+         "total": "$29,250"
+       },
+       {
+         "contributor": "WPP Group",
+         "total": "$29,000"
+       },
+       {
+         "contributor": "McBee Strategic Consulting",
+         "total": "$28,150"
+       },
+       {
+         "contributor": "Susman Godfrey LLP",
+         "total": "$25,000"
+       },
+       {
+         "contributor": "Squire Patton Boggs",
+         "total": "$23,875"
+       },
+       {
+         "contributor": "Proliance Surgeons",
+         "total": "$23,550"
+       },
+       {
+         "contributor": "Bill & Melinda Gates Foundation",
+         "total": "$22,525"
+       },
+       {
+         "contributor": "Bergman, Draper et al",
+         "total": "$22,450"
+       },
+       {
+         "contributor": "Zillow Inc",
+         "total": "$21,500"
+       },
+       {
+         "contributor": "Costco Wholesale",
+         "total": "$21,450"
+       },
+       {
+         "contributor": "Denny Miller Assoc",
+         "total": "$21,150"
+       },
+       {
+         "contributor": "Carnival Corp",
+         "total": "$20,250"
+       },
+       {
+         "contributor": "Puget Equico",
+         "total": "$20,200"
+       }
+     ],
   "saxby_chambliss": [
     {
       "contributor": "Aetna Inc",
