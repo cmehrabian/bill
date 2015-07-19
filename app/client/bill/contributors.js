@@ -292,38 +292,88 @@ contributors = {
         "total": "$24,200"
       }
     ],
- "maria_cantwell": [
-    {
-      "contributor": "Microsoft Corp",
-      "total": "$108,474",
-      "indivs": "$108,474",
-      "pacs": "$0"
-    },
-    {
-      "contributor": "EMILY's List",
-      "total": "$81,450",
-      "indivs": "$81,450",
-      "pacs": "$0"
-    },
-    {
-      "contributor": "League of Conservation Voters",
-      "total": "$43,950",
-      "indivs": "$43,950",
-      "pacs": "$0"
-    },
-    {
-      "contributor": "University of Washington",
-      "total": "$43,237",
-      "indivs": "$43,237",
-      "pacs": "$0"
-    },
-    {
-      "contributor": "Morgan & Morgan",
-      "total": "$40,200",
-      "indivs": "$40,200",
-      "pacs": "$0"
-    }
-  ],
+    "maria_cantwell": [
+       {
+         "contributor": "Microsoft Corp",
+         "total": "$108,474"
+       },
+       {
+         "contributor": "EMILY's List",
+         "total": "$81,450"
+       },
+       {
+         "contributor": "League of Conservation Voters",
+         "total": "$43,950"
+       },
+       {
+         "contributor": "University of Washington",
+         "total": "$43,237"
+       },
+       {
+         "contributor": "Morgan & Morgan",
+         "total": "$40,200"
+       },
+       {
+         "contributor": "Boeing Co",
+         "total": "$35,325"
+       },
+       {
+         "contributor": "K&L Gates",
+         "total": "$33,398"
+       },
+       {
+         "contributor": "Intellectual Ventures LLC",
+         "total": "$29,250"
+       },
+       {
+         "contributor": "WPP Group",
+         "total": "$29,000"
+       },
+       {
+         "contributor": "McBee Strategic Consulting",
+         "total": "$28,150"
+       },
+       {
+         "contributor": "Susman Godfrey LLP",
+         "total": "$25,000"
+       },
+       {
+         "contributor": "Squire Patton Boggs",
+         "total": "$23,875"
+       },
+       {
+         "contributor": "Proliance Surgeons",
+         "total": "$23,550"
+       },
+       {
+         "contributor": "Bill & Melinda Gates Foundation",
+         "total": "$22,525"
+       },
+       {
+         "contributor": "Bergman, Draper et al",
+         "total": "$22,450"
+       },
+       {
+         "contributor": "Zillow Inc",
+         "total": "$21,500"
+       },
+       {
+         "contributor": "Costco Wholesale",
+         "total": "$21,450"
+       },
+       {
+         "contributor": "Denny Miller Assoc",
+         "total": "$21,150"
+       },
+       {
+         "contributor": "Carnival Corp",
+         "total": "$20,250"
+       },
+       {
+         "contributor": "Puget Equico",
+         "total": "$20,200"
+       }
+     ],
   "saxby_chambliss": [
     {
       "contributor": "Aetna Inc",
@@ -906,134 +956,334 @@ contributors = {
         "total": "$13,319"
       }
     ],
-  "richard_burr": [
-    {
-      "contributors": "New Breed Inc",
-      "total": "$82,300",
-      "indivs": "$82,300",
-      "pacs": "$0"
-    },
-    {
-      "contributors": "Reynolds American",
-      "total": "$74,551",
-      "indivs": "$64,601",
-      "pacs": "$9,950"
-    },
-    {
-      "contributors": "Scana Corp",
-      "total": "$58,074",
-      "indivs": "$51,075",
-      "pacs": "$6,999"
-    },
-    {
-      "contributors": "Duke Energy",
-      "total": "$51,771",
-      "indivs": "$47,771",
-      "pacs": "$4,000"
-    },
-    {
-      "contributors": "Womble, Carlyle et al",
-      "total": "$49,927",
-      "indivs": "$41,427",
-      "pacs": "$8,500"
-    }
-  ],
-  "john_isakson": [
-    {
-      "contributors": "Coca-Cola Co",
-      "total": "$53,500",
-      "indivs": "$31,500",
-      "pacs": "$22,000"
-    },
-    {
-      "contributors": "Realogy Corp",
-      "total": "$49,950",
-      "indivs": "$37,950",
-      "pacs": "$12,000"
-    },
-    {
-      "contributors": "Synovus Financial Corp",
-      "total": "$36,900",
-      "indivs": "$14,900",
-      "pacs": "$22,000"
-    },
-    {
-      "contributors": "Home Depot",
-      "total": "$36,800",
-      "indivs": "$31,800",
-      "pacs": "$5,000"
-    },
-    {
-      "contributors": "AFLAC Inc",
-      "total": "$33,500",
-      "indivs": "$31,500",
-      "pacs": "$2,000"
-    }
-  ],
-  "mark_kirk": [
-    {
-      "contributors": "Kirkland & Ellis",
-      "total": "$145,368",
-      "indivs": "$141,034",
-      "pacs": "$4,334"
-    },
-    {
-      "contributors": "Citadel LLC",
-      "total": "$126,700",
-      "indivs": "$126,700",
-      "pacs": "$0"
-    },
-    {
-      "contributors": "NorPAC",
-      "total": "$111,585",
-      "indivs": "$107,781",
-      "pacs": "$3,804"
-    },
-    {
-      "contributors": "Elliott Management",
-      "total": "$105,950",
-      "indivs": "$105,950",
-      "pacs": "$0"
-    },
-    {
-      "contributors": "Madison Dearborn Partners",
-      "total": "$103,400",
-      "indivs": "$103,400",
-      "pacs": "$0"
-    }
-  ],
-  "jerry_moran": [
-    {
-      "contributors": "Koch Industries",
-      "total": "$42,050",
-      "indivs": "$32,050",
-      "pacs": "$10,000"
-    },
-    {
-      "contributors": "Watco Companies",
-      "total": "$41,500",
-      "indivs": "$41,500",
-      "pacs": "$0"
-    },
-    {
-      "contributors": "CME Group",
-      "total": "$40,600",
-      "indivs": "$20,600",
-      "pacs": "$20,000"
-    },
-    {
-      "contributors": "Polsinelli PC",
-      "total": "$30,950",
-      "indivs": "$22,450",
-      "pacs": "$8,500"
-    },
-    {
-      "contributors": "Hallmark Cards",
-      "total": "$30,400",
-      "indivs": "$19,400",
-      "pacs": "$11,000"
-    }
-  ],
+    "richard_burr": [
+      {
+        "contributor": "New Breed Inc",
+        "total": "$82,300"
+      },
+      {
+        "contributor": "Reynolds American",
+        "total": "$74,551"
+      },
+      {
+        "contributor": "Scana Corp",
+        "total": "$58,074"
+      },
+      {
+        "contributor": "Duke Energy",
+        "total": "$51,771"
+      },
+      {
+        "contributor": "Womble, Carlyle et al",
+        "total": "$49,927"
+      },
+      {
+        "contributor": "Wells Fargo",
+        "total": "$43,740"
+      },
+      {
+        "contributor": "Bank of America",
+        "total": "$37,020"
+      },
+      {
+        "contributor": "Lowe's Companies",
+        "total": "$34,600"
+      },
+      {
+        "contributor": "Northwestern Mutual",
+        "total": "$31,220"
+      },
+      {
+        "contributor": "Triangle Orthopaedic Assoc",
+        "total": "$31,200"
+      },
+      {
+        "contributor": "BB&T Corp",
+        "total": "$29,902"
+      },
+      {
+        "contributor": "FMR Corp",
+        "total": "$27,100"
+      },
+      {
+        "contributor": "Altria Group",
+        "total": "$27,000"
+      },
+      {
+        "contributor": "Merck & Co",
+        "total": "$26,550"
+      },
+      {
+        "contributor": "Wfu Baptist Medical Center",
+        "total": "$26,190"
+      },
+      {
+        "contributor": "Association for Advanced Life Underwriting",
+        "total": "$25,200"
+      },
+      {
+        "contributor": "Murray Energy",
+        "total": "$25,076"
+      },
+      {
+        "contributor": "Blue Cross/Blue Shield",
+        "total": "$24,700"
+      },
+      {
+        "contributor": "USAA",
+        "total": "$24,500"
+      },
+      {
+        "contributor": "WPP Group",
+        "total": "$23,250"
+      }
+    ],
+    "john_isakson": [
+      {
+        "contributor": "Coca-Cola Co",
+        "total": "$53,500"
+      },
+      {
+        "contributor": "Realogy Corp",
+        "total": "$49,950"
+      },
+      {
+        "contributor": "Synovus Financial Corp",
+        "total": "$36,900"
+      },
+      {
+        "contributor": "Home Depot",
+        "total": "$36,800"
+      },
+      {
+        "contributor": "AFLAC Inc",
+        "total": "$33,500"
+      },
+      {
+        "contributor": "Cox Enterprises",
+        "total": "$32,900"
+      },
+      {
+        "contributor": "Publix Super Markets",
+        "total": "$30,600"
+      },
+      {
+        "contributor": "King & Spalding",
+        "total": "$25,950"
+      },
+      {
+        "contributor": "DaVita HealthCare Partners",
+        "total": "$24,000"
+      },
+      {
+        "contributor": "Ed Voyles Automotive Group",
+        "total": "$22,500"
+      },
+      {
+        "contributor": "McKenna, Long & Aldridge",
+        "total": "$22,000"
+      },
+      {
+        "contributor": "Alston & Bird",
+        "total": "$21,800"
+      },
+      {
+        "contributor": "Southern Co",
+        "total": "$21,650"
+      },
+      {
+        "contributor": "Metlife Inc",
+        "total": "$20,750"
+      },
+      {
+        "contributor": "Delta Air Lines",
+        "total": "$20,680"
+      },
+      {
+        "contributor": "FedEx Corp",
+        "total": "$20,550"
+      },
+      {
+        "contributor": "Common Values PAC",
+        "total": "$20,000"
+      },
+      {
+        "contributor": "National Assn of Realtors",
+        "total": "$20,000"
+      },
+      {
+        "contributor": "Republican Majority Fund",
+        "total": "$20,000"
+      },
+      {
+        "contributor": "Blue Cross/Blue Shield",
+        "total": "$19,900"
+      }
+    ],
+    "mark_kirk": [
+      {
+        "contributor": "Kirkland & Ellis",
+        "total": "$145,368"
+      },
+      {
+        "contributor": "Citadel LLC",
+        "total": "$126,700"
+      },
+      {
+        "contributor": "NorPAC",
+        "total": "$111,585"
+      },
+      {
+        "contributor": "Elliott Management",
+        "total": "$105,950"
+      },
+      {
+        "contributor": "Madison Dearborn Partners",
+        "total": "$103,400"
+      },
+      {
+        "contributor": "Highfields Capital Management",
+        "total": "$83,800"
+      },
+      {
+        "contributor": "Medline Industries",
+        "total": "$68,600"
+      },
+      {
+        "contributor": "Exelon Corp",
+        "total": "$63,300"
+      },
+      {
+        "contributor": "Grosvenor Capital Management",
+        "total": "$59,100"
+      },
+      {
+        "contributor": "Kasowitz, Benson et al",
+        "total": "$57,500"
+      },
+      {
+        "contributor": "JPMorgan Chase & Co",
+        "total": "$54,525"
+      },
+      {
+        "contributor": "Baxter International",
+        "total": "$52,150"
+      },
+      {
+        "contributor": "SEI Corp",
+        "total": "$49,400"
+      },
+      {
+        "contributor": "Equitec Proprietary Markets",
+        "total": "$48,400"
+      },
+      {
+        "contributor": "GTCR LLC",
+        "total": "$48,400"
+      },
+      {
+        "contributor": "Hollister Inc",
+        "total": "$48,300"
+      },
+      {
+        "contributor": "Greenberg Traurig LLP",
+        "total": "$45,209"
+      },
+      {
+        "contributor": "Mazzetta Co",
+        "total": "$43,300"
+      },
+      {
+        "contributor": "Abbott Laboratories",
+        "total": "$42,650"
+      },
+      {
+        "contributor": "Crawford Group",
+        "total": "$42,250"
+      }
+    ],
+    "jerry_moran": [
+        {
+          "contributor": "Koch Industries",
+          "total": "$42,050"
+        },
+        {
+          "contributor": "Watco Companies",
+          "total": "$41,500"
+        },
+        {
+          "contributor": "CME Group",
+          "total": "$40,600"
+        },
+        {
+          "contributor": "Polsinelli PC",
+          "total": "$30,950"
+        },
+        {
+          "contributor": "Hallmark Cards",
+          "total": "$30,400"
+        },
+        {
+          "contributor": "Deloitte LLP",
+          "total": "$30,000"
+        },
+        {
+          "contributor": "Kansas City Southern",
+          "total": "$28,626"
+        },
+        {
+          "contributor": "Ciciora Custom Homes",
+          "total": "$26,800"
+        },
+        {
+          "contributor": "Berkshire Hathaway",
+          "total": "$25,700"
+        },
+        {
+          "contributor": "Amgen Inc",
+          "total": "$20,250"
+        },
+        {
+          "contributor": "Bartlett Grain",
+          "total": "$19,900"
+        },
+        {
+          "contributor": "California Rice Industry Assn",
+          "total": "$19,367"
+        },
+        {
+          "contributor": "Cerner Corp",
+          "total": "$17,750"
+        },
+        {
+          "contributor": "Rain & Hail Insurance Society",
+          "total": "$17,500"
+        },
+        {
+          "contributor": "First National Bank",
+          "total": "$17,150"
+        },
+        {
+          "contributor": "Union Pacific Corp",
+          "total": "$17,000"
+        },
+        {
+          "contributor": "McCarthy Auto Group",
+          "total": "$16,300"
+        },
+        {
+          "contributor": "Common Values PAC",
+          "total": "$16,000"
+        },
+        {
+          "contributor": "American Trucking Assns",
+          "total": "$15,900"
+        },
+        {
+          "contributor": "Goldman Sachs",
+          "total": "$15,750"
+        }
+      ],
   "patrick_toomey": [
     {
       "contributor": "Club for Growth",
