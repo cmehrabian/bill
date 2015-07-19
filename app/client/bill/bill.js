@@ -14,8 +14,6 @@ Template.bill.rendered = function(){
   nodes = [];
   links =[];
 
-
-
   $.getJSON('https://www.govtrack.us/api/v2/vote_voter?vote=113155', function(data) {
     senators = data;
     // delete senators['meta'];
@@ -167,13 +165,13 @@ console.log(links);
           .attr("width", sankey.nodeWidth())
           .style("fill", function(d) {
             if (!d.vote) return d.color = color(d.name.replace(/ .*/, ""))
-            else if (d.vote == "Yea") return d.color = "blue";
-            else if (d.vote == "Nay") return d.color = "red";
+            else if (d.vote == "Yea") return d.color = "green";
+            else if (d.vote == "Nay") return d.color = "#DA4545";
             else return d.color = "gray";
           })
           .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
         .append("title")
-          .text(function(d) { return d.name + "\n" + format(d.value); });
+          .text(function(d) { return d.vote });
 
       node.append("text")
           .attr("x", -6)
