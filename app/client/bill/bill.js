@@ -14,8 +14,6 @@ Template.bill.rendered = function(){
   nodes = [];
   links =[];
 
-
-
   $.getJSON('https://www.govtrack.us/api/v2/vote_voter?vote=113155', function(data) {
     senators = data;
     // delete senators['meta'];
@@ -67,7 +65,13 @@ Template.bill.rendered = function(){
       senatorNodes.push(sen);
 
       contributors[senator].forEach(function(e){
-        var node_index = _.find(contributorNodes, function(node){ return node.name == e.contributors});
+        var node_index = _.find(contributorNodes, function(node){
+          if(e.contributor)
+            return node.name == e.contributor;
+          if(e.contribtors)
+            return node.name == e.contributors;
+        });
+        
         if(! node_index){
           var obj = e;
           if(obj.contributors)
@@ -104,11 +108,13 @@ Template.bill.rendered = function(){
       // var sourceIndex = _.findIndex(nodes, function(node){ return node.name == prelink.source.name});
       // var targetIndex = _.findIndex(nodes, function(node){ return node.name == prelink.target.name});
       links.push({source:sourceIndex, target:targetIndex, value:preLinks[prelink].value});
-      console.log(links);
 
     }
+    console.log("yo")
 console.log(nodes);
 console.log(links);
+
+console.log(_.where(nodes, {name:"Sony Corp"}))
 
     var margin = {top: 1, right: 1, bottom: 6, left: 1},
       width = 1220 - margin.left - margin.right,
@@ -167,13 +173,13 @@ console.log(links);
           .attr("width", sankey.nodeWidth())
           .style("fill", function(d) {
             if (!d.vote) return d.color = color(d.name.replace(/ .*/, ""))
-            else if (d.vote == "Yea") return d.color = "blue";
-            else if (d.vote == "Nay") return d.color = "red";
+            else if (d.vote == "Yea") return d.color = "green";
+            else if (d.vote == "Nay") return d.color = "#DA4545";
             else return d.color = "gray";
           })
           .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
         .append("title")
-          .text(function(d) { return d.name + "\n" + format(d.value); });
+          .text(function(d) { return d.vote });
 
       node.append("text")
           .attr("x", -6)
