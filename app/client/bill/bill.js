@@ -16,12 +16,8 @@ Template.bill.rendered = function(){
 
   $.getJSON('https://www.govtrack.us/api/v2/vote_voter?vote=113155', function(data) {
     senators = data;
-    // delete senators['meta'];
-
-    typeof(senators);
 
     senators.objects.forEach(function(senator){
-      // console.log(senator);
       senator.thump = {
         // name: senator.person.name,
         name: senator.person.firstname.toLowerCase() +"_"+ senator.person.lastname.toLowerCase(),
@@ -34,16 +30,16 @@ Template.bill.rendered = function(){
       }
     });
 
-    json_string = ""
-    for(i=0; i<senators.objects.length; i++){
-      var thumpr = senators.objects[i].thump;
-      if(i == 0){
-        json_string = json_string + JSON.stringify(thumpr, null, 2);
-      } else {
-        json_string = json_string + "," + JSON.stringify(thumpr, null, 2);
-      }
-
-    }
+    // json_string = "";
+    // for(i=0; i<senators.objects.length; i++){
+    //   var thumpr = senators.objects[i].thump;
+    //   if(i == 0){
+    //     json_string = json_string + JSON.stringify(thumpr, null, 2);
+    //   } else {
+    //     json_string = json_string + "," + JSON.stringify(thumpr, null, 2);
+    //   }
+    //
+    // }
 
     var yays = [], nays = [];
 
@@ -68,10 +64,10 @@ Template.bill.rendered = function(){
         var node_index = _.find(contributorNodes, function(node){
           if(e.contributor)
             return node.name == e.contributor;
-          if(e.contribtors)
+          if(e.contributors)
             return node.name == e.contributors;
         });
-        
+
         if(! node_index){
           var obj = e;
           if(obj.contributors)
@@ -84,6 +80,9 @@ Template.bill.rendered = function(){
         else{
           var obj = node_index;
         }
+
+        //CHECKPOINT -Tyler
+        //console.log(obj)
 
         var value = parseInt(e.total.replace(',','').replace('$', ''));
         value = value / 1000.0;
@@ -110,11 +109,6 @@ Template.bill.rendered = function(){
       links.push({source:sourceIndex, target:targetIndex, value:preLinks[prelink].value});
 
     }
-    console.log("yo")
-console.log(nodes);
-console.log(links);
-
-console.log(_.where(nodes, {name:"Sony Corp"}))
 
     var margin = {top: 1, right: 1, bottom: 6, left: 1},
       width = 1220 - margin.left - margin.right,
