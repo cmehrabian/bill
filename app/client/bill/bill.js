@@ -1,8 +1,3 @@
-// Template.bill.created(function () {
-//   // var listofcongress = {};
-//
-// });
-
 Template.bill.rendered = function(){
   var congress = [];
   var bill152 = [];
@@ -71,7 +66,7 @@ Template.bill.rendered = function(){
           if(e.contribtors)
             return node.name == e.contributors;
         });
-        
+
         if(! node_index){
           var obj = e;
           if(obj.contributors)
