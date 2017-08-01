@@ -2,7 +2,7 @@
 
 We built a web app where users can see what companies contributed to what candidates, and also what candidates voted on per specific bill.
 
-![Alt text](/app/public/example.png?raw=true)
+![Screenshot](/billr.png)
 
 Visualize data about campaign finance, and how your senators are engaging with legislature. Our goal is to make it easier to become an informed voter by giving people the impartial resources to develop their own opinions about policy.
 
